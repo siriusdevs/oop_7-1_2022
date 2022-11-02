@@ -2,6 +2,38 @@
 import pytest
 from figures import Circle, Triangle
 
+test_triangle_parametrs = [(1.0, 2.0, 3.0), (1.0, 3.0, 4.0)]
+
+
+@pytest.mark.parametrize('side1, side2, side3', test_triangle_parametrs)
+def test_triangle(side1: float, side2: float, side3: float) -> None:
+    """Test for it.
+
+    Args:
+        side1 (float): first side of triangle.
+        side2 (float): second side of triangle.
+        side3 (float): third side of triangle.
+    """
+    triangle = Triangle(side1, side2, side3)
+    assert triangle.side1 == side1
+    assert triangle.side2 == side2
+    assert triangle.side3 == side3
+
+
+test_circle_parametrs = [(1.0), (2.0), (3.0)]
+
+
+@pytest.mark.parametrize('radius', test_circle_parametrs)
+def test_circle(radius: float) -> None:
+    """Test for it.
+
+    Args:
+        radius (float): circle's radius.
+    """
+    circle = Circle(radius)
+    assert circle.radius == radius
+
+
 test_triangle_perimetr = [(1.0, 2.0, 3.0, 6.0), (0.1, 0.2, 0.3, 0.6000000000000001)]
 
 
