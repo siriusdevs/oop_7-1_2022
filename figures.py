@@ -6,7 +6,13 @@ class Triangle:
     """This is representation of triangle."""
 
     def __init__(self, side1: float, side2: float, side3: float) -> None:
-        """Initialization method."""
+        """Initialization method.
+
+        Args:
+            side1 (float): first side of triangle.
+            side2 (float): second side of triangle.
+            side3 (float): third side of triangle.
+        """
         self.side1 = side1
         self.side2 = side2
         self.side3 = side3
@@ -33,7 +39,11 @@ class Circle:
     """This is representation of circle."""
 
     def __init__(self, radius: float) -> None:
-        """Initalization method."""
+        """Initalization method.
+
+        Args:
+            radius (float): circle's radius.
+        """
         self.radius = radius
 
     def length(self) -> float:
