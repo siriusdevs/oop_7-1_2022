@@ -34,21 +34,21 @@ def test_circle(radius: float) -> None:
     assert circle.radius == radius
 
 
-test_triangle_perimetr = [(1.0, 2.0, 3.0, 6.0), (0.1, 0.2, 0.3, 0.6000000000000001)]
+test_triangle_perimeter = [(1.0, 2.0, 3.0, 6.0), (0.1, 0.2, 0.3, 0.6)]
 
 
-@pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_perimetr)
-def test_perimetr(side1: float, side2: float, side3: float, expect: float) -> None:
+@pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_perimeter)
+def test_perimeter(side1: float, side2: float, side3: float, expect: float) -> None:
     """Test for it.
 
     Args:
         side1 (float): first side of triangle.
         side2 (float): second side of triangle.
         side3 (float): third side of triangle.
-        expect (float): triangle's perimetr.
+        expect (float): triangle's perimeter.
     """
     triangle = Triangle(side1, side2, side3)
-    assert triangle.perimetr() == expect
+    assert triangle.perimeter() == expect
 
 
 test_triangle_square = [(2.0, 3.0, 4.0, 2.9047375096555625), (3.0, 4.0, 5.0, 6.0)]
