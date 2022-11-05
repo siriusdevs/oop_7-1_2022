@@ -1,5 +1,5 @@
 import pytest
-from main import Round
+from main import Circle
 
 test_square_data = [(2, 12.57), (5, 78.54)]
 
@@ -12,4 +12,4 @@ def test_square(radius, answer):
         radius: int - input radius.
         answer: float - work result.
     """
-    assert Round(radius).square() == answer
+    assert Circle(radius).square() == answer
