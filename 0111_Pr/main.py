@@ -13,7 +13,7 @@ class Triangle:
         self.third = third
 
     def perimeter(self):
-        """Method evaluates perimeter.
+        """Method evaluates triangles perimeter.
 
         Returns:
             perimetr: int - math result rounds up to 2 numbers after dot(sum of sides).
@@ -21,7 +21,7 @@ class Triangle:
         return self.first + self.second + self.third
 
     def square(self):
-        """Method evaluates square.
+        """Method evaluates triangles square.
 
         Returns:
             square: float - math result rounds up to 2 numbers after dot(Heron's formula).
@@ -31,7 +31,7 @@ class Triangle:
 
 
 class Circle:
-    """Class finds square and perimeter of round."""
+    """Class finds circles square and perimeter."""
 
     def __init__(self, radius: int) -> None:
         """Method which initialize class Circle."""
@@ -40,7 +40,7 @@ class Circle:
             return None
 
     def length(self):
-        """Method which finds circle length.
+        """Method which finds circles length.
 
         Returns:
             length: float - math result rounds up to 2 numbers after dot(length).
@@ -48,7 +48,7 @@ class Circle:
         return round(2 * math.pi * self.radius, 2)
 
     def square(self):
-        """Method which finds round square.
+        """Method which finds circles square.
 
         Returns:
             square: float - math result rounds up to 2 numbers after dot(square).
