@@ -7,7 +7,7 @@ class Triangle:
     """Class finds square and perimeter of triangle."""
 
     def __init__(self, first: int, second: int, third: int) -> None:
-        """Method gets three args."""
+        """Method which initialize class Triangle."""
         self.first = first
         self.second = second
         self.third = third
@@ -16,7 +16,7 @@ class Triangle:
         """Method evaluates perimeter.
 
         Returns:
-            int: int - math result rounds up to 2 numbers after dot(sum of sides).
+            perimetr: int - math result rounds up to 2 numbers after dot(sum of sides).
         """
         return self.first + self.second + self.third
 
@@ -24,7 +24,7 @@ class Triangle:
         """Method evaluates square.
 
         Returns:
-            float: float - math result rounds up to 2 numbers after dot(Heron's formula).
+            square: float - math result rounds up to 2 numbers after dot(Heron's formula).
         """
         half = (self.first + self.second + self.third) / 2
         return round((half * (half - self.first) * (half - self.second) * (half - self.third)) ** 0.5, 2)
@@ -34,16 +34,16 @@ class Circle:
     """Class finds square and perimeter of round."""
 
     def __init__(self, radius: int) -> None:
-        """Method gets one arg."""
+        """Method which initialize class Circle."""
         self.radius = radius
         if self.radius <= 0:
             return None
 
     def length(self):
-        """Method which finds length.
+        """Method which finds circle length.
 
         Returns:
-            float: float - math result rounds up to 2 numbers after dot(length).
+            length: float - math result rounds up to 2 numbers after dot(length).
         """
         return round(2 * math.pi * self.radius, 2)
 
@@ -51,6 +51,6 @@ class Circle:
         """Method which finds round square.
 
         Returns:
-            float: float - math result rounds up to 2 numbers after dot(square).
+            square: float - math result rounds up to 2 numbers after dot(square).
         """
         return round(math.pi * (self.radius ** 2), 2)
