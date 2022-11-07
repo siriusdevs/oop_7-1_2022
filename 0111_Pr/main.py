@@ -7,7 +7,13 @@ class Triangle:
     """Class finds square and perimeter of triangle."""
 
     def __init__(self, first: int, second: int, third: int) -> None:
-        """Method which initialize class Triangle."""
+        """Method which initialize class Triangle.
+
+        Args:
+            first: int - init first side.
+            second: int - init second side.
+            third: int - init third side.
+        """
         self.first = first
         self.second = second
         self.third = third
@@ -34,7 +40,11 @@ class Circle:
     """Class finds circles square and perimeter."""
 
     def __init__(self, radius: int) -> None:
-        """Method which initialize class Circle."""
+        """Method which initialize class Circle.
+
+        Args:
+            radius: int - init radius.
+        """
         self.radius = radius
         if self.radius <= 0:
             return None
