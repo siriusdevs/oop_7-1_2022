@@ -90,3 +90,4 @@ def test_c_square(radius: int, expect: float) -> None:
     """
     circle = Circle(radius)
     assert circle.square() == expect
+    
