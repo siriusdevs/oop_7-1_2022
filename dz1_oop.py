@@ -1,34 +1,68 @@
+"""File with some classes."""
 import math
 
+
 class Triangle():
-    def __init__(self, side1, side2, side3):
+    """This is representation of triangle."""
+
+    def __init__(self, side1: int, side2: int, side3: int) -> None:
+        """Initialization method.
+
+        Args:
+            side1 (int): first side of triangle.
+            side2 (int): second side of triangle.
+            side3 (int): third side of triangle.
+        """        
         self.side1 = side1
         self.side2 = side2
         self.side3 = side3
 
-    def p_(self):
-        p = self.side1 + self.side2 + self.side3
-        return p
+    def perimeter(self) -> int:
+        """Count perimeter.Round it to the 5th digit after point.
 
-    def s_(self):
-        per = self.p_()
-        s = round((per*(per-self.side1)*(per-self.side2)*(per-self.side3))**0.5, 2)
-        return s
+        Returns:
+            int: perimeter of triangle.
+        """        
+        perim = self.side1 + self.side2 + self.side3
+        return perim
+
+    def square(self) -> float:
+        """Count square.
+
+        Returns:
+            float: square of triangle.
+        """        
+        perimetr = self.perimeter()
+        squar = round((perimetr * (perimetr - self.side1) * (perimetr - self.side2) * (perimetr - self.side3))**0.5, 2)
+        return squar
 
 class Circle():
-    def __init__(self, r):
-        self.r = r
+    """This is representation of circle."""
 
-    def s_(self):
-        ra = self.r
-        s = round(math.pi*ra*ra, 2)
+    def __init__(self, radius: int) -> None:
+        """Initalization method.
+
+        Args:
+            r (int): circle's radius.
+        """        
+        self.radius = radius
+
+    def square(self) -> float:
+        """Count length.
+
+        Returns:
+            float: circle's square.
+        """        
+        radiu = self.radius
+        s = round(math.pi * radiu * radiu, 2)
         return s
 
-    def l_(self):
-        ra = self.r
-        l = round(math.pi*2*ra, 2)
-        return l
+    def length(self) -> None:
+        """Count length.
 
-triangle = Triangle(3, 4, 5)
-
-print(triangle.s_())
+        Returns:
+            _type_: circle's length.
+        """        
+        radiu = self.radius
+        lengt = round(math.pi * 2 * radiu, 2)
+        return lengt
