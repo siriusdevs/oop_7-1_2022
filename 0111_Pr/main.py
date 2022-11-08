@@ -1,4 +1,4 @@
-"""File with classes Triangle and Round."""
+"""File with classes Triangle and Circle."""
 
 import math
 
