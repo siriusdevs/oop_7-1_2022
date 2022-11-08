@@ -82,7 +82,7 @@ test_circle_square = [(3, 28.27)]
 
 
 @pytest.mark.parametrize('radius, expect', test_circle_square)
-def test_c_square(radius: int, expect: float) -> None:
+def test_circle_square(radius: int, expect: float) -> None:
     """Test for it.
     Args:
         radius (float): circle's radius.
@@ -90,4 +90,3 @@ def test_c_square(radius: int, expect: float) -> None:
     """
     circle = Circle(radius)
     assert circle.square() == expect
-    
