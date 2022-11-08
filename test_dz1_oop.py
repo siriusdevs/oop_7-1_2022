@@ -29,7 +29,7 @@ def test_circle(radius: int) -> None:
         radius (int): circle's radius.
     """
     circle = Circle(radius)
-    assert circle.r == radius
+    assert circle.radius == radius
 
 
 test_triangle_perimeter = [(1, 2, 3, 6)]
@@ -45,7 +45,7 @@ def test_perimeter(side1: int, side2: int, side3: int, expect: int) -> None:
         expect (float): triangle's perimeter.
     """
     triangle = Triangle(side1, side2, side3)
-    assert triangle.p_() == expect
+    assert triangle.perimeter() == expect
 
 
 test_triangle_square = [(3, 4, 5, 77.77)]
@@ -61,7 +61,7 @@ def test_square(side1: int, side2: int, side3: int, expect: float) -> None:
         expect (float): triangle's square.
     """
     triangle = Triangle(side1, side2, side3)
-    assert triangle.s_() == expect
+    assert triangle.square() == expect
 
 
 test_circle_length = [(2, 12.57)]
@@ -75,7 +75,7 @@ def test_length(radius: int, expect: float) -> None:
         expect (float): circle's length.
     """
     circle = Circle(radius)
-    assert circle.l_() == expect
+    assert circle.length() == expect
 
 
 test_circle_square = [(3, 28.27)]
@@ -89,4 +89,4 @@ def test_c_square(radius: int, expect: float) -> None:
         expect (float): circle's length.
     """
     circle = Circle(radius)
-    assert circle.s_() == expect
+    assert circle.square() == expect
