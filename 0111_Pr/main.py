@@ -65,7 +65,7 @@ class Circle:
             ValueError: Exception - if radius in allowed values.
         """
         self.radius = radius
-        if not self.radius_check():
+        if self.radius_check():
             raise ValueError
 
     def length(self):
