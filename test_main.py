@@ -1,8 +1,58 @@
 """Testing file."""
 import pytest
-from figures import Circle, Triangle
+from figures import Circle, Triangle, NotValidFigure
 
-test_triangle_parametrs = [(1.0, 2.0, 3.0), (1.0, 3.0, 4.0)]
+test_valid_triangle = [(5.0, 4.0, 3.0, True), (1.0, 1.0, 1.0, True), (6.0, 8.0, 10.0, True)]
+
+
+@pytest.mark.parametrize('side1, side2, side3, expectation', test_valid_triangle)
+def test_valid_tr(side1: float, side2: float, side3: float, expectation: bool) -> None:
+    """Test for it.
+
+    Args:
+        side1 (float): first side of triangle.
+        side2 (float): second side of triangle.
+        side3 (float): third side of triangle.
+        expectation (bool): what we wxpect.
+    """
+    tr = Triangle(side1, side2, side3)
+    assert tr.is_valid() == expectation
+
+
+@pytest.mark.xfail(raises=NotValidFigure)
+def test_val_tr():
+    """Test for not existing triangle."""
+    first_side = -1.0
+    second_side = 5.0
+    third_side = 4.0
+    tr = Triangle(first_side, second_side, third_side)
+    tr.is_valid()
+
+
+test_valid_circle = [(1.0, True), (2.0, True), (3.0, True)]
+
+
+@pytest.mark.parametrize('radius, expectation', test_valid_circle)
+def test_valid_crle(radius: float, expectation: bool) -> None:
+    """Test for it.
+
+    Args:
+        radius (float): circle's radius.
+        expectation (bool): what we wxpect.
+    """
+    cr = Circle(radius)
+    assert cr.is_valid() == expectation
+
+
+@pytest.mark.xfail(raises=NotValidFigure)
+def test_val_cr():
+    """Test for not existing triangle."""
+    radius = -1
+    cr = Circle(radius)
+    cr.is_valid()
+
+
+test_triangle_parametrs = [(1.0, 1.0, 1.0), (5.0, 3.0, 4.0)]
 
 
 @pytest.mark.parametrize('side1, side2, side3', test_triangle_parametrs)
@@ -34,7 +84,7 @@ def test_circle(radius: float) -> None:
     assert circle.radius == radius
 
 
-test_triangle_perimeter = [(1.0, 2.0, 3.0, 6.0), (0.1, 0.2, 0.3, 0.6)]
+test_triangle_perimeter = [(1.0, 1.0, 1.0, 3.0), (0.3, 0.4, 0.5, 1.2)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_perimeter)
@@ -51,7 +101,7 @@ def test_perimeter(side1: float, side2: float, side3: float, expect: float) -> N
     assert triangle.perimeter() == expect
 
 
-test_triangle_square = [(2.0, 3.0, 4.0, 2.9047375096555625), (3.0, 4.0, 5.0, 6.0)]
+test_triangle_square = [(1.0, 1.0, 1.0, 0.4330127018922193), (3.0, 4.0, 5.0, 6.0)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_square)
