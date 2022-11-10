@@ -1,6 +1,6 @@
 """Models of geometric shapes."""
 import math
-from .exeptions import UnrealTriangleError
+from .exceptions import InvalidTriangleSides, InvalidCircleRadius
 
 
 class Triangle:
@@ -15,8 +15,8 @@ class Triangle:
             side_c: float - third side length.
 
         Raises:
-            UnrealTriangleError: if triangle can't exist.
-            ValueError: if some sides not be float
+            InvalidTriangleSides: if triangle can't exist.
+            ValueError: if any of the sides is not float
         """
         if not isinstance(side_a, (float, int)) or not isinstance(side_b, (float, int)) \
                 or not isinstance(side_c, (float, int)):
@@ -24,9 +24,9 @@ class Triangle:
         self.__side_a = float(side_a)
         self.__side_b = float(side_b)
         self.__side_c = float(side_c)
-        # проверка треугольника на существование
+        # checking the triangle for existence
         if not self.check():
-            raise UnrealTriangleError([side_a, side_b, side_c])
+            raise InvalidTriangleSides([side_a, side_b, side_c])
 
     def get_perimeter(self) -> float:
         """Counts the perimeter of the current triangle.
@@ -73,7 +73,7 @@ class Triangle:
 
         Raises:
             ValueError : if new value not be numeric.
-            UnrealTriangleError : if new triangle can't exist.
+            InvalidTriangleSides : if new triangle can't exist.
         """
         try:
             self.__side_a = float(side_a)
@@ -81,7 +81,7 @@ class Triangle:
             raise ValueError("Side must be float, not {0}".format(type(side_a)))
 
         if not self.check():
-            raise UnrealTriangleError([self.side_a, self.side_b, self.side_c])
+            raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
 
     @property
     def side_b(self) -> float:
@@ -101,7 +101,7 @@ class Triangle:
 
         Raises:
             ValueError : if new value not be numeric.
-            UnrealTriangleError :if new triangle can't exist.
+            InvalidTriangleSides :if new triangle can't exist.
         """
         try:
             self.__side_b = float(side_b)
@@ -109,7 +109,7 @@ class Triangle:
             raise ValueError("Side must be float, not {0}".format(type(side_b)))
 
         if not self.check():
-            raise UnrealTriangleError([self.side_a, self.side_b, self.side_c])
+            raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
 
     @property
     def side_c(self) -> float:
@@ -129,14 +129,14 @@ class Triangle:
 
         Raises:
             ValueError : if new value not be numeric.
-            UnrealTriangleError :if new triangle can't exist.
+            InvalidTriangleSides :if new triangle can't exist.
         """
         try:
             self.__side_c = float(side_c)
         except ValueError:
             raise ValueError("Side must be float, not {0}".format(type(side_c)))
         if not self.check():
-            raise UnrealTriangleError([self.side_a, self.side_b, self.side_c])
+            raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
 
 
 class Circle:
@@ -147,8 +147,50 @@ class Circle:
 
         Args:
             radius: float - radius of circle.
+
+        Raises:
+            InvalidCircleRadius: if new circle can't exist.
         """
-        self.radius = radius
+        self.__radius = radius
+        if not self.check():
+            raise InvalidCircleRadius(radius)
+
+    @property
+    def radius(self) -> float:
+        """Get current value of radius.
+
+        Returns:
+            float - current value of radius.
+        """
+        return self.__radius
+
+    @radius.setter
+    def setter_radius(self, radius) -> None:
+        """Setter for radius.
+
+        Args:
+            radius: float - new value for radius.
+
+        Raises:
+            InvalidCircleRadius: if new circle can't exist.
+            ValueError : if new value not be numeric.
+        """
+        try:
+            self.__radius = float(radius)
+
+        except ValueError:
+            raise ValueError("Radius must be float, not {0}".format(type(radius)))
+
+        if not self.check():
+            raise InvalidCircleRadius(radius)
+
+    def check(self) -> bool:
+        """Checks the circle for existence.
+
+        Returns:
+            bool - true if the triangle can existence else false.
+        """
+        return isinstance(self.radius, (float, int)) and self.radius > 0
 
     def get_len_circle(self) -> float:
         """Counts and rounds to 2 decimal places the circumference of the circle.
