@@ -78,8 +78,7 @@ def test_circle(radius: float) -> None:
     Args:
         radius (float): circle's radius.
     """
-    circle = Circle(radius)
-    assert circle.radius == radius
+    assert Circle(radius).radius == radius
 
 
 test_triangle_perimeter = [(1.0, 1.0, 1.0, 3.0), (0.3, 0.4, 0.5, 1.2)]
@@ -95,8 +94,7 @@ def test_perimeter(side1: float, side2: float, side3: float, expect: float) -> N
         side3 (float): third side of triangle.
         expect (float): triangle's perimeter.
     """
-    triangle = Triangle(side1, side2, side3)
-    assert triangle.perimeter() == expect
+    assert Triangle(side1, side2, side3).perimeter() == expect
 
 
 test_triangle_square = [(1.0, 1.0, 1.0, 0.43301), (3.0, 4.0, 5.0, 6.0)]
@@ -112,8 +110,7 @@ def test_square(side1: float, side2: float, side3: float, expect: float) -> None
         side3 (float): third side of triangle.
         expect (float): triangle's square.
     """
-    triangle = Triangle(side1, side2, side3)
-    assert triangle.square() == expect
+    assert Triangle(side1, side2, side3).square() == expect
 
 
 test_circle_length = [(2.0, 12.566370614359172), (3.0, 28.274333882308138)]
@@ -127,8 +124,7 @@ def test_length(radius: float, expect: float) -> None:
         radius (float): circle's radius.
         expect (float): circle's length.
     """
-    circle = Circle(radius)
-    assert circle.length() == expect
+    assert Circle(radius).length() == expect
 
 
 test_circle_square = [(3.0, 18.84955592153876), (2.0, 12.566370614359172)]
@@ -142,5 +138,4 @@ def test_c_square(radius: float, expect: float) -> None:
         radius (float): circle's radius.
         expect (float): circle's length.
     """
-    circle = Circle(radius)
-    assert circle.square() == expect
+    assert Circle(radius).square() == expect
