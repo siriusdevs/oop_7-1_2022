@@ -32,4 +32,4 @@ class Triangle:
         """
         p = self.perimeter() / 2
         area_2 = p * (p - self.side1) * (p - self.side2) * (p - self.side3)
-        return area_2 ** 0.5
+        return round(area_2 ** 0.5, 2)
