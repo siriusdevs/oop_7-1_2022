@@ -48,13 +48,13 @@ class Triangle:
         return round(self.side1 + self.side2 + self.side3, 5)
 
     def square(self) -> float:
-        """Count square.
+        """Count square.Round it to the 5th digit after point.
 
         Returns:
             float: square of triangle.
         """
         half_p = self.perimeter() / 2
-        return sqrt(half_p * (half_p - self.side1) * (half_p - self.side2) * (half_p - self.side3))
+        return round(sqrt(half_p * (half_p - self.side1) * (half_p - self.side2) * (half_p - self.side3)), 5)
 
     def is_valid(self) -> bool:
         """Check triangle.
@@ -62,11 +62,8 @@ class Triangle:
         Returns:
             bool: True if this triangle exists else False.
         """
-        if self.side1 + self.side2 > self.side3:
-            if self.side1 + self.side3 > self.side2:
-                if self.side2 + self.side3 > self.side1:
-                    return True
-        return False
+        sides_list = sorted([self.side1, self.side2, self.side3])
+        return sides_list[2] < sides_list[1] + sides_list[0]
 
 
 class Circle:
