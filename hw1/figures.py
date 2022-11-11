@@ -3,7 +3,7 @@ from math import sqrt, pi
 
 
 class Triangle:
-    """Class of triangle's methods.
+    """Representation of the triangle.
 
     Attributes:
         side1 : int - first side of the triangle
@@ -28,13 +28,13 @@ class Triangle:
         return self.side1 + self.side2 + self.side3
 
     def area(self) -> float:
-        """Evaluate area of the triangle."""
+        """Evaluate area of the triangle and round the number to 2 decimal places."""
         semi_p = self.perimeter() / 2
-        return sqrt(semi_p * (semi_p - self.side1) * (semi_p - self.side2) * (semi_p - self.side3))
+        return round(sqrt(semi_p * (semi_p - self.side1) * (semi_p - self.side2) * (semi_p - self.side3)), 2)
 
 
 class Circle:
-    """Class of circle's methods.
+    """Representation of the circle.
 
     Attributes:
         radius : int - radius of the circle
@@ -50,9 +50,9 @@ class Circle:
         self.radius = radius
 
     def length(self) -> float:
-        """Evaluate length of the circle."""
-        return 2 * pi * self.radius
+        """Evaluate length of the circle and round the number to 2 decimal places."""
+        return round(2 * pi * self.radius, 2)
 
     def area(self) -> float:
-        """Evaluate area of the circle."""
-        return pi * (self.radius ** 2)
+        """Evaluate area of the circle and round the number to 2 decimal places."""
+        return round(pi * (self.radius ** 2), 2)

@@ -1,7 +1,6 @@
 """Tests for classes of figures."""
 from figures import Triangle, Circle
 import pytest
-APPROX_VALUE = 0.01  # specifies approx value
 
 # Tests for Triangle class.
 
@@ -26,13 +25,13 @@ def test_perimeter_triangle(side1: int, side2: int, side3: int, answer: int) -> 
     assert Triangle(side1, side2, side3).perimeter() == answer
 
 
-tests_triangle_area = [(3, 9, 7, 8.78), (4, 2, 5, 3.8), (19, 14, 11, 76.21)]
+tests_triangle_area = [(3, 9, 7, 8.79), (4, 2, 5, 3.8), (19, 14, 11, 76.21)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, answer', tests_triangle_area)
 def test_area_triangle(side1: int, side2: int, side3: int, answer: float) -> None:
     """Test triangle's area method."""
-    assert Triangle(side1, side2, side3).area() == pytest.approx(answer, rel=APPROX_VALUE)
+    assert Triangle(side1, side2, side3).area() == answer
 
 
 # Tests for Circle class.
@@ -53,13 +52,13 @@ tests_circle_length = [(4, 25.13), (67, 420.97), (16, 100.53)]
 @pytest.mark.parametrize('radius, answer', tests_circle_length)
 def test_length_circle(radius: int, answer: float) -> None:
     """Test circle's lenghth method."""
-    assert Circle(radius).length() == pytest.approx(answer, rel=APPROX_VALUE)
+    assert Circle(radius).length() == answer
 
 
-tests_circle_area = [(4, 50.24), (67, 14095.46), (16, 803.84)]
+tests_circle_area = [(4, 50.27), (67, 14102.61), (16, 804.25)]
 
 
 @pytest.mark.parametrize('radius, answer', tests_circle_area)
 def test_area_circle(radius: int, answer: float) -> None:
     """Test circle's area method."""
-    assert Circle(radius).area() == pytest.approx(answer, rel=APPROX_VALUE)
+    assert Circle(radius).area() == answer
