@@ -5,7 +5,7 @@ import pytest
 # ТРЕУГОЛЬНИК:
 
 # записываются ли аттрибуты:
-triangle_inp_sides = [(3.0, 4.0, 5.0)]
+triangle_inp_sides = [(3.0, 4.0, 5.0), (3.0, 5.0, 7.0)]
 
 
 @pytest.mark.parametrize('side1, side2, side3', triangle_inp_sides)
@@ -17,7 +17,7 @@ def test_triangle(side1: float, side2: float, side3: float) -> None:
         side2(float): 2st side of the triangle
         side3(float): 3st side of the triangle
     """
-    new_triangle = Triangle(*triangle_inp_sides)
+    new_triangle = Triangle(side1, side2, side3)
     assert new_triangle.side1 == side1
     assert new_triangle.side2 == side2
     assert new_triangle.side3 == side3
@@ -25,7 +25,7 @@ def test_triangle(side1: float, side2: float, side3: float) -> None:
 # правильно ли выполняются методы:
 
 
-triangle_inp_perimeter = [(3.0, 4.0, 5.0, 12.0)]
+triangle_inp_perimeter = [(3.0, 4.0, 5.0, 12.0), (3.0, 5.0, 7.0, 15.0)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, res', triangle_inp_perimeter)
@@ -38,11 +38,10 @@ def test_triangle_p(side1: float, side2: float, side3: float, res: float) -> Non
         side3(float): 3st side of the triangle
         res(float): expected result of calculations
     """
-    new_triangle = Triangle(side1, side2, side3)
-    assert new_triangle.perimeter() == res
+    assert Triangle(side1, side2, side3).perimeter() == res
 
 
-triangle_inp_area = [(3.0, 4.0, 5.0, 6.0)]
+triangle_inp_area = [(3.0, 4.0, 5.0, 6.0), (3.0, 5.0, 7.0, 6.5)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, res', triangle_inp_area)
@@ -55,14 +54,13 @@ def test_triangle_a(side1: float, side2: float, side3: float, res: float) -> Non
         side3(float): 3st side of the triangle
         res(float): expected result of calculations
     """
-    new_triangle = Triangle(side1, side2, side3)
-    assert new_triangle.area() == res
+    assert Triangle(side1, side2, side3).area() == res
 
 
 # КРУГ:
 
 # записываются ли аттрибуты:
-circle_inp_radius = [(3.0)]
+circle_inp_radius = [(3.0), (4.0)]
 
 
 @pytest.mark.parametrize('radius', circle_inp_radius)
@@ -72,12 +70,11 @@ def test_circle(radius: float) -> None:
     Args:
         radius(float): radius of the triangle
     """
-    new_circle = Circle(radius)
-    assert new_circle.radius() == radius
+    assert Circle(radius).radius == radius
 
 
 # правильно ли выполняются методы:
-circle_inp = [(3.0, 18.85)]
+circle_inp = [(3.0, 18.85), (4.0, 25.13)]
 
 
 @pytest.mark.parametrize('radius, res', circle_inp)
@@ -88,11 +85,10 @@ def test_circle_l(radius: float, res: float) -> None:
         radius(float): radius of the circle
         res(float): expected result of calculations
     """
-    new_circle = Circle(radius)
-    assert new_circle.length_of_circle() == res
+    assert Circle(radius).length_of_circle() == res
 
 
-circle_inp = [(3.0, 28.27)]
+circle_inp = [(3.0, 28.27), (4.0, 50.27)]
 
 
 @pytest.mark.parametrize('radius, res', circle_inp)
@@ -103,5 +99,4 @@ def test_circle_a(radius: float, res: float) -> None:
         radius(float): radius of the circle
         res(float): expected result of calculations
     """
-    new_circle = Circle(radius)
-    assert new_circle.area() == res
+    assert Circle(radius).area() == res
