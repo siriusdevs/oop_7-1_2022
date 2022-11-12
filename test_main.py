@@ -12,11 +12,11 @@ triangles_2 = [(2.0, 2.0, 3.0), (5.0, 5.0, 5.0)]
 
 @pytest.mark.xfail(raises=NotValidTriang)
 def test_valid_triang_2():
-    Triangle(-1.0, 2.0, 2.0).is_valid()
+    assert Triangle(-1.0, 2.0, 2.0).is_valid()
 
 @pytest.mark.xfail(raises=NotValidCirc)
 def test_valid_circ_1():
-    Circle(-1.0).is_valid()
+    assert Circle(-1.0).is_valid()
 
 @pytest.mark.parametrize('side1, side2, side3', triangles_2)
 def test_triangle(side1, side2, side3):
