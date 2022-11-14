@@ -15,7 +15,7 @@ class Circle:
         self.radius = radius
 
     def length_of_circle(self) -> float:
-        """Method that counts the length of circle.
+        """Method that counts the length of circle. Rounds the result to the second digit after point.
 
         Returns:
             float: the length of circle
@@ -23,7 +23,7 @@ class Circle:
         return round(2 * math.pi * self.radius, 2)
 
     def area(self) -> float:
-        """Method that counts the area of circle.
+        """Method that counts the area of circle. Rounds the result to the second digit after point.
 
         Returns:
             float: area of circle
