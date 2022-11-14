@@ -18,12 +18,18 @@ class Triangle:
         self.side3 = side3
 
     def perimeter(self):
-        """Finding the perimeter of the triangle."""
+        """Finding the perimeter of the triangle.
+
+        The result is rounded to two decimal places.
+        """
         res = self.side1 + self.side2 + self.side3
         return round(res, 2)
 
     def area(self):
-        """Finding the area of the triangle."""
+        """Finding the area of the triangle.
+
+        The result is rounded to two decimal places.
+        """
         s_per = self.perimeter() / 2
         res = (s_per * (s_per - self.side1) * (s_per - self.side2) * (s_per - self.side3)) ** 0.5
         return round(res, 2)
@@ -41,11 +47,17 @@ class Circle:
         self.radius = radius
 
     def length(self):
-        """Finding the length of the circle."""
+        """Finding the length of the circle.
+
+        The result is rounded to two decimal places.
+        """
         res = self.radius * pi * 2
         return round(res, 2)
 
     def area(self):
-        """Finding the area of the circle."""
+        """Finding the area of the circle.
+
+        The result is rounded to two decimal places.
+        """
         res = (self.radius ** 2) * pi
         return round(res, 2)
