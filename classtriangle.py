@@ -25,7 +25,7 @@ class Triangle:
         return self.side1 + self.side2 + self.side3
 
     def area(self):
-        """Method that counts the area of circle.
+        """Method that counts the area of circle. Rounds the result to the second digit after point.
 
         Returns:
             float: the area of circle
