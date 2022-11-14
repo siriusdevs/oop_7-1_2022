@@ -55,7 +55,7 @@ test_triangle_parametrs = [(1.0, 1.0, 1.0), (5.0, 3.0, 4.0)]
 
 @pytest.mark.parametrize('side1, side2, side3', test_triangle_parametrs)
 def test_triangle(side1: float, side2: float, side3: float) -> None:
-    """Test for triangle's sides.
+    """Test for triangle's sides. Hello.
 
     Args:
         side1 (float): first side of triangle.
