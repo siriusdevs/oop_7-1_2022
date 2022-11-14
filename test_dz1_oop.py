@@ -7,7 +7,7 @@ test_triangle_parametrs = [(1, 2, 3), (2, 3, 4)]
 
 
 @pytest.mark.parametrize('side1, side2, side3', test_triangle_parametrs)
-def test_triangle(side1: int, side2: int, side3: int) -> None:
+def test_triangle(side1: float, side2: float, side3: float) -> None:
     """Test for it.
 
     Args:
@@ -25,11 +25,11 @@ test_circle_parametrs = [(1), (2), (3)]
 
 
 @pytest.mark.parametrize('radius', test_circle_parametrs)
-def test_circle(radius: int) -> None:
+def test_circle(radius: float) -> None:
     """Test for it.
 
     Args:
-        radius (int): circle's radius.
+        radius (float): circle's radius.
     """
     assert Circle(radius).radius == radius
 
@@ -38,7 +38,7 @@ test_triangle_perimeter = [(1, 2, 3, 6), (2, 3, 4, 9)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_perimeter)
-def test_perimeter(side1: int, side2: int, side3: int, expect: int) -> None:
+def test_perimeter(side1: float, side2: float, side3: float, expect: float) -> None:
     """Test for it.
 
     Args:
@@ -54,7 +54,7 @@ test_triangle_square = [(3, 4, 5, 77.77), (1, 2, 3, 18.97)]
 
 
 @pytest.mark.parametrize('side1, side2, side3, expect', test_triangle_square)
-def test_square(side1: int, side2: int, side3: int, expect: float) -> None:
+def test_square(side1: float, side2: float, side3: float, expect: float) -> None:
     """Test for it.
 
     Args:
@@ -70,7 +70,7 @@ test_circle_length = [(2, 12.57), (3, 18.85)]
 
 
 @pytest.mark.parametrize('radius, expect', test_circle_length)
-def test_length(radius: int, expect: float) -> None:
+def test_length(radius: float, expect: float) -> None:
     """Test for it.
 
     Args:
@@ -84,7 +84,7 @@ test_circle_square = [(3, 28.27), (5, 78.54)]
 
 
 @pytest.mark.parametrize('radius, expect', test_circle_square)
-def test_c_square(radius: int, expect: float) -> None:
+def test_c_square(radius: float, expect: float) -> None:
     """Test for it.
 
     Args:
