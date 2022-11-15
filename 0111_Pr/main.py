@@ -20,7 +20,7 @@ class Triangle:
         self.first = first
         self.second = second
         self.third = third
-        if not isinstance(self.radius, int | float) or not self.sides_check():
+        if not isinstance(self.first & self.second & self.third, int | float) or not self.sides_check():
             raise ValueError
 
     def perimeter(self):
@@ -91,3 +91,4 @@ class Circle:
             radius_existence: if radius lower or equals 0.
         """
         return self.radius <= 0
+print(Circle(1))
