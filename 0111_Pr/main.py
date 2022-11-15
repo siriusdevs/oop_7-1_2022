@@ -91,4 +91,3 @@ class Circle:
             radius_existence: if radius lower or equals 0.
         """
         return self.radius <= 0
-print(Circle(1))
