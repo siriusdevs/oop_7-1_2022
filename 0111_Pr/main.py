@@ -20,7 +20,7 @@ class Triangle:
         self.first = first
         self.second = second
         self.third = third
-        if not self.sides_check():
+        if not isinstance(self.radius, int | float) or not self.sides_check():
             raise ValueError
 
     def perimeter(self):
@@ -65,7 +65,7 @@ class Circle:
             ValueError: Exception - if radius in allowed values.
         """
         self.radius = radius
-        if self.radius_check():
+        if not isinstance(self.radius, int | float) or self.radius_check():
             raise ValueError
 
     def length(self):
