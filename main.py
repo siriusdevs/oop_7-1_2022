@@ -1,4 +1,4 @@
-"""Functions."""
+"""Classes."""
 
 from math import pi, sqrt
 
