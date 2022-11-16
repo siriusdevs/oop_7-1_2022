@@ -20,7 +20,7 @@ class Triangle:
         self.first = first
         self.second = second
         self.third = third
-        if not isinstance(self.first * self.second * self.third, int | float) or not self.sides_check():
+        if not isinstance(all([self.first, self.second, self.third]), int | float) or not self.sides_check():
             raise ValueError
 
     def perimeter(self):
