@@ -1,5 +1,4 @@
-from classcircle import Circle
-from classtriangle import Triangle
+from class_circle_triangle import Circle, Triangle, NotValidAttributesError
 import pytest
 
 # ТРЕУГОЛЬНИК:
@@ -56,6 +55,21 @@ def test_triangle_a(side1: float, side2: float, side3: float, res: float) -> Non
     """
     assert Triangle(side1, side2, side3).area() == res
 
+# тесты для ошибок:
+def test_str_sides():
+    """Test for invalid sides of triangle."""
+    with pytest.raises(NotValidAttributesError):
+        Triangle(['l', 3, 4])
+
+def test_negative_sides():
+    """Test for invalid sides of triangle."""
+    with pytest.raises(NotValidAttributesError):
+        Triangle([5, -2, 3])
+
+def test_sum_sides():
+    """Test for invalid sides of triangle."""
+    with pytest.raises(NotValidAttributesError):
+        Triangle([3,1,5])
 
 # КРУГ:
 
@@ -100,3 +114,15 @@ def test_circle_a(radius: float, res: float) -> None:
         res(float): expected result of calculations
     """
     assert Circle(radius).area() == res
+
+# тесты для ошибок:
+def test_str_radius():
+    """Test for invalid radius."""
+    with pytest.raises(NotValidAttributesError):
+        Circle('l')
+
+def test_negative_radius():
+    """Test for invalid radius."""
+    with pytest.raises(NotValidAttributesError):
+        Circle(-5)
+
