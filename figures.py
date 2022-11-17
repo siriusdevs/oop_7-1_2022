@@ -8,8 +8,9 @@ class NotValidFigure(Exception):
 
     def __init__(self, sides: Union[float, int]) -> None:
         """Initialization method.
+
         Args:
-            radius (Union[float, int]): radius not valid ball.
+            sides (Union[float, int]): sides not valid figure.
         """
         super().__init__(sides)
         self.radius = sides
@@ -62,6 +63,9 @@ class Triangle:
         Returns:
             bool: True if this triangle exists else False.
         """
+        necessary_types = [int, float]
+        if type(self.side1) not in necessary_types or type(self.side2) not in necessary_types or type(self.side3) not in necessary_types:
+            return False
         sides_list = sorted([self.side1, self.side2, self.side3])
         return sides_list[2] < sides_list[1] + sides_list[0]
 
@@ -104,4 +108,7 @@ class Circle:
         Returns:
             bool: True if this circle exists else False.
         """
+        necessary_types = [int, float]
+        if type(self.radius) not in necessary_types:
+            return False
         return self.radius > 0
