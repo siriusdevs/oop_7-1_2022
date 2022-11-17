@@ -36,7 +36,7 @@ class Triangle:
             side3 : int - third side of the triangle
 
         Raises:
-            InvalidFigureError: if is_valid returns False
+            InvalidFigureError: if sides are strings, less than zero or do not satisfy existence condition
         """
         self.side1 = side1
         self.side2 = side2
@@ -54,16 +54,15 @@ class Triangle:
         return round(sqrt(semi_p * (semi_p - self.side1) * (semi_p - self.side2) * (semi_p - self.side3)), 2)
 
     def is_valid(self) -> bool:
-        """Check condition of triabgles existence."""
-        sides = sorted([self.side1, self.side2, self.side3])
-        if sides[2] >= sides[0] + sides[1]:
-            return False
+        """Check condition of triangle`s existence."""
+        sides = [self.side1, self.side2, self.side3]
         for side in sides:
             if not isinstance(side, (int, float)):
                 return False
             if side <= 0:
                 return False
-        return True
+        sides.sort()
+        return sides[2] < sides[0] + sides[1]
 
 
 class Circle:
@@ -81,7 +80,7 @@ class Circle:
             radius : int - radius of the circle
 
         Raises:
-            InvalidFigureError: if is_valid returns False
+            InvalidFigureError: if radius is string or less than zero
         """
         self.radius = radius
         if not self.is_valid():
@@ -99,5 +98,6 @@ class Circle:
         """Check condition of circle`s existence."""
         if not isinstance(self.radius, (int, float)):
             return False
-        if self.radius <= 0:
+        elif self.radius <= 0:
             return False
+        return True

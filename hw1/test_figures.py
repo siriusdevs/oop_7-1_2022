@@ -1,8 +1,33 @@
 """Tests for classes of figures."""
-from figures import Triangle, Circle
 import pytest
+from figures import Circle, InvalidFigureError, Triangle
 
 # Tests for Triangle class.
+
+
+def test_str_side():
+    """Test string side."""
+    with pytest.raises(InvalidFigureError):
+        Triangle('side', 3, 6)
+
+
+def test_negative_side():
+    """Test negative side."""
+    with pytest.raises(InvalidFigureError):
+        Triangle(3, 9, -10)
+
+
+def test_invalid_sides():
+    """Test invalid sides."""
+    with pytest.raises(InvalidFigureError):
+        Triangle(1, 5, 8)
+
+
+def test_zero_sides():
+    """Test zero side."""
+    with pytest.raises(InvalidFigureError):
+        Triangle(1, 0, 8)
+
 
 tests_triangle_init = [(3, 9, 7), (4, 2, 5), (19, 14, 11)]
 
@@ -36,14 +61,32 @@ def test_area_triangle(side1: int, side2: int, side3: int, answer: float) -> Non
 
 # Tests for Circle class.
 
+
+def test_str_radius():
+    """Test string radius."""
+    with pytest.raises(InvalidFigureError):
+        Circle('radius')
+
+
+def test_negative_radius():
+    """Test negative radius."""
+    with pytest.raises(InvalidFigureError):
+        Circle(-10)
+
+
+def test_zero_radius():
+    """Test zero radius."""
+    with pytest.raises(InvalidFigureError):
+        Circle(0)
+
+
 tests_circle_init = [(4), (67), (16)]
 
 
 @pytest.mark.parametrize('radius', tests_circle_init)
 def test_init_circle(radius: int) -> None:
     """Test circle's initialization."""
-    circle = Circle(radius)
-    assert circle.radius == radius
+    assert Circle(radius).radius == radius
 
 
 tests_circle_length = [(4, 25.13), (67, 420.97), (16, 100.53)]
