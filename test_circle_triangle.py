@@ -34,7 +34,7 @@ def test_triangle_p(sides: List[float], res: float) -> None:
     assert Triangle(sides).perimeter() == res
 
 
-triangle_inp_area = [(3.0, 4.0, 5.0, 6.0), (3.0, 5.0, 7.0, 6.5)]
+triangle_inp_area = [([3.0, 4.0, 5.0], 6.0), ([3.0, 5.0, 7.0], 6.5)]
 
 
 @pytest.mark.parametrize('sides, res', triangle_inp_area)
