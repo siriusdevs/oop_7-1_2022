@@ -1,5 +1,5 @@
 """Testing circles_and_triangles. Class Triangle."""
-from circles_and_triangles import Triangle
+from circles_and_triangles import Triangle, STerr
 import pytest
 
 
@@ -15,10 +15,16 @@ def test_circle_ptrs(first_side: float, second_side: float, third_side: float) -
         second_side : float - second side of triangle.
         third_side : float - third side of triangle.
     """
-    triangle = Triangle(first_side, second_side, third_side)
-    assert triangle.first_side == first_side
-    assert triangle.second_side == second_side
-    assert triangle.third_side == third_side
+    assert Triangle(first_side, second_side, third_side).first_side == first_side
+    assert Triangle(first_side, second_side, third_side).second_side == second_side
+    assert Triangle(first_side, second_side, third_side).third_side == third_side
+
+
+@pytest.mark.xfail(raises=STerr)
+def test_circle_valid():
+    """Tests for triangles' STerr."""
+    with pytest.raises(STerr):
+        assert Triangle(1, 1, 3)
 
 
 tests_valid = [((2.5, 1, 3), True), ((2, 3, 4), True)]
@@ -32,8 +38,7 @@ def test_is_valid(sides: tuple, res: bool):
         sides: tuple - tuple with sides of a triangle.
         res: bool - acceptable attribute or not.
     """
-    triangle = Triangle(sides[0], sides[1], sides[2])
-    assert triangle.is_valid() == res
+    assert Triangle(sides[0], sides[1], sides[2]).is_valid() == res
 
 
 triangle_area = [((1, 7, 7), 3.491), ((3.2, 1.2, 4), 1.587)]
@@ -47,8 +52,7 @@ def test_area_tr(sides: tuple, res: float) -> None:
         sides: tuple - tuple with sides of a triangle.
         res: float - area of triangle.
     """
-    triangle = Triangle(sides[0], sides[1], sides[2])
-    assert triangle.area() == res
+    assert Triangle(sides[0], sides[1], sides[2]).area() == res
 
 
 triangle_per = [((2, 7, 6), 15), ((2, 2.3, 4), 8.3)]
@@ -62,5 +66,4 @@ def test_per_tr(sides: tuple, res: float) -> None:
         sides: tuple - tuple with sides of a triangle.
         res: float - perimeter of triangle.
     """
-    triangle = Triangle(sides[0], sides[1], sides[2])
-    assert triangle.perimeter() == res
+    assert Triangle(sides[0], sides[1], sides[2]).perimeter() == res

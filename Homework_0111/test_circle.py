@@ -1,5 +1,5 @@
 """Testing circles_and_triangles. Class Circle."""
-from circles_and_triangles import Circle
+from circles_and_triangles import Circle, STerr
 import pytest
 
 
@@ -13,8 +13,17 @@ def test_circle_ptrs(radius: float) -> None:
     Args:
         radius: float - radius of a circle
     """
-    circle = Circle(radius)
-    assert circle.radius == radius
+    assert Circle(radius).radius == radius
+
+
+@pytest.mark.xfail(raises=STerr)
+def test_circle_valid():
+    """Tests for circle' STerr."""
+    with pytest.raises(STerr):
+        Circle(0)
+
+    with pytest.raises(STerr):
+        Circle(-3)
 
 
 attr_circle = [(2, True), (3, True)]
@@ -28,8 +37,7 @@ def test_attr_circle(radius: float, res: bool) -> None:
         radius: float - radius of a circle.
         res: bool - acceptable attribute or not.
     """
-    circle = Circle(radius)
-    assert circle.is_valid() == res
+    assert Circle(radius).is_valid() == res
 
 
 circle_area = [(1, 3.142), (1.2, 4.524)]
@@ -43,8 +51,7 @@ def test_area_circle(radius: float, area: float) -> None:
         radius: float - radius of a circle.
         area: float - area of a circle.
     """
-    circle = Circle(radius)
-    assert circle.area() == area
+    assert Circle(radius).area() == area
 
 
 circle_len = [(2, 12.566), (1.5, 9.425)]
@@ -58,5 +65,4 @@ def test_len_circle(radius: float, len_c: float) -> None:
         radius: float - radius of a circle.
         len_c: float - len of a circle.
     """
-    circle = Circle(radius)
-    assert circle.len_of_circle() == len_c
+    assert Circle(radius).len_of_circle() == len_c

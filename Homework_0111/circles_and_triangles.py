@@ -27,16 +27,23 @@ class Circle:
     def is_valid(self):
         """Check attributes for obj in class."""
         if isinstance(self.radius, (int, float)):
-            if self.radius > 0:
-                return True
+            return self.radius > 0
         return False
 
     def area(self):
-        """Area of a circle."""
+        """Area of a circle.
+
+        Returns:
+            Area rounded to 3 decimal places.
+        """
         return round(self.radius ** 2 * pi, 3)
 
     def len_of_circle(self):
-        """Len of circle."""
+        """Len of circle.
+
+        Returns:
+            Len rounded to 3 decimal places.
+        """
         return round(2 * pi * self.radius, 3)
 
 
@@ -68,8 +75,7 @@ class Triangle:
         if isinstance(fir, (int, float)) and isinstance(sec, (int, float)):
             if isinstance(th, (int, float)):
                 if fir > 0 and sec > 0 and th > 0:
-                    if fir + sec > th and sec + th > fir and fir + th > sec:
-                        return True
+                    return fir + sec > th and sec + th > fir and fir + th > sec
         return False
 
     def perimeter(self):
@@ -77,6 +83,10 @@ class Triangle:
         return self.first_side + self.second_side + self.third_side
 
     def area(self):
-        """Area of a triangle."""
+        """Area of a triangle.
+
+        Returns:
+            Area rounded to 3 decimal places.
+        """
         half_per = self.perimeter() / 2
         return round((half_per * (half_per - self.first_side) * (half_per - self.second_side) * (half_per - self.third_side)) ** 0.5, 3)
