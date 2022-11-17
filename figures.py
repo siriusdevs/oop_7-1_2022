@@ -1,22 +1,22 @@
 """File with some classes."""
 from math import sqrt, pi
+from typing import Union
 
 
 class NotValidFigure(Exception):
-    """This is representation of not valid figure exception."""
+    """This is representation of not valid ball."""
 
-    def __init__(self, sides: object) -> None:
+    def __init__(self, sides: Union[float, int]) -> None:
         """Initialization method.
-
         Args:
-            sides (object): objects from Exception.
+            radius (Union[float, int]): radius not valid ball.
         """
         super().__init__(sides)
-        self.sides = sides
+        self.radius = sides
 
-    def __str__(self):
+    def __str__(self) -> None:
         """Exception in special format."""
-        return 'Impossible to build figure with {0}'.format(self.sides)
+        return 'Impossible to create figure with sides: {0}'.format(self.radius)
 
 
 class Triangle:
