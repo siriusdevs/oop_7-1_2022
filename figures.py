@@ -6,18 +6,18 @@ from typing import Union
 class NotValidFigure(Exception):
     """This is representation of not valid ball."""
 
-    def __init__(self, sides: Union[float, int]) -> None:
+    def __init__(self, sides: list) -> None:
         """Initialization method.
 
         Args:
-            sides (Union[float, int]): sides not valid figure.
+            sides (list): sides not valid figure.
         """
         super().__init__(sides)
-        self.radius = sides
+        self.sides = sides
 
     def __str__(self) -> None:
         """Exception in special format."""
-        return 'Impossible to create figure with sides: {0}'.format(self.radius)
+        return 'Impossible to create figure with sides: {0}'.format(self.sides)
 
 
 class Triangle:
