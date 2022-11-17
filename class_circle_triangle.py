@@ -22,9 +22,10 @@ class NotValidAttributesError(Exception):
 
 class Circle:
     """Class Circle.
-    
+
     Attributes:
-        radius(float): radius of the circle"""
+    radius(float): radius of the circle
+    """
 
     def __init__(self, radius: float) -> None:
         """Initialization method.
@@ -64,9 +65,6 @@ class Circle:
         return True
 
 
-"""Find the area and the perimeter of triagle."""
-
-
 class Triangle:
     """Class Triangle."""
 
@@ -74,14 +72,11 @@ class Triangle:
         """Initialization method.
 
         Args:
-            side1(float): 1st side of triangle
-            side2(float): 2st side of triangle
-            side3(float): 3st side of triangle
+            sides(List[float]): list of sides of the triangle
         """
         self.sides = sides
         if not self.is_valid():
             raise NotValidAttributesError('Triangle cannot be built with these sides')
-
 
     def perimeter(self):
         """Counts the perimeter of circle.
@@ -104,12 +99,8 @@ class Triangle:
     def is_valid(self):
         """Checks condition of circle`s existence."""
         for side in self.sides:
-            if not isinstance(side, (int, float)):
-                return False
-            elif side <= 0:
+            if not isinstance(side, (int, float)) or side <= 0:
                 return False
         if self.sides[0] + self.sides[1] <= self.sides[2]:
             return False
-        else:
-            return True
-
+        return True
