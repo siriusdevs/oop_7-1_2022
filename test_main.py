@@ -2,6 +2,32 @@
 import pytest
 from figures import Circle, Triangle, NotValidFigure
 
+test_not_val_tr = [('котопёс', 1, 3, False), ("привет", 4, 5, False)]
+
+
+@pytest.mark.xfail(raises=NotValidFigure)
+@pytest.mark.parametrize('side1, side2, side3, expectation', test_not_val_tr)
+def test_not_val_t(side1, side2, side3, expectation):
+    """Test not valid triangle.
+
+    Args:
+        side1 (float): first side of triangle.
+        side2 (float): second side of triangle.
+        side3 (float): third side of triangle.
+        expectation (bool): what we expect.
+    """
+    assert Triangle(side1, side2, side3).is_valid() == expectation
+
+
+test_not_val_cr = [('котопёс', False), (-1, False)]
+
+
+@pytest.mark.xfail(raises=NotValidFigure)
+@pytest.mark.parametrize('radius, expectation', test_not_val_cr)
+def test_not_val_cr_new(radius, expectation):
+    assert Circle(radius).is_valid() == expectation
+
+
 test_valid_triangle = [(5.0, 4.0, 3.0, True), (1.0, 1.0, 1.0, True), (6.0, 8.0, 10.0, True)]
 
 
@@ -13,7 +39,7 @@ def test_valid_tr(side1: float, side2: float, side3: float, expectation: bool) -
         side1 (float): first side of triangle.
         side2 (float): second side of triangle.
         side3 (float): third side of triangle.
-        expectation (bool): what we wxpect.
+        expectation (bool): what we expect.
     """
     assert Triangle(side1, side2, side3).is_valid() == expectation
 
