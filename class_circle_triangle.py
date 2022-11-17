@@ -73,7 +73,7 @@ class Triangle:
 
         Args:
             sides(List[float]): list of sides of the triangle
-            
+
         Raises:
             NotValidAttributesError: if sides of the triangle are invalid
         """
