@@ -34,7 +34,7 @@ class Circle:
             radius(float): radius of circle
 
         Raises:
-            NotValidAttributeError: if radius is invalid
+            NotValidAttributesError: if radius is invalid
         """
         self.radius = radius
         if not self.is_valid():
@@ -73,6 +73,9 @@ class Triangle:
 
         Args:
             sides(List[float]): list of sides of the triangle
+            
+        Raises:
+            NotValidAttributesError: if sides of the triangle are invalid
         """
         self.sides = sides
         if not self.is_valid():
