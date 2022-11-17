@@ -1,6 +1,5 @@
 """File with some classes."""
 from math import sqrt, pi
-from typing import Union
 
 
 class NotValidFigure(Exception):
