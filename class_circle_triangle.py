@@ -102,7 +102,9 @@ class Triangle:
     def is_valid(self):
         """Checks condition of circle`s existence."""
         for side in self.sides:
-            if not isinstance(side, (int, float)) and side <= 0:
+            if not isinstance(side, (int, float)):
+                return False
+            elif side <= 0:
                 return False
         std = sorted(self.sides)
         if std[-1] >= std[0] + std[1]:
