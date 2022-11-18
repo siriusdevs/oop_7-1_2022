@@ -39,6 +39,9 @@ def test_err_value_triangle():
     with pytest.raises(ValueError):
         Triangle(1, 1, "20.01 soon")
 
+    with pytest.raises(ValueError):
+        Triangle(1, 1, -100)
+
 
 tests_triangle_square = [(Triangle(1, 1, 1), 0.43), (Triangle(2, 2, 3), 1.98), (Triangle(2, 3, 4), 2.9)]
 

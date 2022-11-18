@@ -16,11 +16,13 @@ class Triangle:
 
         Raises:
             InvalidTriangleSides: if triangle can't exist.
-            ValueError: if any of the sides is not float
+            ValueError: if any of the sides is not float or <= 0.
         """
         if not isinstance(side_a, (float, int)) or not isinstance(side_b, (float, int)) \
                 or not isinstance(side_c, (float, int)):
             raise ValueError("Sides must be float")
+        if side_c <= 0 or side_b <= 0 or side_a <= 0:
+            raise ValueError("Sides must be above zero")
         self.__side_a = float(side_a)
         self.__side_b = float(side_b)
         self.__side_c = float(side_c)
@@ -72,14 +74,15 @@ class Triangle:
             side_a: float - new value for side_a.
 
         Raises:
-            ValueError : if new value not be numeric.
+            ValueError : if new value not be numeric or <= 0.
             InvalidTriangleSides : if new triangle can't exist.
         """
         try:
             self.__side_a = float(side_a)
         except ValueError:
             raise ValueError("Side must be float, not {0}".format(type(side_a)))
-
+        if side_a <= 0:
+            raise ValueError("Side must be above zero")
         if not self.check():
             raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
 
@@ -100,13 +103,16 @@ class Triangle:
             side_b: float - new value for side_b.
 
         Raises:
-            ValueError : if new value not be numeric.
+            ValueError : if new value not be numeric or <= 0.
             InvalidTriangleSides :if new triangle can't exist.
         """
         try:
             self.__side_b = float(side_b)
         except ValueError:
             raise ValueError("Side must be float, not {0}".format(type(side_b)))
+
+        if side_b <= 0:
+            raise ValueError("Side must be above zero")
 
         if not self.check():
             raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
@@ -128,13 +134,16 @@ class Triangle:
             side_c: float - new value for side_b.
 
         Raises:
-            ValueError : if new value not be numeric.
+            ValueError : if new value not be numeric or <= 0.
             InvalidTriangleSides :if new triangle can't exist.
         """
         try:
             self.__side_c = float(side_c)
         except ValueError:
             raise ValueError("Side must be float, not {0}".format(type(side_c)))
+
+        if side_c <= 0:
+            raise ValueError("Side must be above zero")
         if not self.check():
             raise InvalidTriangleSides([self.side_a, self.side_b, self.side_c])
 
