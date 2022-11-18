@@ -23,8 +23,7 @@ class Triangle():
         Returns:
             int: perimeter of triangle.
         """        
-        perim = self.side1 + self.side2 + self.side3
-        return perim
+        return self.side1 + self.side2 + self.side3
 
     def square(self) -> float:
         """Count square.
@@ -32,9 +31,8 @@ class Triangle():
         Returns:
             float: square of triangle.
         """        
-        perimetr = self.perimeter()
-        squar = round((perimetr * (perimetr - self.side1) * (perimetr - self.side2) * (perimetr - self.side3))**0.5, 2)
-        return squar
+        prmtr = self.perimeter()
+        return round((prmtr * (prmtr - self.side1) * (prmtr - self.side2) * (prmtr - self.side3))**0.5, 2)
 
 class Circle():
     """This is representation of circle."""
@@ -54,8 +52,7 @@ class Circle():
             float: circle's square.
         """        
         radiu = self.radius
-        s = round(math.pi * radiu * radiu, 2)
-        return s
+        return round(math.pi * radiu * radiu, 2)
 
     def length(self) -> None:
         """Count length.
@@ -64,5 +61,4 @@ class Circle():
             _type_: circle's length.
         """        
         radiu = self.radius
-        lengt = round(math.pi * 2 * radiu, 2)
-        return lengt
+        return round(math.pi * 2 * radiu, 2)
