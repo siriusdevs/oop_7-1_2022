@@ -1,5 +1,9 @@
-"""Docstring."""
+"""Два класса - треугольник и круг, вспомогательный класс - ошибка."""
 import math
+
+
+class NotValidArgs(Exception):
+    """вспомогательный класс - ошибка aргументов."""
 
 
 class Triangle:
@@ -12,19 +16,31 @@ class Triangle:
             a(float): первая сторона
             b(float): вторая сторона
             c(float): третья сторона
+
+        Raises:
+            NotValidArgs: вызываемая ошибка при неправильных аргументах
         """
         self.a = a
         self.b = b
         self.c = c
+        if not self.is_valid():
+            raise NotValidArgs
+
+    def is_valid(self):
+        """Проверка треугольника на возможность существования."""
+        for side in (self.a, self.b, self.c):
+            if not isinstance(side, (int, float)):
+                return False
+        return max(self.a, self.b, self.c) < (self.a + self.b + self.c - max(self.a, self.b, self.c))
 
     def perimeter(self):
         """Вычисление периметра."""
-        return round(self.a + self.b + self.c, 5)
+        return round(self.a + self.b + self.c, 3)
 
     def area(self):
         """Вычисление площади."""
         p = self.perimeter() / 2
-        return round((p * (p - self.a) * (p - self.b) * (p - self.c)) ** 0.5, 5)
+        return round((p * (p - self.a) * (p - self.b) * (p - self.c)) ** 0.5, 3)
 
 
 class Circle:
@@ -35,17 +51,25 @@ class Circle:
 
         Args:
             r(float): радиус
+
+        Raises:
+            NotValidArgs: вызываемая ошибка при неправильных аргументах
         """
         self.r = r
+        if not self.is_valid():
+            raise NotValidArgs
+
+    def is_valid(self):
+        """Проверка круга на возможность существования."""
+        if isinstance(self.r, (int, float)):
+            if self.r > 0:
+                return True
+        return False
 
     def length(self):
         """Вычисление длины окружности."""
-        return round(2 * self.r * math.pi, 5)
+        return round(2 * self.r * math.pi, 3)
 
     def area(self):
         """Вычисление площади круга."""
-        return round(math.pi * self.r ** 2, 5)
-
-
-tr1 = Triangle(2, 4, 3)
-cir1 = Circle(55.88)
+        return round(math.pi * self.r ** 2, 3)
