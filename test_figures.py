@@ -10,6 +10,7 @@ def test_triangle(sides):
     tr = Triangle(sides)
     assert tr.sides == sides
 
+
 @pytest.mark.xfail(raises=Exception)
 def test_incorrect_sides():
     with pytest.raises(Exception):
@@ -24,6 +25,7 @@ def test_incorrect_sides():
     with pytest.raises(Exception):
         Triangle([1000, -7, "ya gul..."])
 
+
 tests_triangle_square = [(Triangle([1, 1, 1]), 0.43), (Triangle([2, 2, 3]), 1.98), (Triangle([2, 3, 4]), 2.9)]
 
 
@@ -31,11 +33,13 @@ tests_triangle_square = [(Triangle([1, 1, 1]), 0.43), (Triangle([2, 2, 3]), 1.98
 def test_triangle_square(triangle: Triangle, expect: float) -> None:
     assert triangle.square() == expect
 
+
 tests_triangle_perimeter = [(Triangle([1, 1, 1]), 3), (Triangle([2, 2, 3]), 7), (Triangle([2, 3, 4]), 9)]
 
 @pytest.mark.parametrize('triangle, expect', tests_triangle_perimeter)
 def test_triangle_perimeter(triangle: Triangle, expect: int) -> None:
     assert triangle.perimetr() == expect
+
 
 tests_circle_create = [1.0, 2.0, 3.0]
 
