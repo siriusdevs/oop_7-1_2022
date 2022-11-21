@@ -20,14 +20,15 @@ class Triangle:
         self.first = first
         self.second = second
         self.third = third
-        if not isinstance(all([self.first, self.second, self.third]), int | float) or not self.sides_check():
+        sides_list = [self.first, self.second, self.third]
+        if not isinstance(all(sides_list), int | float) or not self.sides_sum_check() or not self.sides_check():
             raise ValueError
 
     def perimeter(self):
         """Method evaluates triangles perimeter.
 
         Returns:
-            perimetr: int - math result rounds up to 2 numbers after dot(sum of sides).
+            int - math result rounds up to 2 numbers after dot(sum of sides).
         """
         return self.first + self.second + self.third
 
@@ -35,21 +36,29 @@ class Triangle:
         """Method evaluates triangles square.
 
         Returns:
-            square: float - math result rounds up to 2 numbers after dot(Heron's formula).
+            float - math result rounds up to 2 numbers after dot(Heron's formula).
         """
         half = (self.first + self.second + self.third) / 2
         return round((half * (half - self.first) * (half - self.second) * (half - self.third)) ** 0.5, 2)
 
-    def sides_check(self):
+    def sides_sum_check(self):
         """Method checks triangle for existence.
 
         Returns:
-            triangle_existence: bool - if sum of 2 sides larger last one.
+            bool - if sum of 2 sides larger last one.
         """
         side1 = self.first
         side2 = self.second
         side3 = self.third
         return side1 + side2 > side3 and side3 + side1 > side2 and side3 + side2 > side1
+
+    def sides_check(self):
+        """Function checks sides for existence.
+
+        Returns:
+            bool - if sides larger 0.
+        """
+        return self.first > 0 and self.second > 0 and self.third > 0
 
 
 class Circle:
