@@ -36,12 +36,14 @@ def test_triangle_square(triangle: Triangle, expect: float) -> None:
 
 tests_triangle_perimeter = [(Triangle([1, 1, 1]), 3), (Triangle([2, 2, 3]), 7), (Triangle([2, 3, 4]), 9)]
 
+
 @pytest.mark.parametrize('triangle, expect', tests_triangle_perimeter)
 def test_triangle_perimeter(triangle: Triangle, expect: int) -> None:
     assert triangle.perimetr() == expect
 
 
 tests_circle_create = [1.0, 2.0, 3.0]
+
 
 @pytest.mark.parametrize('radius', tests_circle_create)
 def test_circle(radius: float) -> None:
