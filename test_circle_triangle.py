@@ -1,4 +1,4 @@
-from class_circle_triangle import Circle, Triangle, NotValidAttributesError
+from class_circle_triangle import Circle, Triangle, InvalidAttributesError
 import pytest
 from typing import List
 
@@ -34,7 +34,7 @@ def test_triangle_p(sides: List[float], res: float) -> None:
     assert Triangle(sides).perimeter() == res
 
 
-triangle_inp_area = [([3.0, 4.0, 5.0], 6.0), ([3.0, 5.0, 7.0], 6.5)]
+triangle_inp_area = [([3.0, 4.0, 5.0], 36.0), ([3.0, 5.0, 7.0], 59.66)]
 
 
 @pytest.mark.parametrize('sides, res', triangle_inp_area)
@@ -50,20 +50,20 @@ def test_triangle_a(sides: List[float], res: float) -> None:
 
 # тесты для ошибок:
 def test_str_sides():
-    """Test for invalid sides of triangle."""
-    with pytest.raises(NotValidAttributesError):
+    """Test for invalid sides of triangle (str)."""
+    with pytest.raises(InvalidAttributesError):
         Triangle(['l', 3, 4])
 
 
 def test_negative_sides():
-    """Test for invalid sides of triangle."""
-    with pytest.raises(NotValidAttributesError):
+    """Test for invalid sides of triangle (negative)."""
+    with pytest.raises(InvalidAttributesError):
         Triangle([5, -2, 3])
 
 
 def test_sum_sides():
-    """Test for invalid sides of triangle."""
-    with pytest.raises(NotValidAttributesError):
+    """Test for invalid sides of triangle (sum of sides)."""
+    with pytest.raises(InvalidAttributesError):
         Triangle([3, 1, 5])
 
 
@@ -114,12 +114,12 @@ def test_circle_a(radius: float, res: float) -> None:
 
 # тесты для ошибок:
 def test_str_radius():
-    """Test for invalid radius."""
-    with pytest.raises(NotValidAttributesError):
+    """Test for invalid radius (str)."""
+    with pytest.raises(InvalidAttributesError):
         Circle('l')
 
 
 def test_negative_radius():
-    """Test for invalid radius."""
-    with pytest.raises(NotValidAttributesError):
+    """Test for invalid radius (negative)."""
+    with pytest.raises(InvalidAttributesError):
         Circle(-5)
