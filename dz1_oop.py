@@ -26,7 +26,7 @@ class Triangle():
         return self.side1 + self.side2 + self.side3
 
     def square(self) -> float:
-        """Count square.
+        """Count square. Round it to the 2th digit after point.
 
         Returns:
             float: square of triangle.
@@ -47,7 +47,7 @@ class Circle():
         self.radius = radius
 
     def square(self) -> float:
-        """Count length.
+        """Count length. Round it to the 2th digit after point.
 
         Returns:
             float: circle's square.
@@ -56,7 +56,7 @@ class Circle():
         return round(math.pi * radiu * radiu, 2)
 
     def length(self) -> None:
-        """Count length.
+        """Count length. Round it to the 2th digit after point.
 
         Returns:
             _type_: circle's length.
