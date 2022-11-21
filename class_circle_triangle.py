@@ -4,7 +4,7 @@ import math
 from typing import List
 
 
-class NotValidAttributesError(Exception):
+class InvalidAttributesError(Exception):
     """Exception raised for invalid sides of triangle or radius of circle."""
 
     def __init__(self, message: str):
@@ -17,11 +17,11 @@ class NotValidAttributesError(Exception):
 
     def __str__(self):
         """Return formated error message."""
-        return 'NotValidAttributesError: {0}'.format(self.message)
+        return 'InvalidAttributesError: {0}'.format(self.message)
 
 
 class Circle:
-    """Class Circle.
+    """Representation of a circle.
 
     Attributes:
     radius(float): radius of the circle
@@ -34,11 +34,11 @@ class Circle:
             radius(float): radius of circle
 
         Raises:
-            NotValidAttributesError: if radius is invalid
+            InvalidAttributesError: if radius is invalid
         """
         self.radius = radius
         if not self.is_valid():
-            raise NotValidAttributesError('Circle cannot be built with this radius')
+            raise InvalidAttributesError('Circle cannot be built with this radius')
 
     def length_of_circle(self) -> float:
         """Method that counts the length of circle. Rounds it to 2 decimal places.
@@ -58,15 +58,15 @@ class Circle:
 
     def is_valid(self):
         """Checks condition of circle`s existence."""
-        if not isinstance(self.radius, (int, float)):
-            return False
-        elif self.radius <= 0:
-            return False
-        return True
+        return isinstance(self.radius, (int, float)) and self.radius > 0
 
 
 class Triangle:
-    """Class Triangle."""
+    """Representation of a triangle.
+
+    Attributes:
+    sides(List[float]): list of sides of the triangle
+    """
 
     def __init__(self, sides: List[float]):
         """Initialization method.
@@ -75,11 +75,11 @@ class Triangle:
             sides(List[float]): list of sides of the triangle
 
         Raises:
-            NotValidAttributesError: if sides of the triangle are invalid
+            InvalidAttributesError: if sides of the triangle are invalid
         """
         self.sides = sides
         if not self.is_valid():
-            raise NotValidAttributesError('Triangle cannot be built with these sides')
+            raise InvalidAttributesError('Triangle cannot be built with these sides')
 
     def perimeter(self):
         """Counts the perimeter of circle.
@@ -96,17 +96,11 @@ class Triangle:
             float: the area of circle
         """
         p = self.perimeter() / 2
-        area_2 = p * (p - self.sides[0]) * (p - self.sides[1]) * (p - self.sides[2])
-        return round(area_2 ** 0.5, 2)
+        area_2 = p * (p - self.sides[0]) * (p - self.sides[1]) * (p - self.sides[2]) ** 0.5
+        return round(float(area_2), 2)
 
     def is_valid(self):
         """Checks condition of circle`s existence."""
-        for side in self.sides:
-            if not isinstance(side, (int, float)):
-                return False
-            elif side <= 0:
-                return False
-        std = sorted(self.sides)
-        if std[-1] >= std[0] + std[1]:
-            return False
-        return True
+        if all([isinstance(side, (int, float)) and side > 0 for side in self.sides]):
+            std = sorted(self.sides)
+            return std[-1] < std[0] + std[1]
