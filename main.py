@@ -6,6 +6,10 @@ from math import pi, sqrt
 class NotValidTriang(Exception):
     """There is no such triangle."""
 
+    def __str__(self):
+        """Returns the error text."""
+        return "No such triangle exists!"
+
 
 class Triangle:
     """This class can return diameter, length or area of triangle."""
@@ -35,13 +39,11 @@ class Triangle:
         """
         sides = sorted([self.side1, self.side2, self.side3], reverse=True)
         for side in sides:
-            if not isinstance(side, float):
+            if not isinstance(side, (float, int)):
                 return False
             if side <= 0:
                 return False
-        if sides[0] > sides[1] + sides[2]:
-            return False
-        return True
+        return sides[0] < sides[1] + sides[2]
 
     def perimeter(self) -> float:
         """Count the perimeter of triangle. Rounds it to the 2nd digit after the dot.
@@ -63,6 +65,10 @@ class Triangle:
 
 class NotValidCirc(Exception):
     """There is no such circle."""
+
+    def __str__(self):
+        """Returns the error text."""
+        return "No such triangle exists!"
 
 
 class Circle:
@@ -87,7 +93,7 @@ class Circle:
         Returns:
             bool: result
         """
-        if not isinstance(self.radius, (float)):
+        if not isinstance(self.radius, (float, int)):
             return False
         elif self.radius <= 0:
             return False

@@ -24,15 +24,39 @@ triangles2 = [(2.0, 2.0, 3.0), (5.0, 5.0, 5.0)]
 
 
 @pytest.mark.xfail(raises=NotValidTriang)
-def test_validtriang2():
+def test_validtriang21(side1=-1.0, side2=5.2, side3=4.1):
     """Function tests the existence of a triangle with a custom error."""
-    assert Triangle(-1.0, 3.1, 3.1).is_valid()
+    assert Triangle(side1, side2, side3).is_valid()
+
+
+@pytest.mark.xfail(raises=NotValidTriang)
+def test_validtriang22(side1=1.0, side2=3.1, side3=3.1):
+    """Function tests the existence of a triangle with a custom error."""
+    assert Triangle(side1, side2, side3).is_valid()
+
+
+@pytest.mark.xfail(raises=NotValidTriang)
+def test_validtriang23(side1=0, side2=4.22, side3=3.5):
+    """Function tests the existence of a triangle with a custom error."""
+    assert Triangle(side1, side2, side3).is_valid()
 
 
 @pytest.mark.xfail(raises=NotValidCirc)
-def test_validcirc1():
+def test_validcirc11():
     """Function tests the existence of a circle with a custom error."""
     assert Circle(-1.0).is_valid()
+
+
+@pytest.mark.xfail(raises=NotValidCirc)
+def test_validcirc12(radius=0):
+    """Function tests the existence of a circle with a custom error."""
+    assert Circle(radius).is_valid()
+
+
+@pytest.mark.xfail(raises=NotValidCirc)
+def test_validcirc13():
+    """Function tests the existence of a circle with a custom error."""
+    assert Circle(1.0).is_valid()
 
 
 @pytest.mark.parametrize('side1, side2, side3', triangles2)
