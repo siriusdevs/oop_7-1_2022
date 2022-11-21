@@ -72,7 +72,7 @@ class Triangle:
         fir = self.first_side
         sec = self.second_side
         th = self.third_side
-        if isinstance(fir, (int, float)) and isinstance(sec, (int, float)):
+        if all(isinstance(fir, (int, float)), isinstance(sec, (int, float))):
             if isinstance(th, (int, float)):
                 if fir > 0 and sec > 0 and th > 0:
                     return fir + sec > th and sec + th > fir and fir + th > sec
@@ -88,5 +88,6 @@ class Triangle:
         Returns:
             Area rounded to 3 decimal places.
         """
-        half_per = self.perimeter() / 2
-        return round((half_per * (half_per - self.first_side) * (half_per - self.second_side) * (half_per - self.third_side)) ** 0.5, 3)
+        hp = self.perimeter() / 2
+        area = (hp * (hp - self.first_side) * (hp - self.second_side) * (hp - self.third_side)) ** 0.5
+        return round(area, 3)
