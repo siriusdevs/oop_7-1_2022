@@ -82,12 +82,12 @@ class Triangle:
             raise InvalidAttributesError('Triangle cannot be built with these sides')
 
     def perimeter(self):
-        """Counts the perimeter of triangle.
+        """Counts the perimeter of triangle. Rounds it to 2 decimal places.
 
         Returns:
             float: the perimeter of triangle
         """
-        return sum(self.sides)
+        return round(sum(self.sides), 2)
 
     def area(self):
         """Counts the area of triangle. Rounds it to 2 decimal places.
