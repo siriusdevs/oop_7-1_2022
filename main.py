@@ -46,7 +46,8 @@ class Triangle:
             bool: result
         """
         sides = sorted([self.side1, self.side2, self.side3], reverse=True)
-        all(isinstance(side, (float, int)) for side in sides)
+        if not all(isinstance(side, (float, int)) for side in sides):
+            return False
         return sides[0] < sides[1] + sides[2]
 
     def perimeter(self) -> float:
