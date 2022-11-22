@@ -82,25 +82,28 @@ class Triangle:
             raise InvalidAttributesError('Triangle cannot be built with these sides')
 
     def perimeter(self):
-        """Counts the perimeter of circle.
+        """Counts the perimeter of triangle.
 
         Returns:
-            float: the perimeter of circle
+            float: the perimeter of triangle
         """
         return sum(self.sides)
 
     def area(self):
-        """Counts the area of circle. Rounds it to 2 decimal places.
+        """Counts the area of triangle. Rounds it to 2 decimal places.
 
         Returns:
-            float: the area of circle
+            float: the area of triangle
         """
         p = self.perimeter() / 2
         area_2 = p * (p - self.sides[0]) * (p - self.sides[1]) * (p - self.sides[2]) ** 0.5
         return round(float(area_2), 2)
 
     def is_valid(self):
-        """Checks condition of circle`s existence."""
-        if all([isinstance(side, (int, float)) and side > 0 for side in self.sides]):
-            std = sorted(self.sides)
-            return std[-1] < std[0] + std[1]
+        """Checks condition of triangle`s existence."""
+        if isinstance(self.sides, list):
+            if len(self.sides) == 3:
+                if all([isinstance(side, (int, float)) and side > 0 for side in self.sides]):
+                    std = sorted(self.sides)
+                    return std[-1] < std[0] + std[1]
+        return False
