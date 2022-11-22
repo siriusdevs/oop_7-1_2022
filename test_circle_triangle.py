@@ -1,60 +1,70 @@
-from classcircle import Circle
-from classtriangle import Triangle
+from class_circle_triangle import Circle, Triangle, InvalidAttributesError
 import pytest
+from typing import List
 
 # ТРЕУГОЛЬНИК:
 
 # записываются ли аттрибуты:
-triangle_inp_sides = [(3.0, 4.0, 5.0), (3.0, 5.0, 7.0)]
+triangle_inp_sides = [([3.0, 4.0, 5.0]), ([3.0, 5.0, 7.0])]
 
 
-@pytest.mark.parametrize('side1, side2, side3', triangle_inp_sides)
-def test_triangle(side1: float, side2: float, side3: float) -> None:
+@pytest.mark.parametrize('sides', triangle_inp_sides)
+def test_triangle(sides: List[float]) -> None:
     """Test for attributes of the triangle.
 
     Args:
-        side1(float): 1st side of the triangle
-        side2(float): 2st side of the triangle
-        side3(float): 3st side of the triangle
+        sides(List[float]): list of sides of the triangle
     """
-    new_triangle = Triangle(side1, side2, side3)
-    assert new_triangle.side1 == side1
-    assert new_triangle.side2 == side2
-    assert new_triangle.side3 == side3
+    assert Triangle(sides).sides == sides
 
 # правильно ли выполняются методы:
 
 
-triangle_inp_perimeter = [(3.0, 4.0, 5.0, 12.0), (3.0, 5.0, 7.0, 15.0)]
+triangle_inp_perimeter = [([3.0, 4.0, 5.0], 12.0), ([3.0, 5.0, 7.0], 15.0)]
 
 
-@pytest.mark.parametrize('side1, side2, side3, res', triangle_inp_perimeter)
-def test_triangle_p(side1: float, side2: float, side3: float, res: float) -> None:
+@pytest.mark.parametrize('sides, res', triangle_inp_perimeter)
+def test_triangle_p(sides: List[float], res: float) -> None:
     """Test for method 'perimeter' of the triangle.
 
     Args:
-        side1(float): 1st side of the triangle
-        side2(float): 2st side of the triangle
-        side3(float): 3st side of the triangle
+        sides(List[float]): list of sides of the triangle
         res(float): expected result of calculations
     """
-    assert Triangle(side1, side2, side3).perimeter() == res
+    assert Triangle(sides).perimeter() == res
 
 
-triangle_inp_area = [(3.0, 4.0, 5.0, 6.0), (3.0, 5.0, 7.0, 6.5)]
+triangle_inp_area = [([3.0, 4.0, 5.0], 36.0), ([3.0, 5.0, 7.0], 59.66)]
 
 
-@pytest.mark.parametrize('side1, side2, side3, res', triangle_inp_area)
-def test_triangle_a(side1: float, side2: float, side3: float, res: float) -> None:
+@pytest.mark.parametrize('sides, res', triangle_inp_area)
+def test_triangle_a(sides: List[float], res: float) -> None:
     """Test for method 'area' of the triangle.
 
     Args:
-        side1(float): 1st side of the triangle
-        side2(float): 2st side of the triangle
-        side3(float): 3st side of the triangle
+        sides(List[float]): list of sides of the triangle
         res(float): expected result of calculations
     """
-    assert Triangle(side1, side2, side3).area() == res
+    assert Triangle(sides).area() == res
+
+
+# тесты для ошибок:
+def test_str_sides():
+    """Test for invalid sides of triangle (str)."""
+    with pytest.raises(InvalidAttributesError):
+        Triangle(['l', 3, 4])
+
+
+def test_negative_sides():
+    """Test for invalid sides of triangle (negative)."""
+    with pytest.raises(InvalidAttributesError):
+        Triangle([5, -2, 3])
+
+
+def test_sum_sides():
+    """Test for invalid sides of triangle (sum of sides)."""
+    with pytest.raises(InvalidAttributesError):
+        Triangle([3, 1, 5])
 
 
 # КРУГ:
@@ -100,3 +110,16 @@ def test_circle_a(radius: float, res: float) -> None:
         res(float): expected result of calculations
     """
     assert Circle(radius).area() == res
+
+
+# тесты для ошибок:
+def test_str_radius():
+    """Test for invalid radius (str)."""
+    with pytest.raises(InvalidAttributesError):
+        Circle('l')
+
+
+def test_negative_radius():
+    """Test for invalid radius (negative)."""
+    with pytest.raises(InvalidAttributesError):
+        Circle(-5)
