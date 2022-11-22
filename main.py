@@ -3,12 +3,20 @@
 from math import pi, sqrt
 
 
-class NotValidTriang(Exception):
-    """There is no such triangle."""
+class NotValidFigure(Exception):
+    """The error that is returned if the figure does not exist."""
+
+    def __init__(self, sides):
+        """Initialization exception of figure.
+
+        Args:
+            sides (float): sides of figure.
+        """
+        self.sides = sides
 
     def __str__(self):
         """Returns the error text."""
-        return "No such triangle exists!"
+        return "No such figure exists with this sides: {0}!".format(self.sides)
 
 
 class Triangle:
@@ -23,13 +31,13 @@ class Triangle:
             side3 (float): the third side of triangle.
 
         Raises:
-            NotValidTriang: if the triangle is impossible to build.
+            NotValidFigure: if the triangle is impossible to build.
         """
         self.side1 = side1
         self.side2 = side2
         self.side3 = side3
         if not self.is_valid():
-            raise NotValidTriang
+            raise NotValidFigure((side1, side2, side3))
 
     def is_valid(self):
         """Check if such a triangle exists.
@@ -63,14 +71,6 @@ class Triangle:
         return round(sqrt(per * (per - self.side1) * (per - self.side2) * (per - self.side3)), 2)
 
 
-class NotValidCirc(Exception):
-    """There is no such circle."""
-
-    def __str__(self):
-        """Returns the error text."""
-        return "No such triangle exists!"
-
-
 class Circle:
     """This class can return diameter, length or area of circle."""
 
@@ -81,11 +81,11 @@ class Circle:
             radius (float): the radius of circle.
 
         Raises:
-            NotValidCirc: if the circle is impossible to build.
+            NotValidFigure: if the circle is impossible to build.
         """
         self.radius = radius
         if not self.is_valid():
-            raise NotValidCirc
+            raise NotValidFigure(radius)
 
     def is_valid(self) -> bool:
         """Check if such a circle exists.
@@ -95,9 +95,7 @@ class Circle:
         """
         if not isinstance(self.radius, (float, int)):
             return False
-        elif self.radius <= 0:
-            return False
-        return True
+        return self.radius > 0
 
     def diameter(self):
         """Count the diameter of circle. Rounds it to the 2nd digit after the dot.

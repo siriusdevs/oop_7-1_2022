@@ -1,7 +1,7 @@
 """Tests for classes."""
 
 import pytest
-from main import Triangle, Circle, NotValidCirc, NotValidTriang
+from main import Triangle, Circle, NotValidFigure
 
 
 triangles1 = [(8.0, 5.0, 5.0, True), (5.0, 5.0, 5.0, True), (7.0, 6.0, 7.0, True)]
@@ -23,37 +23,37 @@ def test_validtriang1(side1: float, side2: float, side3: float, exception: bool)
 triangles2 = [(2.0, 2.0, 3.0), (5.0, 5.0, 5.0)]
 
 
-@pytest.mark.xfail(raises=NotValidTriang)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validtriang21(side1=-1.0, side2=5.2, side3=4.1):
     """Function tests the existence of a triangle with a custom error."""
     assert Triangle(side1, side2, side3).is_valid()
 
 
-@pytest.mark.xfail(raises=NotValidTriang)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validtriang22(side1=1.0, side2=3.1, side3=3.1):
     """Function tests the existence of a triangle with a custom error."""
     assert Triangle(side1, side2, side3).is_valid()
 
 
-@pytest.mark.xfail(raises=NotValidTriang)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validtriang23(side1=0, side2=4.22, side3=3.5):
     """Function tests the existence of a triangle with a custom error."""
     assert Triangle(side1, side2, side3).is_valid()
 
 
-@pytest.mark.xfail(raises=NotValidCirc)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validcirc11():
     """Function tests the existence of a circle with a custom error."""
     assert Circle(-1.0).is_valid()
 
 
-@pytest.mark.xfail(raises=NotValidCirc)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validcirc12(radius=0):
     """Function tests the existence of a circle with a custom error."""
     assert Circle(radius).is_valid()
 
 
-@pytest.mark.xfail(raises=NotValidCirc)
+@pytest.mark.xfail(raises=NotValidFigure)
 def test_validcirc13():
     """Function tests the existence of a circle with a custom error."""
     assert Circle(1.0).is_valid()
@@ -87,8 +87,7 @@ def test_perimeter(side1: float, side2: float, side3: float, answer: float):
         side3 (float): side 3 of triangle.
         answer (float): expected response.
     """
-    triangle = Triangle(side1, side2, side3)
-    assert triangle.perimeter() == answer
+    assert Triangle(side1, side2, side3).perimeter() == answer
 
 
 trianglearea = [(2.0, 2.0, 3.0, 1.98), (5.0, 5.0, 5.0, 10.83)]
@@ -104,8 +103,7 @@ def test_square(side1: float, side2: float, side3: float, answer: float):
         side3 (float): side 3 of triangle.
         answer (float): expected response.
     """
-    triangle = Triangle(side1, side2, side3)
-    assert triangle.area() == answer
+    assert Triangle(side1, side2, side3).area() == answer
 
 
 circles1 = [(1.0, True), (2.0, True), (7.1, True)]
@@ -132,8 +130,7 @@ def test_circle(radius: float):
     Args:
         radius (float): radius of circle.
     """
-    circle = Circle(radius)
-    assert circle.radius == radius
+    assert Circle(radius).radius == radius
 
 
 circlelen = [(5.7, 35.81), (6.3, 39.58)]
@@ -147,8 +144,7 @@ def test_length(radius: float, answer: float):
         radius (float): radius of circle.
         answer (float): expected response.
     """
-    circle = Circle(radius)
-    assert circle.length() == answer
+    assert Circle(radius).length() == answer
 
 
 circlearea = [(4.0, 50.27), (9.7, 295.59)]
