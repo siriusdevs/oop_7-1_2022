@@ -17,11 +17,11 @@ class Triangle():
         self.side2 = side2
         self.side3 = side3
 
-    def perimeter(self) -> int:
+    def perimeter(self) -> float:
         """Count perimeter.Round it to the 5th digit after point.
 
         Returns:
-            int: perimeter of triangle.
+            float: perimeter of triangle.
         """
         return self.side1 + self.side2 + self.side3
 
@@ -52,14 +52,12 @@ class Circle():
         Returns:
             float: circle's square.
         """
-        radiu = self.radius
-        return round(math.pi * radiu * radiu, 2)
+        return round(math.pi * self.radius * self.radius, 2)
 
-    def length(self) -> None:
+    def length(self) -> float:
         """Count length. Round it to the 2th digit after point.
 
         Returns:
-            _type_: circle's length.
+            float: circle's length.
         """
-        radiu = self.radius
-        return round(math.pi * 2 * radiu, 2)
+        return round(math.pi * 2 * self.radius, 2)
