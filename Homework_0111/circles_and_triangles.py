@@ -24,25 +24,25 @@ class Circle:
         if not self.is_valid():
             raise STerr
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """Check attributes for obj in class."""
         if isinstance(self.radius, (int, float)):
             return self.radius > 0
         return False
 
-    def area(self):
+    def area(self) -> float:
         """Area of a circle.
 
         Returns:
-            Area rounded to 3 decimal places.
+            float: Area rounded to 3 decimal places.
         """
         return round(self.radius ** 2 * pi, 3)
 
-    def len_of_circle(self):
+    def len_of_circle(self) -> float:
         """Len of circle.
 
         Returns:
-            Len rounded to 3 decimal places.
+            float: Len rounded to 3 decimal places.
         """
         return round(2 * pi * self.radius, 3)
 
@@ -67,7 +67,7 @@ class Triangle:
         if not self.is_valid():
             raise STerr
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """Checks acceptability of an attribute."""
         fir = self.first_side
         sec = self.second_side
@@ -78,15 +78,15 @@ class Triangle:
                     return fir + sec > th and sec + th > fir and fir + th > sec
         return False
 
-    def perimeter(self):
+    def perimeter(self) -> float:
         """Perimeter of a triangle."""
         return self.first_side + self.second_side + self.third_side
 
-    def area(self):
+    def area(self) -> float:
         """Area of a triangle.
 
         Returns:
-            Area rounded to 3 decimal places.
+           float: Area rounded to 3 decimal places.
         """
         hp = self.perimeter() / 2
         area = (hp * (hp - self.first_side) * (hp - self.second_side) * (hp - self.third_side)) ** 0.5
