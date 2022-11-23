@@ -1,6 +1,6 @@
 """Testing file."""
 import pytest
-from HomeWork.homework_first import Circle, Triangle, NonexistentFigure
+from homework_first import Circle, Triangle, NonexistentFigure
 
 
 test_triangle1 = [(['два', 1, 4], False), (["...", 7, 5], False),\
