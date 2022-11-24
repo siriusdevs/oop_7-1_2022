@@ -1,0 +1,30 @@
+{
+    "map": [
+        [
+            "Any",
+            0,
+            0
+        ],
+        [
+            0,
+            1,
+            "School "
+        ]
+    ],
+    "building_School ": {
+        "name": "School ",
+        "height": 2.0,
+        "width": 1.0,
+        "floors": 2.0,
+        "x": 2,
+        "y": 1
+    },
+    "building_Any": {
+        "name": "Any",
+        "height": 1.0,
+        "width": 1.0,
+        "floors": 1,
+        "x": 1,
+        "y": 1
+    }
+}
