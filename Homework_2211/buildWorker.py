@@ -110,7 +110,7 @@ class Town:
         map = inf['map']
         if not all([-len(map) - 1 < building.coord_y - 1 < len(map), -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
             return 'Введеные координаты вне карты'
-        inf['map'][building.y - 1][building.x - 1] = building.name
+        inf['map'][building.coord_y - 1][building.coord_x - 1] = building.name
         inf['building_{0}'.format(building.name)] = building.to_dict()
         with open(file_name, 'wt') as file:
             data = dumps(inf)
@@ -120,10 +120,10 @@ class Town:
     def destroy_building(file_name, building_name):
         with open(file_name, 'rt') as file:
             inf = json.load(file)
-        coord_x = inf['building_{0}'.format(building_name)]['x']
-        coord_y = inf['building_{0}'.format(building_name)]['y']
-        inf[coord_y][coord_x] = 0
-        inf['building_{0}'.format(building_name)].pop(building_name)
+        coord_x = inf['building_{0}'.format(building_name)]['coord_x']
+        coord_y = inf['building_{0}'.format(building_name)]['coord_y']
+        inf['map'][coord_y - 1][coord_x - 1] = 0
+        inf.pop('building_{0}'.format(building_name))
         with open(file_name, 'wt') as file:
             data = dumps(inf)
             file.write(data)
