@@ -34,7 +34,7 @@ create new town - click 3 \n')
 
                 case 'db':
                     name = input('Enter building\'s name for destroying: ')
-                    buildWorker.Town.destroy_building(f'{town}.json', name)
+                    buildWorker.Town.destroy_building('{0}.json'.format(town), name)
 
                 case _:
                     print('Unknown command')
@@ -46,7 +46,11 @@ create new town - click 3 \n')
             
 
         case '3':
-            pass
+            length = int(input('Enter lenght of the matrix: '))
+            width = int(input('Enter width of the matrix: '))
+            map = buildWorker.Map(length, width)
+            name = input('Enter new town\'s name: ')
+            buildWorker.Town.create_town(map, name)
 
         case _:
             print('Unknown command')
