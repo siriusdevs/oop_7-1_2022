@@ -40,21 +40,21 @@ class Triangle:
             raise NotValidFigure('sides: {0}, {1}, {2}.'.format(self.side1, self.side2, self.side3))
 
     def perimeter(self) -> float:
-        """Count perimeter.Round it to the 5th digit after point.
+        """Count perimeter.Round it to the 2th digit after point.
 
         Returns:
             float: perimeter of triangle.
         """
-        return round(self.side1 + self.side2 + self.side3, 5)
+        return round(self.side1 + self.side2 + self.side3, 2)
 
     def square(self) -> float:
-        """Count square.Round it to the 5th digit after point.
+        """Count square.Round it to the 2th digit after point.
         
         Returns:
             float: square of triangle.
         """
         half_p = self.perimeter() / 2
-        return round(sqrt(half_p * (half_p - self.side1) * (half_p - self.side2) * (half_p - self.side3)), 5)
+        return round(sqrt(half_p * (half_p - self.side1) * (half_p - self.side2) * (half_p - self.side3)), 2)
 
     def is_valid(self) -> bool:
         """Check triangle.
@@ -85,20 +85,20 @@ class Circle:
             raise NotValidFigure('radius: {0}'.format(self.radius))
 
     def length(self) -> float:
-        """Count length.
+        """Count length.Round it to the 2th digit after point.
 
         Returns:
             float: circle's length.
         """
-        return 2 * pi * self.radius
+        return round(2 * pi * self.radius, 2)
 
     def square(self) -> float:
-        """Count square.
+        """Count square.Round it to the 2th digit after point.
 
         Returns:
             float: circle's square.
         """
-        return pi * (self.radius**2)
+        return round(pi * (self.radius**2), 2)
 
     def is_valid(self) -> bool:
         """Check circle.
