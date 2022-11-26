@@ -1,1 +1,1 @@
-{"map": [[0, 0, 0], [0, 1, "School "]]}
+{"map": [[0, 0, 0], [0, "House", 0]], "building_School": {"name": "School", "height": 3.0, "width": 2.0, "floors": 3, "coord_x": 2, "coord_y": 2}, "building_House": {"name": "House", "height": 3.0, "width": 2.0, "floors": 3, "coord_x": 2, "coord_y": 2}}

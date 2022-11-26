@@ -1,7 +1,6 @@
-"""File contains two class of errors: MapErr and BuildErr, class Map and class Town with metods for working with map."""
-import json
+"""File contains class of errors: MapErr and BuildErr, class Map and class Town with metods for working with map."""
+from json import load, dumps
 import csv
-from json import dumps
 
 
 class MapErr(Exception):
@@ -70,11 +69,11 @@ class Map:
         """
         self.length = length
         self.width = width
-        self.matrix = [0 * length for _ in range(width)]
+        self.matrix = [[0] * length for _ in range(width)]
         if not self.is_valid():
             raise MapErr
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """Check attributes for obj in class."""
         return self.length > 0 and self.width > 0
 
@@ -84,58 +83,80 @@ class Town:
 
     @staticmethod
     def maps():
-        """Information about all maps of towns.
+        """Information about all towns.
 
         Returns:
-            nested list: тames of all towns.
+            nested list: names of all towns.
         """
-        with open('towns.csv', 'rt') as file:
-            csv_in = csv.reader(file)
+        with open('towns.csv', 'rt') as csv_file:
+            csv_in = csv.reader(csv_file)
             return [town for town in csv_in]
 
     @staticmethod
-    def see_map(file_name):
+    def see_map(file_name: str):
         """Map of a town.
+
+        Args:
+            file_name: str - name of a town (in the same time name of json file).
 
         Returns:
             nested list: map.
         """
-        with open(file_name, 'rt') as file:
-            return json.load(file)['map']
+        with open(file_name, 'rt') as json_file:
+            return load(json_file)['map']
 
     @staticmethod
-    def add_building(file_name, building: Building):
-        with open(file_name, 'rt') as file:
-            inf = json.load(file)
+    def add_building(file_name: str, building: Building):
+        """Function for creation a building. Writes to json file information about building.
+
+        Args:
+            file_name: str - name of a town (in the same time name of json file).
+            building: Building - obj of class Building for creation in town.
+        """
+        with open(file_name, 'rt') as json_file:
+            inf = load(json_file)
         map = inf['map']
-        if not all([-len(map) - 1 < building.coord_y - 1 < len(map), -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
-            return 'Введеные координаты вне карты'
+        len_m = len(map)
+        if not all([-len_m - 1 < building.coord_y - 1 < len_m, -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
+            return 'Entered coordinates outside the map'
         inf['map'][building.coord_y - 1][building.coord_x - 1] = building.name
         inf['building_{0}'.format(building.name)] = building.to_dict()
-        with open(file_name, 'wt') as file:
-            data = dumps(inf)
-            file.write(data)
+        with open(file_name, 'wt') as json_file:
+            dumps_inf = dumps(inf)
+            json_file.write(dumps_inf)
 
     @staticmethod
     def destroy_building(file_name, building_name):
-        with open(file_name, 'rt') as file:
-            inf = json.load(file)
+        """Function for destroying a building. Removes from json file information about building.
+
+        Args:
+            file_name: str - name of a town (in the same time name of json file).
+            building_name: Building - obj of class Building for destroyinf.
+        """
+        with open(file_name, 'rt') as json_file:
+            inf = load(json_file)
         coord_x = inf['building_{0}'.format(building_name)]['coord_x']
         coord_y = inf['building_{0}'.format(building_name)]['coord_y']
         inf['map'][coord_y - 1][coord_x - 1] = 0
         inf.pop('building_{0}'.format(building_name))
-        with open(file_name, 'wt') as file:
-            data = dumps(inf)
-            file.write(data)
+        with open(file_name, 'wt') as json_file:
+            dumps_inf = dumps(inf)
+            json_file.write(dumps_inf)
 
     @staticmethod
     def create_town(map: Map, file_name: str):
-        with open('{0}.json'.format(file_name), 'wt') as file:
-            data = dumps({'map': map.matrix})
-            file.write(data)
+        """Function for creation a town. Creates jsonfile with map of new town and wtites to csv file name of the town.
 
-        maps = maps()
+        Args:
+            map: Map - map of new town (object of class Map ).
+            file_name: str - name of a town (in the same time name of new json file).
+        """
+        with open('{0}.json'.format(file_name), 'wt') as json_file:
+            dumps_map = dumps({'map': map.matrix})
+            json_file.write(dumps_map)
+
+        maps = Town.maps()
         maps.append([file_name])
-        with open('towns.csv', 'wt') as file:
-            csv_out = csv.writer(file)
+        with open('towns.csv', 'wt') as csv_towns:
+            csv_out = csv.writer(csv_towns)
             csv_out.writerows(maps)

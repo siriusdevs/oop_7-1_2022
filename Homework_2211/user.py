@@ -16,8 +16,8 @@ exit - q \n')
 
             town = input('Please, choose a town: ')
             while True:
-                choice = input(('Do you want to see map (sm), add a building (ab) or destroy a building (db)?\n \
-                    Exit( q )'))
+                choice = input(('Do you want to see map (sm), add a building (ab) or destroy a building (db)?\n\
+Go back(q)\n'))
                 match choice:
                     case 'sm':
                         for elem in buildWorker.Town.see_map('{0}.json'.format(town)):
