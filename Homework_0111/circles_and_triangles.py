@@ -72,7 +72,7 @@ class Triangle:
         fir = self.first_side
         sec = self.second_side
         th = self.third_side
-        if all(isinstance(fir, (int, float)), isinstance(sec, (int, float))):
+        if all([isinstance(fir, (int, float)), isinstance(sec, (int, float))]):
             if isinstance(th, (int, float)):
                 if fir > 0 and sec > 0 and th > 0:
                     return fir + sec > th and sec + th > fir and fir + th > sec
