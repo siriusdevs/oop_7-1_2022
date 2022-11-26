@@ -43,7 +43,7 @@ class Building:
 
     def is_valid(self) -> bool:
         """Check attributes for obj in class."""
-        return all([self.floors > 0, self.width > 0, self.floors > 0])
+        return all([self.floors > 0, self.width > 0, self.height > 0])
 
     def to_dict(self) -> dict:
         """Attributes of an obj in dict.
@@ -119,6 +119,11 @@ class Town:
         len_m = len(map)
         if not all([-len_m - 1 < building.coord_y - 1 < len_m, -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
             return 'Entered coordinates outside the map'
+        if not inf['map'][building.coord_y - 1][building.coord_x - 1] == 0:
+            print('-' * 100)
+            print('There is already a building on this place')
+            print('-' * 100)
+            return
         inf['map'][building.coord_y - 1][building.coord_x - 1] = building.name
         inf['building_{0}'.format(building.name)] = building.to_dict()
         with open(file_name, 'wt') as json_file:

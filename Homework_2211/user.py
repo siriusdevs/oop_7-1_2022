@@ -26,17 +26,25 @@ Go back(q)\n'))
                             print()
                     case 'ab':
                         name = input('Enter building name: ')
-                        height = float(input('Enter building hight: '))
-                        width = float(input('Enter building width: '))
-                        floors = int(input('Enter building floors: '))
-                        coord_x = int(input('Enter building coordinate x: '))
-                        coord_y = int(input('Enter building coordinate y: '))
+                        try:
+                            height = float(input('Enter building hight: '))
+                            width = float(input('Enter building width: '))
+                            floors = int(input('Enter building floors: '))
+                            coord_x = int(input('Enter building coordinate x: '))
+                            coord_y = int(input('Enter building coordinate y: '))
+                        except Exception:
+                            print('Enter correct data!')
+                            continue
                         building = buildWorker.Building(name, height, width, floors, coord_x, coord_y)
                         buildWorker.Town.add_building('{0}.json'.format(town), building)
 
                     case 'db':
                         name = input('Enter building\'s name for destroying: ')
-                        buildWorker.Town.destroy_building('{0}.json'.format(town), name)
+                        try:
+                            buildWorker.Town.destroy_building('{0}.json'.format(town), name)
+                        except Exception:
+                            print('No such a building')
+                            continue
 
                     case 'q':
                         break
@@ -50,8 +58,11 @@ Go back(q)\n'))
             print('-' * 50)
 
         case '3':
-            length = int(input('Enter lenght of the matrix: '))
-            width = int(input('Enter width of the matrix: '))
+            try:
+                length = int(input('Enter lenght of the matrix: '))
+                width = int(input('Enter width of the matrix: '))
+            except Exception:
+                print('Enter correct data')
             map = buildWorker.Map(length, width)
             name = input('Enter new town\'s name: ')
             buildWorker.Town.create_town(map, name)
