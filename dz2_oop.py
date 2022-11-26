@@ -110,3 +110,4 @@ class Circle:
         if type(self.radius) not in legalize:
             return False
         return self.radius > 0
+    
