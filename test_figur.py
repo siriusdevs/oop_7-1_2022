@@ -56,3 +56,4 @@ tests = [(2, 12.6), (3, 18.8)]
 def test_perimetr_circle(r, result):
     circle = Circle(r)
     assert circle.perimetr_circle() == result
+    
