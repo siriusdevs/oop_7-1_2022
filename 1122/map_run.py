@@ -16,14 +16,25 @@ def map_print():
         os.system('clear')
         print(str_matrix())
         motion = input('motion(add/remove/q) = ')
-        if motion == 'q':
-            return 'q'
-        if motion == 'add':
-            square = input('square = ')
-            height = input('height = ')
-        elif motion != 'remove0':
-            continue
-        x_pos = input('x_pos = ')
-        y_pos = input('y_pos = ')
-        if check_pos(x_pos) and check_pos(y_pos) and check_type(height) and check_type(height):
+        # if motion == 'q':
+        #     return 'q'
+        # if motion == 'add':
+        #     square = input('square = ')
+        #     height = input('height = ')
+        # if motion != 'remove':
+        #     continue
+        match motion:
+            case 'q':
+                return 'q'
+            case 'add':
+                square = input('square = ')
+                height = input('height = ')
+                x_pos = input('x_pos = ')
+                y_pos = input('y_pos = ')
+            case 'remove':
+                x_pos = input('x_pos = ')
+                y_pos = input('y_pos = ')
+            case _:
+                continue
+        if check_pos(x_pos) and check_pos(y_pos) and check_type(height) and check_type(square):
             street(House(int(x_pos), int(y_pos), int(square), int(height)), motion)
