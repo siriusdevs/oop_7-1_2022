@@ -24,7 +24,7 @@ class Triangle:
     """This is representation of triangle."""
 
     def __init__(self, side1: float, side2: float, side3: float) -> None:
-        """Initialization method.If this triangle doesn't exists raise's error.
+        """Initialization method.If this triangle doesn't exist raises error.
 
         Args:
             side1 (float): first side of triangle.
@@ -40,7 +40,7 @@ class Triangle:
             raise NotValidFigure('sides: {0}, {1}, {2}.'.format(self.side1, self.side2, self.side3))
 
     def perimeter(self) -> float:
-        """Count perimeter.Round it to the 2th digit after point.
+        """Counts perimeter.Rounds it to the 2nd digit after point.
 
         Returns:
             float: perimeter of triangle.
@@ -62,11 +62,14 @@ class Triangle:
         Returns:
             bool: True if this triangle exists else False.
         """
-        legalize = [int, float]
-        if type(self.side1) not in legalize or type(self.side2) not in legalize or type(self.side3) not in legalize:
-            return False
-        sides_list = sorted([self.side1, self.side2, self.side3])
-        return sides_list[2] < sides_list[1] + sides_list[0]
+        sides = [self.side1, self.side2, self.side3]
+        for side in sides:
+            if not isinstance(side, (int, float)):
+                return False
+            if side <= 0:
+                return False
+        sides.sort()
+        return sides[2] < sides[0] + sides[1]
 
 
 class Circle:
@@ -106,8 +109,9 @@ class Circle:
         Returns:
             bool: True if this circle exists else False.
         """
-        legalize = [int, float]
-        if type(self.radius) not in legalize:
+        if not isinstance(self.radius, (int, float)):
             return False
-        return self.radius > 0
+        elif self.radius <= 0:
+            return False
+        return True
     
