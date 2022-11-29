@@ -1,3 +1,4 @@
+"""This file for exceptions triangle."""
 from typing import List
 
 

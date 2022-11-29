@@ -1,5 +1,5 @@
+"""This file for tests of triangle."""
 from typing import List
-
 import pytest
 from triangle import Triangle
 from exeptions_for_triangle import TriangleInvalidSides

@@ -34,7 +34,6 @@ class Triangle:
         """
         This method checks if such a triangle exists.
         Этот метод проверяет существует-ли такой треугольник, а также правильность введенения данных.
-
         Args:
             a: float First side.
             десятичное число - Первая сторона.
