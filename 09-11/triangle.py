@@ -63,9 +63,9 @@ class Circle:
 
 
 
-a = Triangle(12, 10, 20)
-print('Perimetr:', a.perimetr(), 'Area:', a.area())
+triangle = Triangle(12, 10, 20)
+print('Perimetr:', triangle.perimetr(), 'Area:', triangle.area())
 
 
-d = Circle(5)
-print('length:', d.length(), 'Area:', d.area())
+circle = Circle(5)
+print('length:', circle.length(), 'Area:', circle.area())
