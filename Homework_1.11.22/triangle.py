@@ -50,8 +50,7 @@ class Triangle:
             InvalidTriangleSides: if triangle can't exist.
             Если такой треугольник не существует.
         """
-        if not isinstance(a, (float, int)) or not isinstance(b, (float, int)) \
-                or not isinstance(c, (float, int)):
+        if not isinstance(a, (float, int)) or not isinstance(b, (float, int)) or not isinstance(c, (float, int)):
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
         elif a <= 0 or b <= 0 or c <= 0:
             raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
