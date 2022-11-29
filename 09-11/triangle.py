@@ -3,7 +3,7 @@ import math
 
 class Triangle:
 
-    def __init__(self, side_a: float, side_b: float, side_c: float ) -> None:
+    def __init__(self, side_a: float, side_b: float, side_c: float) -> None:
         self.side_a = side_a
         self.side_b = side_b
         self.side_c = side_c
@@ -11,12 +11,12 @@ class Triangle:
             raise NotValidTriangle
 
     def perimetr(self) -> float:
-        return round ((self.side_a + self.side_b + self.side_c), 2)
+        return round((self.side_a + self.side_b + self.side_c), 2)
 
 
     def area(self) -> float:
         p = (self.side_a + self.side_b + self.side_c) / 2
-        return round((p * (p - self.side_a) * (p - self.side_b) * (p - self.side_c)))
+        return round((p * (p - self.side_a) * (p - self.side_b) * (p - self.side_c)), 2)
 
 
     def is_valid(self) -> bool:
@@ -32,10 +32,12 @@ class Triangle:
 
 
 class NotValidTriangle(Exception):
+
     pass 
 
 
 class NotValidCircle(Exception):
+
     pass 
 
 
@@ -56,7 +58,7 @@ class Circle:
     
 
     def is_valid(self) -> bool:
-        if isinstance(self.radius, float|int):
+        if isinstance(self.radius, float | int):
             return self.radius > 0
 
 
