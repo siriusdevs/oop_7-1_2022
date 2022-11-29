@@ -126,9 +126,3 @@ class Circle:
         """
         
         return round(2 * math.pi * self.radius, 2)
-<<<<<<< HEAD
-
-
-print(Circle(2).square())
-=======
->>>>>>> f16b5b7 (added docstrigs)
