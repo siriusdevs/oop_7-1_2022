@@ -1,5 +1,5 @@
+"""This file for triangle class"""
 from typing import List
-
 from exeptions_for_triangle import TriangleInvalidSides
 import math
 
