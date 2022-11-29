@@ -7,7 +7,7 @@ class NonexistentFigure(Exception):
     """This error means that the figure does not exist."""
 
     def __init__(self, value_except: any) -> None:
-        """This method takes a value of parties and remembers them.
+        """This method takes a value of sides and remembers them.
 
         Args:
             value_except (any): the value(s) that caused the error.
@@ -24,7 +24,7 @@ class Triangle:
     """This is a representation of a triangle."""
 
     def __init__(self, sides: List[float]) -> None:
-        """This method takes a list of parties and remembers them.
+        """This method takes a list of sides and remembers them.
 
         Arguments:
             sides (List(float)): sides of trinagle.
@@ -69,15 +69,7 @@ class Triangle:
                 sides = sorted(sd)
                 if sides[0] + sides[1] > sides[2]:
                     return sides[0] > 0 and sides[1] > 0 and sides[2] > 0
-                else:
-                    print("С сторонами такой длины треугольника не существует!")
-                    return False
-            else:
-                print("Сторонами треугольника должны быть числа!")
-                return False
-        else:
-            print("У треугольника три угла!")
-            return False
+        return False
 
 
 class Circle:
@@ -96,7 +88,7 @@ class Circle:
             raise NonexistentFigure(radius)
 
     def circumference(self) -> float:
-        """This method calculates the circumference.
+        """This method calculates the circumferenceand and rounds it to thousandths.
 
         Returns:
             float: circumference
@@ -117,9 +109,6 @@ class Circle:
         returns:
            bool: True if this circle exists, False otherwise.
         """
-        valid_type = (int, float)
-        if isinstance(self.radius, valid_type):
+        if isinstance(self.radius, (int, float)):
             return self.radius > 0
-        else:
-            print("Радиус должен быть числом!")
-            return False
+        return False

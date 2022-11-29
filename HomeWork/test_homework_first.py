@@ -1,10 +1,10 @@
 """Testing file."""
 import pytest
-from HomeWork.homework_first import Circle, Triangle, NonexistentFigure
+from homework_first import Circle, Triangle, NonexistentFigure
 
 
 test_triangle1 = [(['два', 1, 4], False), (["...", 7, 5], False),\
-                  ([6, "yeet", 5], False), ([-3, 4, 5], False)]
+                  ([6, 0, 5], False), ([-3, 4, 5], False)]
 
 
 @pytest.mark.xfail(raises=NonexistentFigure)
@@ -16,7 +16,7 @@ def test_trinagle_1(sides, expectation):
         sides (List[float]): sides of trinagle.
         expectation (bool): what we expect.
     """
-    assert Triangle(sides).isvalid(sides) == expectation
+    assert Triangle(sides).isvalid() == expectation
 
 
 test_circle1 = [("nine", False), (-9, False)]
@@ -26,7 +26,7 @@ test_circle1 = [("nine", False), (-9, False)]
 @pytest.mark.parametrize('radius, expectation', test_circle1)
 def test_circle_1(radius, expectation):
     """Test not valid circle."""
-    assert Circle(radius).isvalid(radius) == expectation
+    assert Circle(radius).isvalid() == expectation
 
 
 test_triangle2 = [([7.0, 5.0, 4.0], True), ([3.0, 3.0, 3.0], True), ([10.0, 8.0, 10.0], True)]
