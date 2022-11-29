@@ -105,6 +105,5 @@ class Triangle:
             десятичное число - площадь треугольника округлённая до двух знаков после запятой.
         """
         half_perimetr = self.get_perimeter() / 2
-        square = math.sqrt(
-            half_perimetr * (half_perimetr - self.sides[0]) * (half_perimetr - self.sides[1]) * (half_perimetr - self.sides[2]))
+        square = math.sqrt(half_perimetr * (half_perimetr - self.sides[0]) * (half_perimetr - self.sides[1]) * (half_perimetr - self.sides[2]))
         return round(square, 2)
