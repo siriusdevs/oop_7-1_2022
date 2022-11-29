@@ -7,6 +7,7 @@ class Circle:
     Class for create circle.
     Класс для создания круга.
     """
+
     def __init__(self, radius: float or int) -> None:
         """
         This function creates a circle.
@@ -23,6 +24,15 @@ class Circle:
 
     @classmethod
     def validation_circle(cls, radius: float or int) -> bool:
+        """
+        This method checks validation the circle.
+        Данный метод проверяет правильность круга.
+        Args:
+            radius: float or int - radius of circle.
+            десятичный или целочисленный - радиус круга.
+        Returns:
+            bool - if circle exist.
+        """
         if not isinstance(radius, (float, int)):
             raise ValueError("Radius must be float or int / Радиус должен быть целочисленным или десятичным")
         if radius <= 0:
