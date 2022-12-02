@@ -60,12 +60,10 @@ class Triangle:
         side1 = self.side1
         side2 = self.side2
         side3 = self.side3
-        sides = [self.side1, self.side2, self.side3]
-        for side in sides:
-            if not isinstance(side, (int, float)):
-                return False
-        if side1 > 0 and side2 > 0 and side3 > 0:
-            return side1 + side2 > side3 and side3 + side1 > side2 and side3 + side2 > side1
+        attrs = [side1, side2, side3]
+        if all((isinstance(attr, (int, float)) for attr in attrs)):
+            if side1 > 0 and side2 > 0 and side3 > 0:
+                return side1 + side2 > side3 and side3 + side1 > side2 and side3 + side2 > side1
         return False
 
 
@@ -102,7 +100,7 @@ class Circle:
         return round(res, 2)
 
     def is_valid(self):
-        """Check if the circle exists or not."""
+        """Check if the circle exists or not. If not, raises error message."""
         if not isinstance(self.radius, (int, float)):
             return False
         if self.radius > 0:

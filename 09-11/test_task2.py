@@ -81,8 +81,7 @@ check_circle = [(5), (4.4), (200)]
 @pytest.mark.parametrize('radius', check_circle)
 def test_circle(radius: float):
     """Test initialization method for circle."""
-    circle = Circle(radius)
-    assert circle.radius == radius
+    assert Circle(radius).radius == radius
 
 
 check_cir_len = [(5, 31.42), (4.4, 27.65), (200, 1256.64)]
@@ -91,8 +90,7 @@ check_cir_len = [(5, 31.42), (4.4, 27.65), (200, 1256.64)]
 @pytest.mark.parametrize('radius, back', check_cir_len)
 def test_circle_length(radius: float, back: float):
     """This test check the length of the circle."""
-    circle = Circle(radius)
-    assert circle.length() == back
+    assert Circle(radius).length() == back
 
 
 check_cir_area = [(5, 78.54), (4.4, 60.82), (200, 125663.71)]
@@ -101,5 +99,4 @@ check_cir_area = [(5, 78.54), (4.4, 60.82), (200, 125663.71)]
 @pytest.mark.parametrize('radius, back', check_cir_area)
 def test_circle_area(radius: float, back: float):
     """This test check the area of the circle."""
-    circle = Circle(radius)
-    assert circle.area() == back
+    assert Circle(radius).area() == back
