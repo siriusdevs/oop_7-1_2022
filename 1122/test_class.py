@@ -25,9 +25,3 @@ def xfail_test1():
 def xfail_test2():
     """Function must raise ValueError."""
     assert House(0, 0, 1, 0)
-
-
-@pytest.mark.skip()
-def xfail_test3():
-    """Function must create class object House."""
-    assert House(0, 0, 1, 1)

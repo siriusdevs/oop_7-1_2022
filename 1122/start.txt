@@ -1,2 +1,7 @@
 This program can fill map of houses in matrix with classes House(x_pos, y_pos, square, height).
 To start program you must input 'start' to create new map or 'load' to load map from json file
+Choose one
+--------------------------
+1) Create new map
+2) Load map
+--------------------------
