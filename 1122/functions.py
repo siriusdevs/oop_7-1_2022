@@ -34,7 +34,6 @@ def inp_json(file_name):
     import json
     import os
     from street import House
-    from setup import SIZE
     if os.path.isfile(file_name):
         with open(file_name, 'rt') as map_list:
             street_map = json.load(map_list)
