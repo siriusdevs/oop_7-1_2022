@@ -104,6 +104,23 @@ class Town:
         """
         with open(file_name, 'rt') as json_file:
             return load(json_file)['map']
+    
+    @staticmethod
+    def see_buildings(file_name: str, coordinates: str):
+        """Buildings of a town.
+
+        Args:
+            file_name: str - name of a town (in the same time name of json file).
+            coordinates: str - building\'s coordinates on the map
+        Returns:
+            dict: information about a building.
+        """
+        with open(file_name, 'rt') as json_file:
+            inform = load(json_file)
+            if coordinates in inform:
+                return inform[coordinates]
+            else:
+                return 'No such a building'
 
     @staticmethod
     def add_building(file_name: str, building: Building):
@@ -118,32 +135,33 @@ class Town:
         map = inf['map']
         len_m = len(map)
         if not all([-len_m - 1 < building.coord_y - 1 < len_m, -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
-            return 'Entered coordinates outside the map'
+            print('Entered coordinates outside the map')
+            return
         if not inf['map'][building.coord_y - 1][building.coord_x - 1] == 0:
             print('-' * 100)
             print('There is already a building on this place')
             print('-' * 100)
             return
-        inf['map'][building.coord_y - 1][building.coord_x - 1] = building.name
-        inf['building_{0}'.format(building.name)] = building.to_dict()
+        inf['map'][building.coord_y - 1][building.coord_x - 1] = 'X'
+        inf[(str(building.coord_y) + str(building.coord_x))] = building.to_dict()
         with open(file_name, 'wt') as json_file:
             dumps_inf = dumps(inf)
             json_file.write(dumps_inf)
 
     @staticmethod
-    def destroy_building(file_name, building_name):
+    def destroy_building(file_name: str, coordinates: str):
         """Function for destroying a building. Removes from json file information about building.
 
         Args:
             file_name: str - name of a town (in the same time name of json file).
-            building_name: Building - obj of class Building for destroyinf.
+            coordinates: str - building\'s coordinates on the map.
         """
         with open(file_name, 'rt') as json_file:
             inf = load(json_file)
-        coord_x = inf['building_{0}'.format(building_name)]['coord_x']
-        coord_y = inf['building_{0}'.format(building_name)]['coord_y']
+        coord_x = inf[coordinates]['coord_x']
+        coord_y = inf[coordinates]['coord_y']
         inf['map'][coord_y - 1][coord_x - 1] = 0
-        inf.pop('building_{0}'.format(building_name))
+        inf.pop(coordinates)
         with open(file_name, 'wt') as json_file:
             dumps_inf = dumps(inf)
             json_file.write(dumps_inf)
