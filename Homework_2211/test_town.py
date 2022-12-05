@@ -1,7 +1,6 @@
 """Testing buildWorker.py."""
 import buildWorker
 import pytest
-from json import load
 
 building_ptrs = [('Hello', 7, 6, 1, 2, 3), ('Second', 1.8, 3.2, 4, 1, 3)]
 
@@ -25,7 +24,7 @@ def test_building_ptrs(name, height, width, floors, coord_x, coord_y) -> None:
     assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).coord_x == coord_x
     assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).coord_y == coord_y
 
-    
+
 @pytest.mark.xfail(raises=buildWorker.BuildErr)
 def test_building_valid():
     """Tests for buildings' BuildErr."""
@@ -35,9 +34,10 @@ def test_building_valid():
         assert buildWorker.Building('Hi', 1, 3, -1, 3, 0)
     with pytest.raises(buildWorker.BuildErr):
         assert buildWorker.Building('Hi', -1, -3, 1, 3, 3)
-    
+
 
 map_ptrs = [(2, 3), (1, 4)]
+
 
 @pytest.mark.parametrize('length, width', map_ptrs)
 def test_map_ptrs(length, width) -> None:
@@ -49,6 +49,7 @@ def test_map_ptrs(length, width) -> None:
     """
     assert buildWorker.Map(length, width).length == length
     assert buildWorker.Map(length, width).width == width
+
 
 @pytest.mark.xfail(raises=buildWorker.MapErr)
 def test_map_valid():
@@ -66,11 +67,13 @@ def test_maps() -> None:
     for hi in buildWorker.Town.maps():
         assert isinstance(hi[0], str)
 
+
 def test_see_map() -> None:
     """Test for see_map."""
     for hi in buildWorker.Town.see_map('{}.json'.format(buildWorker.Town.maps()[0][0])):
         for ih in hi:
             assert ih == 0 or ih == 'X'
+
 
 @pytest.mark.xfail(raises=Exception)
 def test_see_map_r() -> None:
@@ -79,10 +82,12 @@ def test_see_map_r() -> None:
         for ih in hi:
             assert ih == 0 or ih == 'X'
 
+
 see_build_prts = [('22', {
-        "name" : "School", 
-        "Floors" : 4
-    }), ('23', 'No such a building')]
+    "name": "School",
+    "Floors": 4
+}), ('23', 'No such a building')]
+
 
 @pytest.mark.parametrize('coordinates, information', see_build_prts)
 def test_see_build_ptrs(coordinates, information) -> None:
