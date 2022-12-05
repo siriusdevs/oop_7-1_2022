@@ -35,12 +35,12 @@ class House:
                and all([self.square, self.height]) > 0 and 0 <= self.x_pos <= SIZE and 0 <= self.y_pos <= SIZE
 
 
-def street(new_house, file_name, motion: str = '1'):
-    """Function which controls file and matrix motions.
+def street(new_house, file_name, action: str = '1'):
+    """Function which controls file and matrix actions.
 
     Args:
         new_house: House - class which function must add/remove.
-        motion: str - what function must do.
+        action: str - what function must do.
         file_name: str - path to json file.
     """
     import json
@@ -48,10 +48,10 @@ def street(new_house, file_name, motion: str = '1'):
 
     houses = inp_json(file_name)
     map_matrix = lst_matrix(file_name)
-    if motion == '1' and map_matrix[new_house.y_pos][new_house.x_pos] == 0:
+    if action == '1' and map_matrix[new_house.y_pos][new_house.x_pos] == 0:
         map_matrix[new_house.y_pos][new_house.x_pos] = 1
         houses.append(new_house)
-    if motion == '2':
+    if action == '2':
         map_matrix[new_house.y_pos][new_house.x_pos] = 0
         for cls_class in houses:
             if cls_class.x_pos == new_house.x_pos and cls_class.y_pos == new_house.y_pos:

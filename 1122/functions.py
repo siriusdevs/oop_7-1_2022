@@ -1,21 +1,24 @@
 """File with functions for other files."""
 
 
-def check_pos(num):
+def check(num, left_bound=0, right_bound=None):
     """Function checks number for valid.
 
     Args:
         num: str - position x or y.
+        left_bound: int - numbers could not be lower left_bound.
+        right_bound: int - numbers could not be larger right_bound.
 
     Returns:
         bool - if num is valid.
     """
-    from setup import SIZE
     try:
         num = int(num)
     except ValueError:
         return False
-    return 0 <= num <= SIZE - 1
+    if right_bound:
+        return left_bound <= num <= right_bound
+    return left_bound < num
 
 
 def inp_json(file_name):
@@ -31,13 +34,14 @@ def inp_json(file_name):
     import json
     import os
     from street import House
+    from setup import SIZE
     if os.path.isfile(file_name):
         with open(file_name, 'rt') as map_list:
             street_map = json.load(map_list)
             ans = []
             for line in street_map.values():
                 arr = list(str(line).replace(',', '').replace('(', '').replace(')', '').split())
-                ans.append([int(lst) for lst in arr if check_pos(lst)])
+                ans.append([int(lst) for lst in arr if check(lst, 0)])
             return [House(*lst) for lst in ans]
     return []
 

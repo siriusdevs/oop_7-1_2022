@@ -1,6 +1,26 @@
 """File with function which prints matrix."""
 
 
+message = 'House: {0}\nposition: ({1}, {2})\nheight: {3}\nsquare: {4}'
+
+
+def show_house(file_name, position):
+    """Function which shows parameters of house.
+
+    Args:
+        file_name: str - name of file with json.
+        position: tuple - coordinates x and y.
+    """
+    from functions import inp_json
+    import time
+    for cls_class in inp_json(file_name):
+        if cls_class.x_pos == int(position[0]) and cls_class.y_pos == int(position[1]):
+            args = [cls_class, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
+            print(args)
+            print(''.join(message).format(*args))
+            time.sleep(3)
+
+
 def map_print(file_name):
     """Function which prints and adds houses map.
 
@@ -14,42 +34,25 @@ def map_print(file_name):
     from street import street, House
     import time
     from setup import SIZE
-    from functions import str_matrix, check_pos, inp_json
+    from functions import str_matrix, check
     while True:
         time.sleep(0.5)
         os.system('clear')
         print(' ' * (SIZE // 2) + file_name)
         print(str_matrix(file_name))
-        motion = input('motion:\n1) add\n2) remove\n3) show house\n4) q\n:')
-        match motion:
+        action = input('action:\n1) add\n2) remove\n3) show house\n4) q\n:')
+        position = (input('x_pos = '), input('y_pos = '))
+        match action:
             case '4':
                 return 'q'
             case '1':
-                square = input('square = ')
-                height = input('height = ')
-                x_pos = input('x_pos = ')
-                y_pos = input('y_pos = ')
+                size = (input('square = '), input('height = '))
             case '2':
-                square = 1
-                height = 1
-                x_pos = input('x_pos = ')
-                y_pos = input('y_pos = ')
+                size = (1, 1)
             case '3':
-                x_pos = input('x_pos = ')
-                y_pos = input('y_pos = ')
-                for cls_class in inp_json(file_name):
-                    # Если честно, то мне самому не по себе из-за этих строк кода, но flake8 только так пропускает
-                    if cls_class.x_pos == int(x_pos) and cls_class.y_pos == int(y_pos):
-                        print(''.join(['House: {0}\nposition: ({1}, {2})\nheight: {3}\n',
-                              'square: {4}'
-                                       ]
-                                      ).format(cls_class, cls_class.x_pos, cls_class.y_pos,
-                                                     cls_class.height, cls_class.square
-                                               ),
-                              )
-                        time.sleep(3)
+                show_house(file_name, position)
                 continue
             case _:
                 continue
-        if check_pos(x_pos) and check_pos(y_pos) and check_pos(height) and check_pos(square):
-            street(House(int(x_pos), int(y_pos), int(square), int(height)), file_name, motion)
+        if check(position[0], 0, SIZE - 1) and check(position[1], 0, SIZE - 1) and check(size[1]) and check(size[0]):
+            street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0])), file_name, action)
