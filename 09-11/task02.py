@@ -103,5 +103,4 @@ class Circle:
         """Check if the circle exists or not. If not, raises error message."""
         if not isinstance(self.radius, (int, float)):
             return False
-        if self.radius > 0:
-            return True
+        return self.radius > 0
