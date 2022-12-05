@@ -43,7 +43,10 @@ class Building:
 
     def is_valid(self) -> bool:
         """Check attributes for obj in class."""
-        return all([self.floors > 0, self.width > 0, self.height > 0])
+        if all([isinstance(self.name, str), isinstance(self.height, (int, float)), isinstance(self.width, (int, float))]):
+            if all([isinstance(self.floors, int), isinstance(self.coord_x, int), isinstance(self.coord_y, int)]):
+                return all([self.floors > 0, self.width > 0, self.height > 0])
+        return False
 
     def to_dict(self) -> dict:
         """Attributes of an obj in dict.
@@ -75,7 +78,9 @@ class Map:
 
     def is_valid(self) -> bool:
         """Check attributes for obj in class."""
-        return self.length > 0 and self.width > 0
+        if all([isinstance(self.length, int), isinstance(self.width, int)]):
+            return self.length > 0 and self.width > 0
+        return False
 
 
 class Town:
@@ -136,12 +141,12 @@ class Town:
         len_m = len(map)
         if not all([-len_m - 1 < building.coord_y - 1 < len_m, -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
             print('Entered coordinates outside the map')
-            return
+            return None
         if not inf['map'][building.coord_y - 1][building.coord_x - 1] == 0:
             print('-' * 100)
             print('There is already a building on this place')
             print('-' * 100)
-            return
+            return None
         inf['map'][building.coord_y - 1][building.coord_x - 1] = 'X'
         inf[(str(building.coord_y) + str(building.coord_x))] = building.to_dict()
         with open(file_name, 'wt') as json_file:
