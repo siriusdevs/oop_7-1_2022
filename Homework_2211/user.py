@@ -17,17 +17,18 @@ exit - q \n')
             town = int(input('Please, choose a town: '))
             town = buildWorker.Town.maps()[town][0]
             while True:
-                choice = input(('Do you want to see map (1) or inform about building(2), add a building (3) or destroy a building (4)?\n\
+                choice = input(('Do you want to see map(1) or inform about building(2), add a building (3) or destroy a building (4)?\n\
 Go back(q)\n'))
                 match choice:
                     case '2':
                         try:
                             x_coord = int(input('Enter building\' x coordinate on the map: '))
                             y_coord = int(input('Enter building\' y coordinate on the map: '))
-                        except:
+                        except Exception:
                             print('Enter correct data!')
                             continue
-                        information = buildWorker.Town.see_buildings('{0}.json'.format(town), str(y_coord) + str(x_coord))
+                        key = str(y_coord) + str(x_coord)
+                        information = buildWorker.Town.see_buildings('{0}.json'.format(town), key)
                         if isinstance(information, dict):
                             for hi in information:
                                 print('{} - {}'.format(hi, information[hi]))
@@ -56,7 +57,7 @@ Go back(q)\n'))
                         try:
                             x_coord = int(input('Enter building\' x coordinate on the map: '))
                             y_coord = int(input('Enter building\' y coordinate on the map: '))
-                        except:
+                        except Exception:
                             print('Enter correct data!')
                         try:
                             buildWorker.Town.destroy_building('{0}.json'.format(town), str(y_coord) + str(x_coord))

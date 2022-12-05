@@ -104,7 +104,7 @@ class Town:
         """
         with open(file_name, 'rt') as json_file:
             return load(json_file)['map']
-    
+
     @staticmethod
     def see_buildings(file_name: str, coordinates: str):
         """Buildings of a town.
