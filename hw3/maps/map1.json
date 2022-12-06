@@ -1,0 +1,29 @@
+{
+    "length": 4,
+    "width": 3,
+    "map_list": [
+        [
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            1,
+            0
+        ],
+        [
+            0,
+            0,
+            0
+        ]
+    ],
+    "buildings": {
+        "building1": "Height: 3, area: 10, floors: 1\nLocation: (3, 2)"
+    }
+}
