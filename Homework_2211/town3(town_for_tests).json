@@ -1,7 +1,7 @@
 {
     "map": [
         [
-            "X",
+            0,
             0,
             0,
             0
@@ -15,28 +15,12 @@
         [
             0,
             0,
-            "X",
+            0,
             0
         ]
     ],
-    "11": {
-        "name": "Max",
-        "height": 1,
-        "width": 1,
-        "floors": 1,
-        "coord_x": 1,
-        "coord_y": 1
-    },
-    "33": {
-        "name": "Kirill",
-        "height": 1,
-        "width": 1,
-        "floors": 1,
-        "coord_x": 3,
-        "coord_y": 3
-    },
     "22": {
-        "name" : "School", 
-        "Floors" : 4
+        "name": "School",
+        "Floors": 4
     }
 }

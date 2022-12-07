@@ -1,6 +1,8 @@
 """Testing buildWorker.py."""
 import buildWorker
 import pytest
+from time import sleep
+from json import load 
 
 building_ptrs = [('Hello', 7, 6, 1, 2, 3), ('Second', 1.8, 3.2, 4, 1, 3)]
 
@@ -100,17 +102,22 @@ def test_see_build_ptrs(coordinates, information) -> None:
     file_name = 'town3(town_for_tests).json'
     assert buildWorker.Town.see_buildings(file_name, coordinates) == information
 
-# add_building_prts = [buildWorker.Building('Max', 1, 1, 1, 1, 1), buildWorker.Building('Kirill', 1, 1, 1, 3, 3)]
+add_building_prts = [buildWorker.Building('Max', 1, 1, 1, 1, 1), buildWorker.Building('Kirill', 1, 1, 1, 3, 3)]
 
-# @pytest.mark.parametrize('building', add_building_prts)
-# def test_add_building(building) -> None:
-#     """Test for add_building.
+@pytest.mark.parametrize('building', add_building_prts)
+def test_add_building(building) -> None:
+    """Test for add_building.
 
-#     Args:
-#         building - building for addition.
-#     """
-#     file_name = 'town3(town_for_tests).json'
-#     with open(file_name, 'rt') as json_file:
-#             inf = load(json_file)
-#     buildWorker.Town.add_building(file_name, building)
-#     assert str(building.coord_y) + str(building.coord_x) in inf
+    Args:
+        building - building for addition.
+    """
+    file_name = 'town3(town_for_tests).json'
+    buildWorker.Town.add_building(file_name, building)
+    coordinates = str(building.coord_y) + str(building.coord_x)
+    with open(file_name, 'rt') as json_file:
+            inf = load(json_file)
+    assert coordinates in inf
+    buildWorker.Town.destroy_building(file_name, coordinates)
+    with open(file_name, 'rt') as json_file:
+            inf = load(json_file)
+    assert not (coordinates in inf)
