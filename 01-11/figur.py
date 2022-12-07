@@ -1,36 +1,74 @@
+"""the figure function"""
 import math
 
 
 class Triangle:
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+    """This is triangle perimetr and area."""
 
-    def perimetr(self):
-        return self.a + self.b + self.c
+    def __init__(self, a_side: float, b_side: float, c_side: float) -> None:
+        """Initialization method.
 
-    def area(self):
-        p = (self.a + self.b + self.c) / 2
-        s = math.sqrt(p * (p - self.a) * (p - self.b) * (p - self.c))
-        return s
+        Args:
+            a_side(float): first side of triangle
+            b_side(float): second side of triangle
+            c_side(float): third side of triangle
+        """
+        self.a_side = a_side
+        self.b_side = b_side
+        self.c_side = c_side
+
+    def perimetr(self) -> None:
+        """The perimetr of triangle.
+
+        Returns:
+            perimetr(float).
+        """
+        return self.a_side + self.b_side + self.c_side
+
+    def area(self) -> None:
+        """The area of triangle
+
+        Returns:
+            area(foat).
+        """
+        pol = (self.a_side + self.b_side + self.c_side) / 2
+        squ = math.sqrt(pol * (pol - self.a_side) * (pol - self.b_side) * (pol - self.c_side))
+        return squ
+
 
 class Circle:
-    def __init__(self, r):
-        self.r = r
+    """This is area and length(perimetr) of circle."""
 
-    def area_circle(self):
-        return round(math.pi * (self.r**2), 1)
-    
-    
-    def perimetr_circle(self):
-        return round(2 * math.pi * self.r, 1)
-        
+    def __init__(self, radius: float) -> None:
+        """Initialization method.
+
+        Args:
+            radius(float): radius of circle.
+        """
+        self.radius = radius
+
+    def area_circle(self) -> None:
+        """The area of circle.
+
+        Returns:
+            area(float).
+        """
+        return round(math.pi * (self.radius**2), 1)
+
+    def perimetr_circle(self) -> None:
+        """The length(perimetr) of circle.
+
+        Returns:
+            perimetr(float): length of circle.
+        """
+        return round(2 * math.pi * self.radius, 1)
 
 
 triangle = Triangle(6, 12, 10)
 circle = Circle(3)
-print("Площадь круга",round(circle.area_circle(), 1))
+
+
+print("Площадь круга", round(circle.area_circle(), 1))
 print("Длина окружности", round(circle.perimetr_circle(), 1))
-print("Периметр треугольника" ,triangle.perimetr())
+print("Периметр треугольника", triangle.perimetr())
 print("Площадь треугольника", round(triangle.area(), 1))
