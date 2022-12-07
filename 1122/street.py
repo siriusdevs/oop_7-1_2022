@@ -4,7 +4,7 @@
 class House:
     """Class creates houses."""
 
-    def __init__(self, x_pos: int = 0, y_pos: int = 0, square: int = 1, height: int = 1):
+    def __init__(self, x_pos: int = 0, y_pos: int = 0, square: int = 1, height: int = 1, name: str = 'new_obj'):
         """Function initialises parameters of houses and checks them.
 
         Args:
@@ -12,6 +12,7 @@ class House:
             y_pos: int - y coordinate.
             square: int - first parameter of house.
             height: int - second parameter of house.
+            name: str - name of house.
 
         Raises:
             ValueError: Exception - error if function check False.
@@ -20,6 +21,7 @@ class House:
         self.height = height
         self.x_pos = x_pos
         self.y_pos = y_pos
+        self.name = name
         if not self.check():
             raise ValueError
 
@@ -58,7 +60,8 @@ def street(new_house, file_name, action: str = '1'):
                 houses.remove(cls_class)
 
     with open(file_name, 'w') as map_list:
-        map_list.write(json.dumps({str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height)) for ind in houses}))
+        class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.name)) for ind in houses}
+        map_list.write(json.dumps(class_obj))
 
 
 if __name__ == '__main__':

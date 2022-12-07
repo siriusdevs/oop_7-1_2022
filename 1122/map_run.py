@@ -4,6 +4,15 @@
 message = 'House: {0}\nposition: ({1}, {2})\nheight: {3}\nsquare: {4}'
 
 
+def house():
+    """Function for interrupt flake error.
+
+    Returns:
+        str - name of house.
+    """
+    return input('name = ')
+
+
 def show_house(file_name, position):
     """Function which shows parameters of house.
 
@@ -15,8 +24,7 @@ def show_house(file_name, position):
     import time
     for cls_class in inp_json(file_name):
         if cls_class.x_pos == int(position[0]) and cls_class.y_pos == int(position[1]):
-            args = [cls_class, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
-            print(args)
+            args = [cls_class.name, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
             print(''.join(message).format(*args))
             time.sleep(3)
 
@@ -40,11 +48,12 @@ def map_print(file_name):
         os.system('clear')
         print(' ' * (SIZE // 2) + file_name)
         print(str_matrix(file_name))
-        action = input('action:\n1) add\n2) remove\n3) show house\n4) q\n:')
-        position = (input('x_pos = '), input('y_pos = '))
+        action = input('action:\n1) add\n2) remove\n3) show house\n4) quit\n:')
+        if action == '4':
+            return 'q'
+        if action in {'1', '2', '3'}:
+            position = (input('x_pos = '), input('y_pos = '))
         match action:
-            case '4':
-                return 'q'
             case '1':
                 size = (input('square = '), input('height = '))
             case '2':
@@ -55,4 +64,4 @@ def map_print(file_name):
             case _:
                 continue
         if check(position[0], 0, SIZE - 1) and check(position[1], 0, SIZE - 1) and check(size[1]) and check(size[0]):
-            street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0])), file_name, action)
+            street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0]), house()), file_name, action)

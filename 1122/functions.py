@@ -39,8 +39,8 @@ def inp_json(file_name):
             street_map = json.load(map_list)
             ans = []
             for line in street_map.values():
-                arr = list(str(line).replace(',', '').replace('(', '').replace(')', '').split())
-                ans.append([int(lst) for lst in arr if check(lst, 0)])
+                arr = list(str(line).replace(',', '').replace('(', '').replace(')', '').replace("'", "").split())
+                ans.append([int(lst) for lst in arr[:-1] if check(lst, 0)] + list(arr[-1]))
             return [House(*lst) for lst in ans]
     return []
 
