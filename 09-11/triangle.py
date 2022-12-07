@@ -106,7 +106,7 @@ class Circle:
         Returns:
             bool: if the circle is correct True else False
         """
-        if isinstance(self.radius, float | int):
+        if isinstance(self.radius, float|int):
             return self.radius > 0
 
 
