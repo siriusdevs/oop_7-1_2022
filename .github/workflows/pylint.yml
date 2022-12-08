@@ -37,5 +37,3 @@ jobs:
         cd Homework_0111
         pytest
         cd ..
-        pytest hairdresser_hw_0612.py
-
