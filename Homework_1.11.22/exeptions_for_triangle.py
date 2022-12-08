@@ -34,5 +34,8 @@ class InvalidCountSidesOfTriangle(Exception):
             sides: list - of sides of a triangle.
             список - список со сторонами треугольника.
         """
-        super().__init__("Invalid count of sides in triangle: {0}.\
-            Неправильное количество сторон треугольника: {0}".format(sides))
+        super().__init__(
+            "Invalid count of sides in triangle: {0}. Неправильное количество сторон треугольника: {0}".format(
+                sides
+            )
+        )
