@@ -16,8 +16,8 @@ class TriangleInvalidSides(Exception):
             sides: list - of sides of a triangle.
             список - список со сторонами треугольника.
         """
-        super().__init__("Triangle with sides: {0}, {1}, {2} - can't exist. \
-        Треугольник со сторонами: {0}, {1}, {2} - не существует.".format(*sides))
+        super().__init__("Triangle with sides: {0}, {1}, {2} - can't exist.\
+            Треугольник со сторонами: {0}, {1}, {2} - не существует.".format(*sides))
 
 
 class InvalidCountSidesOfTriangle(Exception):
@@ -34,5 +34,5 @@ class InvalidCountSidesOfTriangle(Exception):
             sides: list - of sides of a triangle.
             список - список со сторонами треугольника.
         """
-        super().__init__("Invalid count of sides in triangle: {0}. \
-        Неправильное количество сторон треугольника: {0}".format(sides))
+        super().__init__("Invalid count of sides in triangle: {0}.\
+            Неправильное количество сторон треугольника: {0}".format(sides))
