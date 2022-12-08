@@ -2,7 +2,7 @@
 import math
 
 
-class Circle:
+class Circle(object):
     """
     Class for create circle.
     Класс для создания круга.

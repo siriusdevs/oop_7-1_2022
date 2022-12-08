@@ -1,10 +1,10 @@
 """This file for triangle class."""
 from typing import List
 from exeptions_for_triangle import TriangleInvalidSides
-import math
+from math import sqrt
 
 
-class Triangle:
+class Triangle(object):
     """
     This class create triangle.
     Данный класс создаёт треугольник.
@@ -21,11 +21,6 @@ class Triangle:
             десятичная или целочисленная сторона
             c: float or int side.
             десятичная или целочисленная сторона
-        Raises:
-            ValueError: if any of the sides is not float or int or <= 0.
-            Если любая сторона не десятичная или не целочисленная или меньше или равна 0.
-            InvalidTriangleSides: if triangle can't exist.
-            Если такой треугольник не существует.
         """
         self.sides = [a, b, c]
 
@@ -80,7 +75,8 @@ class Triangle:
         Raises:
             ValueError: If a triangle has more or less than three sides.
         """
-        if len(new_sides) == 3:
+        value_of_sides = 3
+        if len(new_sides) == value_of_sides:
             if self.validation_triangle(new_sides[0], new_sides[1], new_sides[2]):
                 self.__sides = new_sides
         else:
@@ -105,5 +101,6 @@ class Triangle:
             десятичное число - площадь треугольника округлённая до двух знаков после запятой.
         """
         half_perimetr = self.get_perimeter() / 2
-        square = math.sqrt(half_perimetr * (half_perimetr - self.sides[0]) * (half_perimetr - self.sides[1]) * (half_perimetr - self.sides[2]))
+        square = sqrt(half_perimetr * (half_perimetr - self.sides[0]) * \
+                      (half_perimetr - self.sides[1]) * (half_perimetr - self.sides[2]))
         return round(square, 2)
