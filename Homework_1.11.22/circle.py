@@ -38,7 +38,7 @@ class Circle(object):
         if radius <= 0:
             raise ValueError(
                 "Radius must not be less than or equal to zero. \
-                Радиус не должен быть меньше или равен нулю.")
+            Радиус не должен быть меньше или равен нулю.")
         return True
 
     @property
