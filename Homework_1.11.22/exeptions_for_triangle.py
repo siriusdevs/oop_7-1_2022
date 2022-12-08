@@ -18,9 +18,7 @@ class TriangleInvalidSides(Exception):
         """
         super().__init__(
             "Triangle with sides: {0}, {1}, {2} - can't exist.\
-                Треугольник со сторонами: {0}, {1}, {2} - не существует.".format(
-                *sides
-            )
+            Треугольник со сторонами: {0}, {1}, {2} - не существует.".format(*sides)
         )
 
 
