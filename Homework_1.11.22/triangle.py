@@ -104,8 +104,7 @@ class Triangle(object):
         """
         half_perimetr = self.get_perimeter() / 2
         square = sqrt(
-            half_perimetr * (half_perimetr - self.sides[0]) *
-            (half_perimetr - self.sides[1]) *
-            (half_perimetr - self.sides[2])
-        )
+            half_perimetr * (half_perimetr - self.sides[0])
+            * (half_perimetr - self.sides[1])
+            * (half_perimetr - self.sides[2]))
         return round(square, 2)
