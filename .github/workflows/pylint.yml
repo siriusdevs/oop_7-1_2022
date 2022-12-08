@@ -31,10 +31,10 @@ jobs:
         pip install pytest==6.2.5
     - name: Pytest
       run: |
-      	cd hw1/
-      	pytest
-      	cd ..
-      	cd hw3/
-      	pytest
-      	cd ..
+        cd hw1
+        pytest
+        cd ..
+        cd hw3
+        pytest
+        cd ..
 
