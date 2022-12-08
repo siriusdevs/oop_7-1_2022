@@ -36,8 +36,10 @@ class Circle(object):
         if not isinstance(radius, (float, int)):
             raise ValueError("Radius must be float or int / Радиус должен быть целочисленным или десятичным")
         if radius <= 0:
-            raise ValueError("Radius must not be less than or equal to zero. \
-                Радиус не должен быть меньше или равен нулю.")
+            raise ValueError(
+                "Radius must not be less than or equal to zero. \
+                    Радиус не должен быть меньше или равен нулю."
+            )
         return True
 
     @property

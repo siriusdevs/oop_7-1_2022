@@ -45,7 +45,12 @@ class Triangle(object):
             InvalidTriangleSides: if triangle can't exist.
             Если такой треугольник не существует.
         """
-        if not isinstance(side_a, (float, int)) or not isinstance(side_b, (float, int)) or not isinstance(side_c, (float, int)):
+        if not isinstance(
+                side_a, (float, int)) or not \
+                isinstance(
+                    side_b, (float, int)) or not \
+                isinstance(
+                    side_c, (float, int)):
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
         elif side_a <= 0 or side_b <= 0 or side_c <= 0:
             raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
@@ -101,6 +106,9 @@ class Triangle(object):
             десятичное число - площадь треугольника округлённая до двух знаков после запятой.
         """
         half_perimetr = self.get_perimeter() / 2
-        square = sqrt(half_perimetr * (half_perimetr - self.sides[0]) * \
-                      (half_perimetr - self.sides[1]) * (half_perimetr - self.sides[2]))
+        square = sqrt(
+            half_perimetr * (half_perimetr - self.sides[0]) *
+            (half_perimetr - self.sides[1]) *
+            (half_perimetr - self.sides[2])
+        )
         return round(square, 2)
