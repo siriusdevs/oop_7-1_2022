@@ -10,31 +10,31 @@ class Triangle(object):
     Данный класс создаёт треугольник.
     """
 
-    def __init__(self, a: float or int, b: float or int, c: float or int) -> None:
+    def __init__(self, side_a: float or int, side_b: float or int, side_c: float or int) -> None:
         """
         This method creates a triangle.
         Этот метод создаёт треугольник.
         Args:
-            a: float or int side.
+            side_a: float or int side.
             десятичная или целочисленная сторона
-            b: float or int side.
+            side_b: float or int side.
             десятичная или целочисленная сторона
-            c: float or int side.
+            side_c: float or int side.
             десятичная или целочисленная сторона
         """
-        self.sides = [a, b, c]
+        self.sides = [side_a, side_b, side_c]
 
     @classmethod
-    def validation_triangle(cls, a: float or int, b: float or int, c: float or int) -> bool:
+    def validation_triangle(cls, side_a: float or int, side_b: float or int, side_c: float or int) -> bool:
         """
         This method checks if such a triangle exists.
         Этот метод проверяет существует-ли такой треугольник, а также правильность введенения данных.
         Args:
-            a: float First side.
+            side_a: float First side.
             десятичное число - Первая сторона.
-            b: float Second side.
+            side_b: float Second side.
             десятичное число - Вторая сторона.
-            c: float Third side.
+            side_c: float Third side.
             десятичное число - Третья сторона.
         Return:
             bool: if triangle is exist or ist exist
@@ -45,12 +45,12 @@ class Triangle(object):
             InvalidTriangleSides: if triangle can't exist.
             Если такой треугольник не существует.
         """
-        if not isinstance(a, (float, int)) or not isinstance(b, (float, int)) or not isinstance(c, (float, int)):
+        if not isinstance(side_a, (float, int)) or not isinstance(side_b, (float, int)) or not isinstance(side_c, (float, int)):
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
-        elif a <= 0 or b <= 0 or c <= 0:
+        elif side_a <= 0 or side_b <= 0 or side_c <= 0:
             raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
-        elif not (a + b > c and a + c > b and b + c > a):
-            raise TriangleInvalidSides([a, b, c])
+        elif not (side_a + side_b > side_c and side_a + side_c > side_b and side_b + side_c > side_a):
+            raise TriangleInvalidSides([side_a, side_b, side_c])
         return True
 
     @property
@@ -62,7 +62,7 @@ class Triangle(object):
             List[float] - current value of sides.
             Список десятичных чисел - настоящее значение сторон.
         """
-        return self.__sides
+        return self._sides
 
     @sides.setter
     def sides(self, new_sides: List[float or int]) -> None:
@@ -78,7 +78,7 @@ class Triangle(object):
         value_of_sides = 3
         if len(new_sides) == value_of_sides:
             if self.validation_triangle(new_sides[0], new_sides[1], new_sides[2]):
-                self.__sides = new_sides
+                self._sides = new_sides
         else:
             raise ValueError("Triangle always has 3 sides. / У треугольника всегда 3 стороны.")
 

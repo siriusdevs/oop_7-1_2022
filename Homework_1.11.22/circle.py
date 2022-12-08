@@ -20,7 +20,7 @@ class Circle(object):
             Если радиус окружности не десятичный или не целочисленный или меньше или равен 0.
         """
         if self.validation_circle(radius):
-            self.__radius = radius
+            self._radius = radius
 
     @classmethod
     def validation_circle(cls, radius: float or int) -> bool:
@@ -37,7 +37,7 @@ class Circle(object):
             raise ValueError("Radius must be float or int / Радиус должен быть целочисленным или десятичным")
         if radius <= 0:
             raise ValueError("Radius must not be less than or equal to zero. \
-             Радиус не должен быть меньше или равен нулю.")
+                Радиус не должен быть меньше или равен нулю.")
         return True
 
     @property
@@ -49,7 +49,7 @@ class Circle(object):
             float - current of circle radius.
             десятичное число - настоящее значение радиуса круга.
         """
-        return self.__radius
+        return self._radius
 
     @radius.setter
     def radius(self, new_radius: float or int) -> None:
@@ -64,7 +64,7 @@ class Circle(object):
             Если новый радиус окружности не десятичный или не целочисленный или меньше или равен 0.
         """
         if self.validation_circle(new_radius):
-            self.__radius = new_radius
+            self._radius = new_radius
 
     def get_circle_length(self) -> float:
         """
