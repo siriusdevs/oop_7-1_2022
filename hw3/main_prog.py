@@ -139,6 +139,7 @@ def build(map_file: str) -> None:
             print('There is nothing to delete.')
 
 
+# Start the programm
 if __name__ == '__main__':
     while True:
         curr_map = choose_map()
