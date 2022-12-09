@@ -30,4 +30,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest==6.2.5
     - name: Pytest
+<<<<<<< HEAD
       run: pytest
+=======
+      run: |
+        cd Homework_2211
+        pytest
+        cd ..
+        cd Homework_0111
+        pytest
+        cd ..
+>>>>>>> 08e4fd4a16be1814d5d782ef1a2965e68ac19ce0
