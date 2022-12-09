@@ -10,13 +10,13 @@ class Client:
 
 class Hairdresser:
     TIMEOUT = 10
-    WORK_INTERVAL = (2, 5)
+    WORK_INTERVAL = (3, 4)
 
     def __init__(self) -> None:
         self.__client_came = Event()
 
     def work(self):
-        print('Hairdresser is ready to work')
+        print('Hairdresser is sleeping')
         result = self.__client_came.wait(timeout=Hairdresser.TIMEOUT)
         return result
 
@@ -54,6 +54,7 @@ class Salon:
         while True:
             self.mutex.acquire()
             if self.__queue.empty():
+                self.mutex.release()
                 work_result = self.__worker.work()
                 if not work_result:
                     self.close()
@@ -64,8 +65,8 @@ class Salon:
                 self.__worker.greet(client)
 
     def enter(self, client):
-        print(f'Client {client.name} has entered the salon')
         with self.mutex:
+            print(f'Client {client.name} has entered the salon')
             if self.__queue.full():
                 print(f'Client {client.name} sees full queue and leaves')
             else:
@@ -74,8 +75,8 @@ class Salon:
                 self.__worker.call()
 
 
-SIZE_QUEUE = 3
-ENTER_TIME_INTERVAL = (1, 3)
+SIZE_QUEUE = 1
+ENTER_TIME_INTERVAL = (2, 4)
 
 if __name__ == '__main__':
 
