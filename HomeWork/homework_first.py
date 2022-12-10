@@ -65,7 +65,7 @@ class Triangle:
         sd = self.sides
         val_type = (int, float)
         if len(sd) == 3:
-            if isinstance(sd[0], val_type) and isinstance(sd[1], val_type) and isinstance(sd[2], val_type):
+            if all([isinstance(x, val_type) for x in sd]):
                 sides = sorted(sd)
                 if sides[0] + sides[1] > sides[2]:
                     return sides[0] > 0 and sides[1] > 0 and sides[2] > 0
