@@ -51,7 +51,7 @@ class Barber:
         """Make the barber sleep until the client comes.
 
         Returns:
-            bool: 
+            bool: if the client comes or the timeout works
         """
         print('Barber sleeps')
         return self.__client_came.wait(timeout=Barber.timeout)
@@ -85,7 +85,11 @@ class Barbershop:
     """Representation of a barbershop."""
 
     def __init__(self, q_size: int) -> None:
-        """Initialize the barbershop."""
+        """Initialize the barbershop.
+        
+        Args:
+            q_size(int): size of the queue in the barbershop
+        """
         self.q_size = q_size
         self.__queue = Queue(maxsize=q_size)
         self.__worker = Barber()
@@ -103,7 +107,7 @@ class Barbershop:
         print('Barbershop closes')
 
     def work(self):
-        """Work when the client comes"""
+        """Work when the client comes."""
         while True:
             self.mutex.acquire()
             if self.__queue.empty():   # если очередь пустая
