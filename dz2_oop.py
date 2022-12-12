@@ -76,7 +76,7 @@ class Circle:
     """This is representation of circle."""
 
     def __init__(self, radius: float) -> None:
-        """Initalization method.If this circle doesn't exists raise error.
+        """Initalization method. If this circle doesn't exists raise error.
 
         Args:
             radius (float): circle's radius.
