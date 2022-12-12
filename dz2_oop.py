@@ -16,7 +16,6 @@ class NotValidFigure(Exception):
 
     def __str__(self) -> None:
         """Exception in special format."""
-
         return 'Can\'t create figure with sides: {0}'.format(self.sides)
 
 
@@ -49,7 +48,7 @@ class Triangle:
 
     def square(self) -> float:
         """Count square.Round it to the 2th digit after point.
-        
+
         Returns:
             float: square of triangle.
         """
@@ -114,4 +113,3 @@ class Circle:
         elif self.radius <= 0:
             return False
         return True
-    
