@@ -37,7 +37,7 @@ class Triangle:
         self.side2 = side2
         self.side3 = side3
         if not self.is_valid():
-            raise NotValidFigure('sides:'[self.side1, self.side2, self.side3])
+            raise NotValidFigure('sides:'.format([self.side1, self.side2, self.side3]))
 
     def perimeter(self) -> float:
         """Counts perimeter.Rounds it to the 2nd digit after point.
@@ -85,7 +85,7 @@ class Circle:
         """
         self.radius = radius
         if not self.is_valid():
-            raise NotValidFigure('radius:'[self.radius])
+            raise NotValidFigure('radius:'.format([self.radius]))
 
     def length(self) -> float:
         """Count length.Round it to the 2th digit after point.
