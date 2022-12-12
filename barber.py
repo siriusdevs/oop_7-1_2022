@@ -86,7 +86,7 @@ class Barbershop:
 
     def __init__(self, q_size: int) -> None:
         """Initialize the barbershop.
-        
+
         Args:
             q_size(int): size of the queue in the barbershop
         """
