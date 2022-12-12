@@ -21,7 +21,7 @@ class Triangle:
     @property
     def sides(self):
         """
-        Returns sides of triangle.
+        Returns: sides of triangle.
         Возвращает стороны треугольника.
         """
         
@@ -57,7 +57,7 @@ class Triangle:
     
     def perimetr(self):
         """
-        Returns perimeter of triangle.
+        Returns: perimeter of triangle.
         Возвращает периметр треугольника.
         """
         
@@ -65,7 +65,7 @@ class Triangle:
 
     def square(self):
         """
-        Returns square of triangle.
+        Returns: square of triangle.
         Возвращает площадь треугольника.
         """
         
@@ -86,7 +86,7 @@ class Circle:
     @property
     def radius(self):
         """
-        Returns sides of triangle.
+        Returns: sides of triangle.
         Возвращает стороны треугольника.
         """
         
@@ -113,7 +113,7 @@ class Circle:
 
     def len_circle(self):
         """
-        Returns lenght of circle.
+        Returns: lenght of circle.
         Возвращает длину круга.
         """
         
