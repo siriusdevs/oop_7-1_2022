@@ -24,7 +24,7 @@ class Client:
         """Check condition of client's existence.
 
         Returns:
-            bool: if name is a string
+            bool: if name is a string or not
         """
         return isinstance(self.name, str)
 
@@ -32,7 +32,7 @@ class Client:
         """Represent the object as a string.
 
         Returns:
-            str: that client 'name' gets a haircut
+            str: a message that client 'name' gets a haircut
         """
         return '{0} GETS a haircut'.format(self.name)
 
