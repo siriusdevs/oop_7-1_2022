@@ -1,4 +1,5 @@
-"""module for calculating the characteristics (area, etc.) of a circle and a triangle"""
+"""module for calculating the characteristics (area, etc.) of a circle and a triangle
+"""
 from typing import Union
 from math import sqrt, pi
 
@@ -7,6 +8,11 @@ class TriangleException(Exception):
     """a class with a custom error for the triangle
     """
     def __init__(self, message):
+        """init msg for triangle raise
+
+        Args:
+            message (str): _description_
+        """
         self.message = message
 
     def __str__(self):
@@ -26,7 +32,7 @@ class CircleException(Exception):
 class Triangle:
     """a class for creating and calculating triangle properties"""
 
-    def __init__(self, a: Union[float, int], b: Union[float, int], c: Union[float, int]):
+    def __init__(self, side_a: Union[float, int], side_b: Union[float, int], side_c: Union[float, int]):
         """Creating a triangle
 
         Args:
@@ -35,7 +41,7 @@ class Triangle:
             c (Union[float, int]): third side of the triangle
             sides (list): the list of sides of the triangle, includes a[0], b[1], c[2]
         """
-        self.__sides = [a, b, c]
+        self.__sides = [side_a, side_b, side_c]
         self.checker(self.sides)
 
     def checker(self, sides):
