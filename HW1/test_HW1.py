@@ -1,4 +1,4 @@
-"""Module for test calculating the characteristics (area, etc.) of a circle and a triangle"""
+"""Module for test calculating the characteristics (area, etc.) of a circle and a triangle."""
 import pytest
 from HW1 import Triangle, Circle, TriangleException, CircleException
 from typing import Union
@@ -8,7 +8,7 @@ side_transfer_test = (3, 5, 7), (5.0, 4.0, 8.0), (6.5, 8, 4)
 
 @pytest.mark.parametrize('side_a, side_b, side_c', side_transfer_test)
 def test_side_transfer(side_a: Union[float, int], side_b: Union[float, int], side_c: Union[float, int]):
-    """testing raise checker for triangle
+    """Testing raise checker for triangle
 
     Args:
         side_a (Union[float, int]): the first side of triangle
@@ -23,7 +23,7 @@ def test_side_transfer(side_a: Union[float, int], side_b: Union[float, int], sid
 
 @pytest.mark.xfail(raises=Exception)
 def test_error_zero_triangle():
-    """the test for sifting out the non-positive sides"""
+    """The test for sifting out the non-positive sides."""
     with pytest.raises(TriangleException):
         Triangle(0, 4, 6.9)
 
@@ -33,11 +33,11 @@ def test_error_zero_triangle():
 
 @pytest.mark.xfail(raises=Exception)
 def test_error_value_triangle():
-    """data type test"""
+    """Data type test."""
 
     with pytest.raises(TriangleException):
         Triangle(5, "Koshmar", 6.9)
-    
+
     with pytest.raises(TriangleException):
         Triangle(5, 5, "-6.9")
 
@@ -72,14 +72,14 @@ def test_triangle_perimetr(triangle: Triangle, expect: float):
 
 @pytest.mark.xfail(raises=Exception)
 def test_err_negative_num_circle():
-    """test for non-positive radius"""
+    """Test for non-positive radius."""
     with pytest.raises(CircleException):
         Circle(-1)
 
 
 @pytest.mark.xfail(raises=Exception)
 def test_err_data_type_circle():
-    """data type test"""
+    """Data type test."""
     with pytest.raises(CircleException):
         Circle("ulitka")
 
@@ -89,7 +89,7 @@ circle_len_test = [(Circle(10), 62.83), (Circle(16), 100.53)]
 
 @pytest.mark.parametrize('circle, expect', circle_len_test)
 def test_circle_len(circle: Circle, expect: float):
-    """testing the length of the circle
+    """Testing the length of the circle
 
     Args:
         circle (Circle): circle parameters
@@ -103,7 +103,7 @@ circle_square_test = [(Circle(10), 314.16), (Circle(16), 804.25)]
 
 @pytest.mark.parametrize('circle, expect', circle_square_test)
 def test_circle_square(circle: Circle, expect: float):
-    """testing the square of the circle
+    """Testing the square of the circle
 
     Args:
         circle (Circle): circle parameters
