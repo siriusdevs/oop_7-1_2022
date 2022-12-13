@@ -19,6 +19,7 @@ class Circle(object):
             ValueError: if circle radius is not float or int or <= 0.
             Если радиус окружности не десятичный или не целочисленный или меньше или равен 0.
         """
+
         if self.validation_circle(radius):
             self._radius = radius
 
@@ -33,6 +34,7 @@ class Circle(object):
         Returns:
             bool - if circle exist.
         """
+
         if not isinstance(radius, (float, int)):
             raise ValueError("Radius must be float or int / Радиус должен быть целочисленным или десятичным")
         if radius <= 0:
@@ -49,6 +51,7 @@ class Circle(object):
             float - current of circle radius.
             десятичное число - настоящее значение радиуса круга.
         """
+
         return self._radius
 
     @radius.setter
@@ -63,6 +66,7 @@ class Circle(object):
             ValueError: if circle radius is not float or int or <= 0.
             Если новый радиус окружности не десятичный или не целочисленный или меньше или равен 0.
         """
+
         if self.validation_circle(new_radius):
             self._radius = new_radius
 
@@ -74,6 +78,7 @@ class Circle(object):
             float - length of circle rounded two-digit decimal place.
             десятичное число - длина окружности округлённая до двух знаков после запятой.
         """
+
         return round(math.pi * 2 * self.radius, 2)
 
     def get_circle_square(self) -> float:
@@ -84,4 +89,5 @@ class Circle(object):
             float - square of circle rounded two-digit decimal place.
             десятичное число - площадь окружности округлённая до двух знаков после запятой.
         """
+
         return round(math.pi * self.radius ** 2, 2)

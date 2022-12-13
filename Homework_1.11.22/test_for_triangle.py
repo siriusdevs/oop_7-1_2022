@@ -16,6 +16,7 @@ def test_triangle_create(sides: List[float or int]) -> None:
         sides: list of float - sides of triangle.
         список десятичных чисел - стороны треугольника.
     """
+
     triangle = Triangle(*sides)
     assert triangle.sides == sides
 
@@ -26,6 +27,7 @@ def test_invalid_triangle_create():
     Tests for raises triangles exeption TriangleInvalidSides.
     Тесты для вызова ошибок TriangleInvalidSides у треугольников.
     """
+
     with pytest.raises(TriangleInvalidSides):
         Triangle(1, 1, 4)
 
@@ -42,6 +44,7 @@ def tests_err_value_triangle():
     Tests for raises triangles ValuerError.
     Тесты вызова у треугольников ошибок ValuerError.
     """
+
     with pytest.raises(ValueError):
         Triangle("2", 1, "1")
 
@@ -61,6 +64,7 @@ def tests_to_find_perimetr(triangle: Triangle, expect: float) -> None:
     Tests for the correct calculation of the perimeter of a triangles.
     Тесты на правильность подсчёта периметра треугольников.
     """
+
     assert triangle.get_perimeter() == expect
 
 
@@ -73,4 +77,5 @@ def tests_to_find_square(triangle: Triangle, expect: float) -> None:
     Tests for the correctness of calculating the square of the triangles.
     Тесты на правильность подсчёта площади треугольников.
     """
+
     assert triangle.get_square() == expect
