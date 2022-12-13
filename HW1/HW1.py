@@ -1,24 +1,26 @@
+"""module for calculating the characteristics (area, etc.) of a circle and a triangle"""
 from typing import Union
-"""Module for combining data types
-"""
 from math import sqrt, pi
-"""Module for obtaining pi and calculating the root
-"""
 
 
 class TriangleException(Exception):
     """a class with a custom error for the triangle
     """
-    def sometriangleexception(self):
-        pass
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message
 
 
 class CircleException(Exception):
     """a class with a custom error for the circle
     """
-    def somecircleexception(self):
-        pass
-    pass
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message
 
 
 class Triangle:
@@ -48,15 +50,13 @@ class Triangle:
             TriangleException: does not conform to the rules of the triangle
             TriangleException: negative numbers cannot be the length of a side
         """
-        if not isinstance(sides[0] or sides[1] or sides[2], Union[float, int]):
+        if not all([isinstance(side, (float, int)) for side in sides]):
             raise TriangleException("Неверный формат данных")
         if len(sides) != 3:
             raise TriangleException("Не хватает сторон")
-        if not (sides[0] + sides[2] > sides[1] and
-                sides[1] + sides[2] > sides[0] and
-                sides[2] + sides[0] > sides[1]):
+        if not (sorted(sides)[2] < sorted(sides)[0] + sorted(sides)[1]):
             raise TriangleException("Такой треугольник не построить")
-        if sides[0] <= 0 or sides[1] <= 0 or sides[2] <= 0:
+        if all(sides[side] <= 0 for side in range(2)):
             raise TriangleException("Чумба, сходи попей колесики, а потом задавая отрицательные числа для сторон")
 
     @property
@@ -71,8 +71,8 @@ class Triangle:
         Args:
             sides (list): the list of sides of the triangle, includes a[0], b[1], c[2]
         """
-        self.__sides = sides
         self.checker(sides)
+        self.__sides = sides
 
     def perimetr(self):
         """calculating the rounded perimeter of a triangle

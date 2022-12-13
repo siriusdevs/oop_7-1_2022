@@ -2,7 +2,7 @@ import pytest
 from HW1 import Triangle, Circle, TriangleException, CircleException
 from typing import Union
 
-side_transfer_test = (3, 5, 8), (5.0, 4.0, 8.0), (6.5, 8, 4)
+side_transfer_test = (3, 5, 7), (5.0, 4.0, 8.0), (6.5, 8, 4)
 
 
 @pytest.mark.parametrize('a, b, c', side_transfer_test)
