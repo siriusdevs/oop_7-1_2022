@@ -1,6 +1,4 @@
-"""
-module for test calculating the characteristics (area, etc.) of a circle and a triangle
-"""
+"""Module for test calculating the characteristics (area, etc.) of a circle and a triangle"""
 import pytest
 from HW1 import Triangle, Circle, TriangleException, CircleException
 from typing import Union
@@ -25,8 +23,7 @@ def test_side_transfer(side_a: Union[float, int], side_b: Union[float, int], sid
 
 @pytest.mark.xfail(raises=Exception)
 def test_error_zero_triangle():
-    """the test for sifting out the non-positive sides
-    """
+    """the test for sifting out the non-positive sides"""
     with pytest.raises(TriangleException):
         Triangle(0, 4, 6.9)
 
@@ -36,12 +33,11 @@ def test_error_zero_triangle():
 
 @pytest.mark.xfail(raises=Exception)
 def test_error_value_triangle():
-    """data type test
-    """
+    """data type test"""
 
     with pytest.raises(TriangleException):
         Triangle(5, "Koshmar", 6.9)
-
+    
     with pytest.raises(TriangleException):
         Triangle(5, 5, "-6.9")
 
@@ -76,16 +72,14 @@ def test_triangle_perimetr(triangle: Triangle, expect: float):
 
 @pytest.mark.xfail(raises=Exception)
 def test_err_negative_num_circle():
-    """test for non-positive radius
-    """
+    """test for non-positive radius"""
     with pytest.raises(CircleException):
         Circle(-1)
 
 
 @pytest.mark.xfail(raises=Exception)
 def test_err_data_type_circle():
-    """data type test
-    """
+    """data type test"""
     with pytest.raises(CircleException):
         Circle("ulitka")
 
