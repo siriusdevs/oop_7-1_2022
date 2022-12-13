@@ -10,7 +10,6 @@ def test_circle_create(radius: float or int) -> None:
     """
     Test for create circle.
     Тесты создания окружности.
-
     Args:
         radius: float - radius of the circle.
         десятичное число - радиус окружности.
