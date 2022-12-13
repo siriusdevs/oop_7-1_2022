@@ -87,7 +87,7 @@ class Barbershop:
                 self._worker.cut(client)
 
     def enter(self, client: Client) -> None:
-        """Client entering a barbershop.
+        """Client enters a barbershop.
 
         Args:
             client : Client - a client who entered a barbershop
