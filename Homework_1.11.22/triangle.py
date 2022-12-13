@@ -47,10 +47,8 @@ class Triangle(object):
                         + n_sides[2] > n_sides[0]:
                     return True
                 raise TriangleInvalidSides(n_sides)
-            else:
-                raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
-        else:
-            raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
+            raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
+        raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
 
     @property
     def sides(self) -> List[float or int]:
@@ -73,7 +71,7 @@ class Triangle(object):
             Список чисел с плавающей запятой - новое значение сторон.
         Raises:
             ValueError: If a triangle has more or less than three sides.
-            TriangleInvalidSides: if this triangle doesnt exist
+            TriangleInvalidSides: if this triangle doesn't exist
         """
         value_of_sides = 3
         if len(new_sides) == value_of_sides:
