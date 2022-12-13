@@ -34,14 +34,15 @@ if __name__ == '__main__':
                 for name in files:
                     if '.json' in name:
                         maps.append(name)
-            print('Choose file:')
-            for num, file_map in enumerate(maps):
-                print('{0}) {1}'.format(num + 1, file_map[:-5]))
-            file_name = input(': ')
-            try:
-                file_name = int(file_name)
-            except ValueError:
-                continue
-            if 0 < file_name <= len(maps) + 1:
-                in_key(start, '{0}{1}'.format(maps[file_name - 1][:-5], '.json'))
-                break
+            if maps:
+                print('Choose file:')
+                for num, file_map in enumerate(maps):
+                    print('{0}) {1}'.format(num + 1, file_map[:-5]))
+                file_name = input(': ')
+                try:
+                    file_name = int(file_name)
+                except ValueError:
+                    continue
+                if 0 < file_name <= len(maps) + 1:
+                    in_key(start, '{0}{1}'.format(maps[file_name - 1][:-5], '.json'))
+                    break
