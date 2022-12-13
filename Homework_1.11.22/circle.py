@@ -15,9 +15,6 @@ class Circle(object):
         Args:
             radius: float - radius of circle.
             десятичное число - радиус окружности.
-        Raises:
-            ValueError: if circle radius is not float or int or <= 0.
-            Если радиус окружности не десятичный или не целочисленный или меньше или равен 0.
         """
         if self.validation_circle(radius):
             self._radius = radius
