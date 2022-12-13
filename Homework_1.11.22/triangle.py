@@ -42,11 +42,16 @@ class Triangle(object):
             Если такой треугольник не существует.
         """
         if all(isinstance(side, (float, int)) for side in n_sides):
-            if n_sides[0] >= 0 or n_sides[1] >= 0 or n_sides[2] >= 0:
-                return n_sides[0] + n_sides[1] > n_sides[2] and n_sides[0] + n_sides[2] > n_sides[1] and \
-                       n_sides[1] + n_sides[2] > n_sides[0]
+            if n_sides[0] > 0 and n_sides[1] > 0 and n_sides[2] > 0:
+                if n_sides[0] + n_sides[1] > n_sides[2] and n_sides[0] + n_sides[2] > n_sides[1] and \
+                       n_sides[1] + n_sides[2] > n_sides[0]:
+                    return True
+                else:
+                    raise TriangleInvalidSides(n_sides)
+            else:
+                raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
+        else:
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
-        raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
 
     @property
     def sides(self) -> List[float or int]:
@@ -69,13 +74,12 @@ class Triangle(object):
             Список чисел с плавающей запятой - новое значение сторон.
         Raises:
             ValueError: If a triangle has more or less than three sides.
+            TriangleInvalidSides: if this triangle doesnt exist
         """
         value_of_sides = 3
         if len(new_sides) == value_of_sides:
             if self.validation_triangle(new_sides):
                 self._sides = new_sides
-            else:
-                raise TriangleInvalidSides(new_sides)
         else:
             raise ValueError("Triangle always has 3 sides. / У треугольника всегда 3 стороны.")
 
