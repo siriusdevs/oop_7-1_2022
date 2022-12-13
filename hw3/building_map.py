@@ -29,8 +29,6 @@ class Building:
 
     """
 
-    NUMBERS = set()
-
     def __init__(self, height: int, area: int, floors: int, location: tuple = None) -> None:
         """Initialize a building.
 

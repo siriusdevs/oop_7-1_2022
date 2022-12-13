@@ -3,7 +3,6 @@ from building_map import Building, InvalidAttribute, Map
 from additional_functions.json_func import read_json, write_json
 from additional_functions.directory_func import check_dir
 from additional_functions.terminal_func import make_menu
-from random import choice
 from os import listdir, remove
 
 
@@ -42,7 +41,7 @@ def choose_map() -> str:
     """Choose a map."""
     flag = True
     while flag:
-        option = make_menu(['Create map', 'Choose map', 'Quit'], 'Choose option:')
+        option = make_menu(['Create map', 'Choose map', 'Quit'], 'Choose option: ')
         check_dir('maps/')
         all_maps = listdir('maps/')
         if option == 2:
@@ -59,7 +58,7 @@ def choose_map() -> str:
                     print('\n{0}\n'.format(file_n[:-5]))
                     print(Map.from_dict(**kwargs))
                 options = [all_files[:-5] for all_files in all_maps]
-                map_index = make_menu(options, 'Choose your map')
+                map_index = make_menu(options, 'Choose your map: ')
                 print('\nYou have choosen {0}\n'.format(options[map_index]))
             else:
                 print('No available maps.')
@@ -74,7 +73,7 @@ def build(map_file: str) -> None:
     Args:
         map_file : str - pathto the choosen map
     """
-    option = make_menu(['Create building', 'Delete building', 'Quit'], 'Choose option:')
+    option = make_menu(['Create building', 'Delete building', 'Quit'], 'Choose option: ')
     check_dir('buildings/')
     all_builds = listdir('buildings/')
     current_map = Map.from_dict(**read_json(map_file))
@@ -108,12 +107,12 @@ def build(map_file: str) -> None:
                 else:
                     break
         building.location = (row, column)
-        if 'building{0}.json'.format(len(all_builds)) in all_builds:
-            number = choice(list(set(range(len(all_builds))) - Building.NUMBERS))
-            build_name = 'building{0}'.format(number)
-        else:
-            build_name = 'building{0}'.format(len(all_builds))
-        Building.NUMBERS.add(int(build_name[-1]))
+        while True:
+            build_name = input('Name your building: ')
+            if '{0}.json' in all_builds:
+                print('Such building already exists. Choose another name')
+            else:
+                break
         write_json('buildings/{0}.json'.format(build_name), building.to_dict())
         current_map.map_list[row - 1][column - 1] = 1
         current_map.buildings[build_name] = str(building)
@@ -123,12 +122,11 @@ def build(map_file: str) -> None:
         print(current_map)
         if current_map.buildings:
             options = list(current_map.buildings.keys())
-            building_index = make_menu(options, 'Choose a building to delete:')
+            building_index = make_menu(options, 'Choose a building to delete: ')
             name_build = options[building_index]
             build_file = 'buildings/{0}.json'.format(name_build)
             build_obj = Building(**read_json(build_file))
             row, column = build_obj.location
-            Building.NUMBERS.remove(int(name_build[-1]))
             current_map.map_list[row - 1][column - 1] = 0
             del current_map.buildings[name_build]
             remove(build_file)
@@ -145,6 +143,6 @@ if __name__ == '__main__':
         curr_map = choose_map()
         if curr_map is not None:
             build(curr_map)
-        option = make_menu(['Maybe one more...', 'Lets stop for now'], 'Continue building?')
+        option = make_menu(['Maybe one more...', 'Lets stop for now'], 'Continue building?: ')
         if option == 1:
             break

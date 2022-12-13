@@ -9,12 +9,12 @@
         ],
         [
             0,
-            0,
+            1,
             0
         ],
         [
             0,
-            1,
+            0,
             0
         ],
         [
@@ -24,6 +24,6 @@
         ]
     ],
     "buildings": {
-        "building1": "Height: 3, area: 10, floors: 1\nLocation: (3, 2)"
+        "lair": "Height: 12, area: 18, floors: 4\nLocation: (2, 2)"
     }
 }
