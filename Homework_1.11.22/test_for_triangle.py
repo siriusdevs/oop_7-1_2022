@@ -12,6 +12,7 @@ def test_triangle_create(sides: List[float or int]) -> None:
     """
     Test for create triangle.
     Тесты создания треугольника.
+
     Args:
         sides: list of float - sides of triangle.
         список десятичных чисел - стороны треугольника.

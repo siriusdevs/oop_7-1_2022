@@ -14,6 +14,7 @@ class Triangle(object):
         """
         This method creates a triangle.
         Этот метод создаёт треугольник.
+
         Args:
             side_a: float or int side.
             с плавающей запятой или целочисленная сторона
@@ -30,6 +31,7 @@ class Triangle(object):
         """
         This method checks if such a triangle exists.
         Этот метод проверяет существует-ли такой треугольник, а также правильность введенения данных.
+
         Args:
             n_sides: List of sides
             Список сторон
@@ -56,6 +58,7 @@ class Triangle(object):
         """
         Get current values of sides.
         Возвращает настоящее значение сторон.
+
         Returns:
             List[float or int] - current value of sides.
             Список чисел с плавающей запятой - настоящее значение сторон.
@@ -68,6 +71,7 @@ class Triangle(object):
         """
         Sets a new sides.
         Устанавливает новые стороны.
+
         Args:
             new_sides: list of float values - new values of sides.
             Список чисел с плавающей запятой - новое значение сторон.
@@ -88,6 +92,7 @@ class Triangle(object):
         """
         Calculates the perimeter of a triangle and returns the value rounded to two decimal places.
         Считает периметр треугольника и возвращает округлённое до двух знаков после заяпятой значение.
+
         Returns:
             float - triangle perimeter rounded to two decimal places.
             число с плавающей запятой - периметр треугольника округлённый до двух знаков после запятой.
@@ -98,7 +103,8 @@ class Triangle(object):
     def get_square(self) -> float:
         """
         Counts and rounds to 2 decimal places the square of the triangle.
-        Считает и округляет до 2-х точек после запятой площадь треугольника
+        Считает и округляет до 2-х точек после запятой площадь треугольника.
+
         Returns:
             float - area of a triangle rounded to two decimal places.
             число с плавающей запятой - площадь треугольника округлённая до двух знаков после запятой.

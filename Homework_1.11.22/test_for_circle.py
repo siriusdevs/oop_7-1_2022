@@ -10,10 +10,12 @@ def test_circle_create(radius: float or int) -> None:
     """
     Test for create circle.
     Тесты создания окружности.
+
     Args:
         radius: float - radius of the circle.
         десятичное число - радиус окружности.
     """
+
     circle = Circle(radius)
     assert circle.radius == radius
 
@@ -24,6 +26,7 @@ def test_invalid_circle_create():
     Tests for raises circles exeption ValueError.
     Тесты для вызова ошибок ValueError у окружностей
     """
+
     with pytest.raises(ValueError):
         Circle(-1)
 
@@ -43,6 +46,7 @@ def tests_to_find_length(circle: Circle, expect: float) -> None:
     Tests for the correct calculation of the length of a circle.
     Тесты на правильность подсчёта длины окружности.
     """
+
     assert circle.get_circle_length() == expect
 
 
@@ -55,4 +59,5 @@ def tests_to_find_square(circle: Circle, expect: float) -> None:
     Tests for the correct calculation of the square of a circle.
     Тесты на правильность подсчёта площади окружности.
     """
+
     assert circle.get_circle_square() == expect
