@@ -44,7 +44,7 @@ class Triangle(object):
         if all(isinstance(side, (float, int)) for side in n_sides):
             if all(side > 0 for side in n_sides):
                 n_sides.sort()
-                if n_sides[2] > n_sides[1] + n_sides[0]:
+                if n_sides[2] < n_sides[1] + n_sides[0]:
                     return True
                 raise TriangleInvalidSides(n_sides)
             raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
@@ -102,5 +102,3 @@ class Triangle(object):
         square = sqrt(
             half_p * (half_p - self.sides[0]) * (half_p - self.sides[1]) * (half_p - self.sides[2]))
         return round(square, 2)
-
-tr_1 = Triangle(1, 1.5, 3)
