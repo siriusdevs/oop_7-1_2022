@@ -23,7 +23,6 @@ class Triangle(object):
             side_c: float or int side.
             с плавающей запятой или целочисленная сторона
         """
-
         self.sides = [side_a, side_b, side_c]
 
     @classmethod
@@ -44,7 +43,6 @@ class Triangle(object):
             InvalidTriangleSides: if triangle can't exist.
             Если такой треугольник не существует.
         """
-
         if not all(isinstance(side, (float, int)) for side in n_sides):
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
         elif n_sides[0] <= 0 or n_sides[1] <= 0 or n_sides[2] <= 0:
@@ -63,7 +61,6 @@ class Triangle(object):
             List[float or int] - current value of sides.
             Список чисел с плавающей запятой - настоящее значение сторон.
         """
-
         return self._sides
 
     @sides.setter
@@ -78,7 +75,6 @@ class Triangle(object):
         Raises:
             ValueError: If a triangle has more or less than three sides.
         """
-
         value_of_sides = 3
         if len(new_sides) == value_of_sides:
             if self.validation_triangle(new_sides):
@@ -97,7 +93,6 @@ class Triangle(object):
             float - triangle perimeter rounded to two decimal places.
             число с плавающей запятой - периметр треугольника округлённый до двух знаков после запятой.
         """
-
         return round(self.sides[0] + self.sides[1] + self.sides[2], 2)
 
     def get_square(self) -> float:
@@ -109,7 +104,6 @@ class Triangle(object):
             float - area of a triangle rounded to two decimal places.
             число с плавающей запятой - площадь треугольника округлённая до двух знаков после запятой.
         """
-
         half_p = self.get_perimeter() / 2
         square = sqrt(
             half_p * (half_p - self.sides[0]) * (half_p - self.sides[1]) * (half_p - self.sides[2]))
