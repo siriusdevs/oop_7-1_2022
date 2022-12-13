@@ -73,7 +73,7 @@ class Triangle:
             raise TriangleException("Неверный формат данных")
         if len(sides) != 3:
             raise TriangleException("Не хватает сторон")
-        if not (sorted(sides)[2] < sorted(sides)[0] + sorted(sides)[1]):
+        if (sorted(sides)[2] >= sorted(sides)[0] + sorted(sides)[1]):
             raise TriangleException("Такой треугольник не построить")
         if all(sides[side] <= 0 for side in range(2)):
             raise TriangleException("Чумба, сходи попей колесики, а потом задавая отрицательные числа для сторон")
