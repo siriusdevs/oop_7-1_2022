@@ -32,6 +32,7 @@ class Triangle:
         side_a, side_b, side_c = float(self.sides[0]), float(self.sides[1]), float(self.sides[2])
         return round(math.sqrt(h_per * (h_per - side_a) * (h_per - side_b) * (h_per - side_c)), 2)
 
+
 class Circle:
     def __init__(self, radius: float) -> None:
         self.radius = radius
@@ -53,5 +54,6 @@ class Circle:
     
     def square(self):
         return round(2 * math.pi * self.radius, 2)
+
 
 print(Circle(2).square())
