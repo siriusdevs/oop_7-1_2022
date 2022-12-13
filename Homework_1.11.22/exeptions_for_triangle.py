@@ -12,7 +12,6 @@ class TriangleInvalidSides(Exception):
         """
         Exception for create or edit triangle.
         Ошибка создания или изменения треугольника.
-
         Args:
             sides: list - of sides of a triangle.
             список - список со сторонами треугольника.
@@ -33,7 +32,6 @@ class InvalidCountSidesOfTriangle(Exception):
         """
         Exception for create or edit triangle.
         Ошибка создания или изменения треугольника.
-
         Args:
             sides: list - of sides of a triangle.
             список - список со сторонами треугольника.

@@ -12,7 +12,6 @@ class Circle(object):
         """
         This function creates a circle.
         Данная функция создаёт круг.
-
         Args:
             radius: float - radius of circle.
             десятичное число - радиус окружности.
@@ -28,7 +27,6 @@ class Circle(object):
         """
         This method checks validation the circle.
         Данный метод проверяет правильность круга.
-
         Args:
             radius: float or int - radius of circle.
             десятичный или целочисленный - радиус круга.
@@ -47,7 +45,6 @@ class Circle(object):
         """
         Get current value of circle radius.
         Возвращает настоящее значение радиуса круга.
-
         Returns:
             float - current of circle radius.
             десятичное число - настоящее значение радиуса круга.
@@ -59,7 +56,6 @@ class Circle(object):
         """
         This function changes the radius of the circle.
         Данная функция изменяет радиус круга.
-
         Args:
             new_radius: float - new radius of circle.
             десятичное число - новый радиус окружности.
@@ -74,7 +70,6 @@ class Circle(object):
         """
         This function appears in the circle of a rounded two-digit decimal place.
         Данная функция возвращает длину окружности округлённую до двух знаков после запятой.
-
         Returns:
             float - length of circle rounded two-digit decimal place.
             десятичное число - длина окружности округлённая до двух знаков после запятой.
@@ -85,7 +80,6 @@ class Circle(object):
         """
         This function returns the square of a circle rounded two-digit decimal place.
         Данная функция возвращает площадь окружности округлённую до двух знаков после запятой.
-
         Returns:
             float - square of circle rounded two-digit decimal place.
             десятичное число - площадь окружности округлённая до двух знаков после запятой.
