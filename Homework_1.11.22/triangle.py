@@ -43,8 +43,8 @@ class Triangle(object):
         """
         if all(isinstance(side, (float, int)) for side in n_sides):
             if n_sides[0] > 0 and n_sides[1] > 0 and n_sides[2] > 0:
-                if n_sides[0] + n_sides[1] > n_sides[2] and n_sides[0] + n_sides[2] > n_sides[1] and \
-                       n_sides[1] + n_sides[2] > n_sides[0]:
+                if n_sides[0] + n_sides[1] > n_sides[2] and n_sides[0] + n_sides[2] > n_sides[1] and n_sides[1] \
+                        + n_sides[2] > n_sides[0]:
                     return True
                 else:
                     raise TriangleInvalidSides(n_sides)
