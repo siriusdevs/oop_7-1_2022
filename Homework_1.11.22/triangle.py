@@ -48,7 +48,6 @@ class Triangle(object):
             raise ValueError("Sides must be float or int / Стороны должны быть целочисленные или десятичные")
         raise ValueError("Sides must be not zero / Стороны не должны быть нулевыми")
 
-
     @property
     def sides(self) -> List[float or int]:
         """
