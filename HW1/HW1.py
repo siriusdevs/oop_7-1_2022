@@ -5,24 +5,41 @@ from math import sqrt, pi
 
 class TriangleException(Exception):
     """A class with a custom error for the triangle."""
+
     def __init__(self, message):
         """Init msg for triangle raise.
 
         Args:
-            message (str): _description_.
+            message (str): message, just a message.
         """
         self.message = message
 
     def __str__(self):
+        """Error message return.
+
+        Returns:
+            message: message, just a message.
+        """
         return self.message
 
 
 class CircleException(Exception):
     """A class with a custom error for the circle."""
+
     def __init__(self, message):
+        """Init msg for circle raise.
+
+        Args:
+            message (str): message, just a message.
+        """
         self.message = message
 
     def __str__(self):
+        """Error message return.
+
+        Returns:
+            message: message, just a message.
+        """
         return self.message
 
 
@@ -36,7 +53,6 @@ class Triangle:
             side_a (Union[float, int]): first side of the triangle
             side_b (Union[float, int]): second side of the triangle
             side_c (Union[float, int]): third side of the triangle
-            sides (list): the list of sides of the triangle, includes a[0], b[1], c[2].
         """
         self.__sides = [side_a, side_b, side_c]
         self.checker(self.sides)
@@ -91,12 +107,13 @@ class Triangle:
         Returns:
             float: square of triangle.
         """
-        p = self.perimetr() * 0.5
-        return round((sqrt(p * (p - self.sides[0]) * (p - self.sides[1]) * (p - self.sides[2]))), 2)
+        halfp = self.perimetr() * 0.5
+        return round((sqrt(halfp * (halfp - self.sides[0]) * (halfp - self.sides[1]) * (halfp - self.sides[2]))), 2)
 
 
 class Circle:
     """A class for creating and calculating circle properties."""
+
     def __init__(self, radius: Union[float, int]):
         """Creating a circle.
 
