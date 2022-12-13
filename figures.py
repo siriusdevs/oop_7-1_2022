@@ -25,7 +25,7 @@ class Triangle:
             self.__sides = [side_a, side_b, side_c]
     
     def perimetr(self):
-        return sum(self.sides)
+        return round(sum(self.sides), 2)
 
     def square(self):
         h_per = self.perimetr() / 2
