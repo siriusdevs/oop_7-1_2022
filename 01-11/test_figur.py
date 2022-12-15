@@ -22,7 +22,7 @@ def test_triangle_perimetr(a_side, b_side, c_side, result):
     assert triangle.perimetr() == result
 
 
-tests_area = [(6, 8, 10, 24), (3, 4, 5, 6)]
+tests_area = [(2, 2, 2, 3.0), (14, 12, 18, 7040.0)]
 
 
 @pytest.mark.parametrize('a_side, b_side, c_side, result', tests_area)
@@ -40,7 +40,7 @@ def test_circle(radius):
     assert circle.radius == radius
 
 
-tests = [(3, 28.3), (2, 12.6)]
+tests = [(3, 28.27), (5, 78.54)]
 
 
 @pytest.mark.parametrize('radius, result', tests)
@@ -49,7 +49,7 @@ def test_area_circle(radius, result):
     assert circle.area_circle() == result
 
 
-tests = [(2, 12.6), (3, 18.8)]
+tests = [(5, 31.42), (3, 18.85)]
 
 
 @pytest.mark.parametrize('radius, result', tests)

@@ -64,7 +64,7 @@ class Circle:
         return round(2 * math.pi * self.radius, 2)
 
 
-triangle = Triangle(0.2, 0.2, 0.2)
+triangle = Triangle(14, 12, 18)
 circle = Circle(3)
 
 
