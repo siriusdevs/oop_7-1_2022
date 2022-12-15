@@ -89,7 +89,7 @@ def test_file(Map, name, b_t):
     assert (Map, b_t) == (map2, b_t2)
 
 
-exmap2 = exmap.copy()
+exmap2 = [m[:] for m in exmap]
 exmap2[2][0] = 17
 exdict2 = exdict.copy()
 exdict2[(0, 2)] = 'zoo'
@@ -102,7 +102,7 @@ tests = [
         ('Do you want to build your buildings on top of the old ones?[y/n]', True, exdict)
     ),
     (
-        ['0', '2', '1', '1', '7', 'zoo'],
+        ['0', '2', '1', '1', '17', 'zoo'],
         exmap,
         exdict,
         'y',
