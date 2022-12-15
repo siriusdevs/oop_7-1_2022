@@ -16,16 +16,15 @@ def dinner(num, lock):
         num: int - number(name) of philosopher.
         lock: Lock - class Lock for managing philosophers sticks.
     """
-    if lock.acquire(timeout=3):
-        print('Филосов #{0} - начинает думать'.format(num - 1 if num - 1 > 0 else num))
+    if lock.acquire(timeout=4):
         print('Филосов #{0} - ест'.format(num))
-        time.sleep(random.randint(1, 4))
-        print('Филосов #{0} - начинает думать'.format(num))
+        time.sleep(random.randint(2, 3))
+        print('Филосов #{0} - Закончил есть'.format(num))
     else:
         lock.release()
         print('Филосов #{0} - думает'.format(num))
-        time.sleep(random.randint(1, 4))
-        print('Филосов #{0} - начинает есть'.format(num))
+        time.sleep(random.randint(2, 3))
+        print('Филосов #{0} - Закончил думать'.format(num))
 
 
 if __name__ == '__main__':
