@@ -1,4 +1,5 @@
 """File with class House and writing information into json file functions."""
+import time
 
 
 class House:
@@ -37,6 +38,26 @@ class House:
                and all([self.square, self.height]) > 0 and 0 <= self.x_pos <= SIZE and 0 <= self.y_pos <= SIZE
 
 
+def for_remove(file_name, new_house):
+    """Function for checking position of house for remove.
+
+    Args:
+        file_name: str - name of map.
+        new_house: str - house object.
+    """
+    from functions import inp_json, lst_matrix
+
+    houses = inp_json(file_name)
+    map_matrix = lst_matrix(file_name)
+    map_matrix[new_house.y_pos][new_house.x_pos] = 0
+    for cls_class in houses:
+        if cls_class.x_pos == new_house.x_pos and cls_class.y_pos == new_house.y_pos:
+            houses.remove(cls_class)
+        else:
+            print('Там нет здания')
+            time.sleep(3)
+
+
 def street(new_house, file_name, action: str = '1'):
     """Function which controls file and matrix actions.
 
@@ -53,11 +74,11 @@ def street(new_house, file_name, action: str = '1'):
     if action == '1' and map_matrix[new_house.y_pos][new_house.x_pos] == 0:
         map_matrix[new_house.y_pos][new_house.x_pos] = 1
         houses.append(new_house)
+    elif action == '1' and map_matrix[new_house.y_pos][new_house.x_pos] == 1:
+        print('Там уже есть здание')
+        time.sleep(3)
     if action == '2':
-        map_matrix[new_house.y_pos][new_house.x_pos] = 0
-        for cls_class in houses:
-            if cls_class.x_pos == new_house.x_pos and cls_class.y_pos == new_house.y_pos:
-                houses.remove(cls_class)
+        for_remove(file_name, new_house)
 
     with open(file_name, 'w') as map_list:
         class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.name)) for ind in houses}

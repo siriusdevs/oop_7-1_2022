@@ -4,13 +4,16 @@
 message = 'House: {0}\nposition: ({1}, {2})\nheight: {3}\nsquare: {4}'
 
 
-def house():
+def house(act):
     """Function for interrupt flake error.
+
+    Args:
+        act: str - needs for asking name of house.
 
     Returns:
         str - name of house.
     """
-    return input('name = ')
+    return input('name = ') if act != '2' else None
 
 
 def show_house(file_name, position):
@@ -26,6 +29,9 @@ def show_house(file_name, position):
         if cls_class.x_pos == int(position[0]) and cls_class.y_pos == int(position[1]):
             args = [cls_class.name, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
             print(''.join(message).format(*args))
+            time.sleep(3)
+        else:
+            print('Там нет зданий')
             time.sleep(3)
 
 
@@ -48,12 +54,12 @@ def map_print(file_name):
         os.system('clear')
         print(' ' * (SIZE // 2) + file_name)
         print(str_matrix(file_name))
-        action = input('action:\n1) add\n2) remove\n3) show house\n4) quit\n:')
-        if action == '4':
+        act = input('action:\n1) add\n2) remove\n3) show house\n4) quit\n:')
+        if act == '4':
             return 'q'
-        if action in {'1', '2', '3'}:
+        if act in {'1', '2', '3'}:
             position = (input('x_pos = '), input('y_pos = '))
-        match action:
+        match act:
             case '1':
                 size = (input('square = '), input('height = '))
             case '2':
@@ -64,4 +70,4 @@ def map_print(file_name):
             case _:
                 continue
         if check(position[0], 0, SIZE - 1) and check(position[1], 0, SIZE - 1) and check(size[1]) and check(size[0]):
-            street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0]), house()), file_name, action)
+            street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0]), house(act)), file_name, act)
