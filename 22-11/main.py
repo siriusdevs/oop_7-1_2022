@@ -86,6 +86,9 @@ class Buildings:
 
         Args:
             name(str): Map's name
+
+        Raises:
+            ValueError: если есть не то здание
         """
         name = "Builds_{0}.json".format(name)
         with open(name, 'rt') as dic:
@@ -93,6 +96,8 @@ class Buildings:
             dic = load(dic)
             buildmap = [[0] * dic["Mapy"] for _ in range(dic["Mapx"])]
             for building in dic["Builds"]:
+                if building['height'] <= 0:
+                    raise ValueError
                 b_type[(building["y"], building["x"])] = building['type']
                 buildmap[building["y"]][building["x"]] = building['height']
         return buildmap, b_type
