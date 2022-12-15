@@ -21,19 +21,19 @@ class Triangle:
         """The perimetr of triangle.
 
         Returns:
-            perimetr(float).
+            perimetr(float) rounds up to 5 numbers after dot.
         """
-        return self.a_side + self.b_side + self.c_side
+        return round((self.a_side + self.b_side + self.c_side), 5)
 
     def area(self) -> None:
         """The area of triangle
 
         Returns:
-            area(foat).
+            area(foat) rounds up to 5 numbers after dot.
+
         """
         pol = (self.a_side + self.b_side + self.c_side) / 2
-        squ = math.sqrt(pol * (pol - self.a_side) * (pol - self.b_side) * (pol - self.c_side))
-        return squ
+        return round((pol * (pol - self.a_side) * (pol - self.b_side) * (pol - self.c_side)), 5)
 
 
 class Circle:
@@ -51,24 +51,24 @@ class Circle:
         """The area of circle.
 
         Returns:
-            area(float).
+            area(float) rounds up to 2 numbers after dot.
         """
-        return round(math.pi * (self.radius**2), 1)
+        return round(math.pi * (self.radius**2), 2)
 
     def perimetr_circle(self) -> None:
         """The length(perimetr) of circle.
 
         Returns:
-            perimetr(float): length of circle.
+            perimetr(float): length of circle rounds up to 2 numbers after dot.
         """
-        return round(2 * math.pi * self.radius, 1)
+        return round(2 * math.pi * self.radius, 2)
 
 
-triangle = Triangle(6, 12, 10)
+triangle = Triangle(0.2, 0.2, 0.2)
 circle = Circle(3)
 
 
-print("Площадь круга", round(circle.area_circle(), 1))
-print("Длина окружности", round(circle.perimetr_circle(), 1))
+print("Площадь круга", circle.area_circle())
+print("Длина окружности", circle.perimetr_circle())
 print("Периметр треугольника", triangle.perimetr())
-print("Площадь треугольника", round(triangle.area(), 1))
+print("Площадь треугольника", triangle.area())

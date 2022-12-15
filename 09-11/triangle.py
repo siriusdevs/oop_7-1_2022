@@ -1,4 +1,4 @@
-"""The figur valid function."""
+"""The file with triangle and circle classes"""
 import math
 
 
@@ -14,13 +14,13 @@ class Triangle:
             side_c(float): third side of triangle
 
         Raises:
-            NotValidTriangle : not a valid triangle.
+            ValueError : not a valid triangle.
         """
         self.side_a = side_a
         self.side_b = side_b
         self.side_c = side_c
         if not self.is_valid():
-            raise NotValidTriangle
+            raise ValueError
 
     def perimetr(self) -> float:
         """The perimetr of triangle.
@@ -56,18 +56,6 @@ class Triangle:
         return True
 
 
-class NotValidTriangle(Exception):
-    """This is class of not valid triangle."""
-
-    pass
-
-
-class NotValidCircle(Exception):
-    """This is class of not valid circle."""
-
-    pass
-
-
 class Circle:
     """This is circle valid, length and area."""
 
@@ -78,11 +66,11 @@ class Circle:
             radius(float): radius of circle.
 
         Raises:
-            NotValidCircle : not a valid circle.
+            ValueError: if radius is not valid.
         """
         self.radius = radius
         if not self.is_valid():
-            raise NotValidCircle
+            raise ValueError
 
     def length(self) -> float:
         """Length(perimetr) of circle.
@@ -110,7 +98,7 @@ class Circle:
             return self.radius > 0
 
 
-triangle = Triangle(12, 10, 20)
+triangle = Triangle(2, 2, 2)
 print('Perimetr:', triangle.perimetr(), 'Area:', triangle.area())
 circle = Circle(5)
 print('length:', circle.length(), 'Area:', circle.area())
