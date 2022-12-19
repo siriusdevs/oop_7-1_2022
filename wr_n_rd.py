@@ -5,6 +5,7 @@ from random import randint
 
 
 TEXT = ['Aboba', 'Kokos', 'Kakat']
+WORD = ''
 
 
 class Reader(Thread):
@@ -23,7 +24,7 @@ class Reader(Thread):
         """Run method of reader."""
         global event
         while event.wait():
-            print('Reader {0} read letter'.format(self.name))
+            print('Reader {0} read letter {1}'.format(self.name, WORD))
 
 
 class Writer(Thread):
@@ -45,16 +46,16 @@ class Writer(Thread):
         """Run method of writer."""
         global cond
         global event
+        global WORD
         with cond:
             cond.wait()
-            index = randint(0, len(TEXT) - 1)
-            text = TEXT[index]
+            text = TEXT[randint(0, len(TEXT) - 1)]
             print('Writer {0} starting writing'.format(self.name))
             res = text
             while text:
-                word = text[:1]
-                text = text[1:]
+                word, text = text[:1], text[1:]
                 event.set()
+                WORD = word
                 print('Writer {0} wrote {1}'.format(self.name, word))
                 event.clear()
                 sleep(randint(*Writer.TIMEOUT_WRITING))
