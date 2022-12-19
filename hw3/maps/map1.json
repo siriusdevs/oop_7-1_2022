@@ -1,29 +1,7 @@
 {
-    "length": 4,
+    "length": 3,
     "width": 3,
-    "map_list": [
-        [
-            0,
-            0,
-            0
-        ],
-        [
-            0,
-            1,
-            0
-        ],
-        [
-            0,
-            0,
-            0
-        ],
-        [
-            0,
-            0,
-            0
-        ]
-    ],
     "buildings": {
-        "lair": "Height: 12, area: 18, floors: 4\nLocation: (2, 2)"
+        "new_building": "buildings/new_building.json"
     }
 }
