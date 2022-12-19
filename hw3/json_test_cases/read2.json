@@ -13,8 +13,12 @@
             [0, 0, 0, 0, 0]
         ],
         "builds": {
-            "building3": "Height: 45, area: 30, floors: 5\nLocation: (4, 3)",
-            "building1": "Height: 10, area: 5, floors: 4\nLocation: (8, 5)"
+            "building3": "test_buildings/building3.json",
+            "building1": "test_buildings/building1.json"
+        },
+        "builds_str": {
+            "building3": "Height: 45, area: 30, floors: 5\nLocation: [4, 2]",
+            "building1": "Height: 10, area: 5, floors: 4\nLocation: [7, 4]"
         }
     }
 }

@@ -18,6 +18,12 @@ def test_negative_attr_building():
         Building(3, 9, -10)
 
 
+def test_zero_attr_building():
+    """Test zero attribute."""
+    with pytest.raises(InvalidAttribute):
+        Building(3, 9, 0)
+
+
 tests_building_init = [
     (50, 10, 12, (1, 5)),
     (10, 5, 5, (3, 4)),
@@ -85,20 +91,25 @@ def test_negative_attr_map():
         Map(3, -10)
 
 
+def test_zero_attr_map():
+    """Test zero attribute."""
+    with pytest.raises(InvalidAttribute):
+        Map(3, 0)
+
+
 tests_map_init = [
-    (4, 6, conf_test.MAP1_A['map_list'], conf_test.MAP1_A['builds']),
-    (10, 5, conf_test.MAP2_A['map_list'], conf_test.MAP2_A['builds']),
-    (7, 3, conf_test.MAP3_A['map_list'], conf_test.MAP3_A['builds'])
+    (4, 6, conf_test.MAP1_A['builds']),
+    (10, 5, conf_test.MAP2_A['builds']),
+    (7, 3, conf_test.MAP3_A['builds'])
 ]
 
 
-@pytest.mark.parametrize('length, width, map_l, buildings', tests_map_init)
-def test_init_map(length: int, width: int, map_l: list, buildings: dict) -> None:
+@pytest.mark.parametrize('length, width, buildings', tests_map_init)
+def test_init_map(length: int, width: int, buildings: dict) -> None:
     """Test building's initialization."""
-    map_ = Map(length, width, map_l, buildings)
+    map_ = Map(length, width, buildings)
     assert map_.length == length
     assert map_.width == width
-    assert map_.map_list == map_l
     assert map_.buildings == buildings
 
 
@@ -121,7 +132,6 @@ def test_from_dict_map(given_data: dict, output: Map) -> None:
     new_map = Map.from_dict(**given_data)
     assert new_map.length == output.length
     assert new_map.width == output.width
-    assert new_map.map_list == output.map_list
     assert new_map.buildings == output.buildings
 
 

@@ -1,14 +1,18 @@
 {
     "MAP1_A": {
         "map_list": [
-            [0, 1, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0]
         ],
         "builds": {
-            "building0": "Height: 8, area: 3, floors: 4\nLocation: (1, 2)",
-            "building2": "Height: 20, area: 12, floors: 10\nLocation: (4, 4)"
+            "building0": "test_buildings/building0.json",
+            "building2": "test_buildings/building2.json"
+        },
+        "builds_str": {
+            "building0": "Height: 8, area: 3, floors: 4\nLocation: [1, 2]",
+            "building2": "Height: 20, area: 12, floors: 10\nLocation: [3, 3]"
         }
     }
 }
