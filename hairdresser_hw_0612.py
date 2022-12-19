@@ -9,8 +9,8 @@ class Client:
 
 
 class Hairdresser:
-    TIMEOUT = 10
-    WORK_INTERVAL = (3, 4)
+    TIMEOUT = 5
+    WORK_INTERVAL = (1, 3)
 
     def __init__(self) -> None:
         self.__client_came = Event()
@@ -75,8 +75,8 @@ class Salon:
                 self.__worker.call()
 
 
-SIZE_QUEUE = 1
-ENTER_TIME_INTERVAL = (2, 4)
+SIZE_QUEUE = 2
+ENTER_TIME_INTERVAL = (3, 6)
 
 if __name__ == '__main__':
 

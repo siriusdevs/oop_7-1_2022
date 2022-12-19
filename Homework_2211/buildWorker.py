@@ -43,9 +43,9 @@ class Building:
 
     def is_valid(self) -> bool:
         """Check attributes for obj in class."""
-        if all([isinstance(self.name, str), isinstance(self.height, (int, float)), isinstance(self.width, (int, float))]):
-            if all([isinstance(self.floors, int), isinstance(self.coord_x, int), isinstance(self.coord_y, int)]):
-                return all([self.floors > 0, self.width > 0, self.height > 0])
+        if all([isinstance(attr, (int, float)) for attr in (self.height, self.width)]):
+            if all([isinstance(attr, int) for attr in (self.floors, self.coord_x, self.coord_y)]):
+                return all([attr > 0 for attr in (self.floors, self.width, self.height)])
         return False
 
     def to_dict(self) -> dict:
@@ -139,15 +139,15 @@ class Town:
             inf = load(json_file)
         map = inf['map']
         len_m = len(map)
-        if not all([-len_m - 1 < building.coord_y - 1 < len_m, -len(map[0]) - 1 < building.coord_x - 1 < len(map[0])]):
+        if not all([-len_m - 1 < building.coord_y < len_m, -len(map[0]) - 1 < building.coord_x < len(map[0])]):
             print('Entered coordinates outside the map')
             return None
-        if not inf['map'][building.coord_y - 1][building.coord_x - 1] == 0:
+        if not inf['map'][building.coord_y][building.coord_x] == 0:
             print('-' * 100)
             print('There is already a building on this place')
             print('-' * 100)
             return None
-        inf['map'][building.coord_y - 1][building.coord_x - 1] = 'X'
+        inf['map'][building.coord_y][building.coord_x] = 'X'
         inf[(str(building.coord_y) + str(building.coord_x))] = building.to_dict()
         with open(file_name, 'wt') as json_file:
             dumps_inf = dumps(inf)
@@ -165,7 +165,7 @@ class Town:
             inf = load(json_file)
         coord_x = inf[coordinates]['coord_x']
         coord_y = inf[coordinates]['coord_y']
-        inf['map'][coord_y - 1][coord_x - 1] = 0
+        inf['map'][coord_y][coord_x] = 0
         inf.pop(coordinates)
         with open(file_name, 'wt') as json_file:
             dumps_inf = dumps(inf)

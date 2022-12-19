@@ -18,23 +18,19 @@ def test_building_ptrs(name, height, width, floors, coord_x, coord_y) -> None:
         coord_x: int - coordinate x of a building on the map.
         coord_y: int - coordinate y of a building on the map.
     """
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).name == name
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).height == height
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).width == width
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).floors == floors
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).coord_x == coord_x
-    assert buildWorker.Building(name, height, width, floors, coord_x, coord_y).coord_y == coord_y
+    db = {'name': name, 'height': height, 'width': width, 'floors': floors, 'coord_x': coord_x, 'coord_y': coord_y}
+    building = buildWorker.Building(*[db[key] for key in ['name', 'height', 'width', 'floors', 'coord_x', 'coord_y']])
+    for attr, value in db.items():
+        assert getattr(building, attr) == value
 
 
 @pytest.mark.xfail(raises=buildWorker.BuildErr)
 def test_building_valid():
     """Tests for buildings' BuildErr."""
-    with pytest.raises(buildWorker.BuildErr):
-        assert buildWorker.Building(4, 1, 3, -1, 3, 0)
-    with pytest.raises(buildWorker.BuildErr):
-        assert buildWorker.Building('Hi', 1, 3, -1, 3, 0)
-    with pytest.raises(buildWorker.BuildErr):
-        assert buildWorker.Building('Hi', -1, -3, 1, 3, 3)
+    tests = [(4, 1, 3, -1, 3, 0), ('Hi', 1, 3, -1, 3, 0), ('Hi', -1, -3, 1, 3, 3)]
+    for values in tests:
+        with pytest.raises(buildWorker.BuildErr):
+            assert buildWorker.Building(*values)
 
 
 map_ptrs = [(2, 3), (1, 4)]
@@ -48,8 +44,9 @@ def test_map_ptrs(length, width) -> None:
         length: int - length of a map.
         width: int - width of a map.
     """
-    assert buildWorker.Map(length, width).length == length
-    assert buildWorker.Map(length, width).width == width
+    map = buildWorker.Map(length, width)
+    assert map.length == length
+    assert map.width == width
 
 
 @pytest.mark.xfail(raises=buildWorker.MapErr)
@@ -84,7 +81,7 @@ def test_see_map_r() -> None:
             assert ih == 0 or ih == 'X'
 
 
-see_build_prts = [('22', {
+see_build_prts = [('11', {
     "name": "School",
     "Floors": 4
 }), ('23', 'No such a building')]
@@ -102,7 +99,7 @@ def test_see_build_ptrs(coordinates, information) -> None:
     assert buildWorker.Town.see_buildings(file_name, coordinates) == information
 
 
-add_building_prts = [buildWorker.Building('Max', 1, 1, 1, 1, 1), buildWorker.Building('Kirill', 1, 1, 1, 3, 3)]
+add_building_prts = [buildWorker.Building('Max', 1, 1, 1, 0, 0), buildWorker.Building('Kirill', 1, 1, 1, 2, 2)]
 
 
 @pytest.mark.parametrize('building', add_building_prts)
