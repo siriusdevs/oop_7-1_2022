@@ -30,6 +30,7 @@ class Writer(Thread):
     """Class of writer."""
 
     TIMEOUT_WRITING = (3, 6)
+    TIME_OF_SLEEP = (2, 4)
 
     def __init__(self, name):
         """Inialization of writer.
@@ -57,10 +58,9 @@ class Writer(Thread):
                 print('Writer {0} wrote {1}'.format(self.name, word))
                 event.clear()
                 sleep(randint(*Writer.TIMEOUT_WRITING))
-            else:
-                print('Writer {0} has wrote {1}'.format(self.name, res))
-                print('Writer {0} goes to sleep'.format(self.name))
-                sleep(4)
+            print('Writer {0} has wrote {1}'.format(self.name, res))
+            print('Writer {0} goes to sleep'.format(self.name))
+            sleep(randint(*Writer.TIME_OF_SLEEP))
 
 
 if __name__ == "__main__":
