@@ -51,7 +51,7 @@ class Triangle:
                 return False
             if side <= 0:
                 return False
-        if sides[0] > sides[1] + sides[2]:
+        if self.side_a + self.side_b <= self.side_c or self.side_a + self.side_c <= self.side_b or self.side_b + self.side_c <= self.side_a:
             return False
         return True
 

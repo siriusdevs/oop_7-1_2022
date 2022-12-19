@@ -1,4 +1,4 @@
-"""the figure function"""
+"""the triangle and circle classes"""
 import math
 
 
