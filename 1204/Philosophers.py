@@ -1,48 +1,55 @@
-from multiprocessing import Process, Lock
-import time
-import random
+import datetime
+from multiprocessing import Process, Lock, Event
+from random import randint
+
+from time import sleep
+PHILOSOPHERS = 6
 
 
 class Philosopher(Process):
+    EATING_TIME = (1, 3)
+    FAMINE_TIME = (1, 3)
+    THINKING_TIME = (3,3)
 
-    def __init__(self, phi, locks):
-        super().__init__()
-        self.phi = phi
-        self.locks = locks
+    def __init__(self, name: str, right: Lock, left: Lock):
+        super().__init__(name=name)
+        self.name = name
+        self.chopstick_left = right
+        self.chopstick_right = left
 
-    def run(self):
-        time.sleep(random.randint(1, 3))
-        print(f"Philosopher {self.phi} is hungry and want to eat")
-        self.start_eat()
+    def out(self):
+        print("{} start eating".format(self.name))
+        sleep(randint(*Philosopher.EATING_TIME))
+        print("{} stop eating and start thinking".format(self.name))
+        self.chopstick_right.release()
+        self.chopstick_left.release()
+        # self.hunger.set()
+        sleep(randint(*Philosopher.THINKING_TIME))
+        print("{} stop thinking and want to eating".format(self.name))
 
-    def start_eat(self):
-        left = self.locks[self.phi - 1]
-        right = self.locks[self.phi % 5]
-
+    def run(self) -> None:
         while True:
-            result = left.acquire()
-            if right.acquire():
-                left.release()
+            if self.chopstick_left.acquire(timeout=0.001):
+                if self.chopstick_right.acquire(timeout=0.001):
+                    self.out()
+                else:
+                    try:
+                        self.chopstick_left.release()
+                    except ValueError:
+                        pass
             else:
-                result = right.acquire()
-                print(f"Philosopher {self.phi} is eating")
-                time.sleep(random.randint(1, 3))
-                right.release()
-                left.release()
-                print(f"Philosopher {self.phi} is finished")
+                if self.chopstick_right.acquire(timeout=0.001):
+                    if self.chopstick_left.acquire(timeout=0.001):
+                        self.out()
+                    else:
+                        self.chopstick_right.release()
 
-
-locks = [Lock() for _ in range(5)]
-phils = [Philosopher(1, locks)]
-
-procs = [
-    Process(target=Philosopher.run()),
-    Process(target=Philosopher, args=(2, locks)),
-    Process(target=Philosopher, args=(3, locks)),
-    Process(target=Philosopher, args=(4, locks)),
-    Process(target=Philosopher, args=(5, locks)),
-]
 
 if __name__ == '__main__':
-    for proc in procs:
-        proc.start()
+    sticks = [Lock() for _ in range(PHILOSOPHERS)]
+
+    for i in range(PHILOSOPHERS):
+        if i == 0:
+            Philosopher("Philosopher {}".format(i), right=sticks[-1], left=sticks[0]).start()
+        else:
+            Philosopher("Philosopher {}".format(i), right=sticks[i - 1], left=sticks[i]).start()
