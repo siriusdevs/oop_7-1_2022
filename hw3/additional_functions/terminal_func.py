@@ -18,7 +18,7 @@ def make_menu(options: list, ask: str) -> int:
             print('Invalid option. Please enter a number between 0 and {0}'.format(count_opt - 1))
         else:
             if option_index not in range(count_opt):
-                print('Invalid option. Please enter a number between 0 and {0}'.format(count_opt - 1))
+                print('Invalid option. Choose another one')
             else:
                 break
     return option_index
