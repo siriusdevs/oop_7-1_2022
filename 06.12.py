@@ -42,7 +42,7 @@ class Barber:
         Args:
             client : Client - client whos hair are being cut
         """
-        print('Barber welcomes {0}'.format(client.name))
+        print('Barber starts cutting {0}`s hair'.format(client.name))
         self._client_came.clear()
         sleep(randint(*Barber.WORK_TIME))
         print('Client {0} is done'.format(client.name))
@@ -106,8 +106,7 @@ QUEUE_SIZE = 2
 ENTER_INTERVAL = (1, 3)
 NUMBER_OF_CLIENTS = 10
 if __name__ == '__main__':
-    faker = Faker()
-    names = [faker.name() for _ in range(NUMBER_OF_CLIENTS)]
+    names = [Faker().name() for _ in range(NUMBER_OF_CLIENTS)]
     clients = [Client(name) for name in names]
     barbershop = Barbershop(QUEUE_SIZE)
     barbershop.open()
