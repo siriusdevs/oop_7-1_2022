@@ -1,5 +1,5 @@
 """Representation of a building and a map."""
-from typing import List
+from additional_functions.json_func import read_json
 
 
 class InvalidAttribute(Exception):
@@ -29,14 +29,14 @@ class Building:
 
     """
 
-    def __init__(self, height: int, area: int, floors: int, location: tuple = None) -> None:
+    def __init__(self, height: int, area: int, floors: int, location: list = None) -> None:
         """Initialize a building.
 
         Parameters:
             height : int - height of the building in meters
             area : int - base area of the building in square meters
             floors : int - number of the floors in the building
-            location : tuple - coordinates of the building on the map
+            location : list - coordinates of the building on the map
 
         Raises:
             InvalidAttribute: if height, area and floors are not integer
@@ -46,7 +46,7 @@ class Building:
         self.floors = floors
         self.location = location
         if not self.is_valid():
-            raise InvalidAttribute("Height, area and floors must be int.")
+            raise InvalidAttribute("Height, area and floors must be integers > 0.")
 
     def is_valid(self) -> bool:
         """Checks whether a building is valid ot not."""
@@ -76,17 +76,15 @@ class Map:
     Attributes:
             length : int - lenght of a map
             width : int - widht of a map
-            map_list : List[List[int]] - list representation of a map
             buildings : dict - dictionary of current buildings on the map
     """
 
-    def __init__(self, length: int, width: int, map_list: List[List[int]] = None, buildings: dict = None) -> None:
+    def __init__(self, length: int, width: int, buildings: dict = None) -> None:
         """Initialize a map.
 
         Parameters:
             length : int - lenght of a map
             width : int - widht of a map
-            map_list : List[List[int]] - list representation of a map
             buildings : dict - dictionary of current buildings on the map
 
         Raises:
@@ -94,7 +92,6 @@ class Map:
         """
         self.length = length
         self.width = width
-        self.map_list = map_list if map_list else []
         self.buildings = buildings if buildings else {}
         if not self.is_valid():
             raise InvalidAttribute('Length and width must be integers > 0.')
@@ -116,7 +113,18 @@ class Map:
 
     def __str__(self) -> str:
         """String representation of a map."""
-        full_map = '\n'.join([str(line) for line in self.map_list])
-        all_buildings = '\n'.join(['{0}:\n{1}'.format(key, building) for key, building in self.buildings.items()])
-        all_parameters = [self.length, self.width, full_map, all_buildings]
+        all_buildings = []
+        occupied = []
+        if self.buildings:
+            for name, building_json in self.buildings.items():
+                building = Building(**read_json(building_json))
+                all_buildings.append('{0}:\n{1}'.format(name, str(building)))
+                occupied.append(building.location)
+        final_buildings = '\n'.join(all_buildings)
+        map_list = [[0] * self.width for _ in range(self.length)]
+        while occupied:
+            row, col = occupied.pop()
+            map_list[row][col] = 1
+        full_map = '\n'.join([str(line) for line in map_list])
+        all_parameters = [self.length, self.width, full_map, final_buildings]
         return 'Scale: {0}x{1}\n{2}\nBuildings on map:\n{3}'.format(*all_parameters)

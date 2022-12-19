@@ -28,7 +28,7 @@ def create_map(all_maps: list) -> str:
                 print('InvalidAttribute: {0}'.format(error))
             else:
                 break
-    map_obj = Map(length, width, [[0] * width for _ in range(length)])
+    map_obj = Map(length, width)
     file_name = 'maps/map{0}.json'.format(len(all_maps))
     write_json(file_name, map_obj.to_dict())
     print(map_obj)
@@ -48,17 +48,17 @@ def choose_map() -> str:
             break
         elif option == 0:
             return create_map(all_maps)
-
         elif option == 1:
             print('Available maps:')
             if all_maps:
-                flag = False
                 for file_n in all_maps:
                     kwargs = read_json('maps/{0}'.format(file_n))
                     print('\n{0}\n'.format(file_n[:-5]))
                     print(Map.from_dict(**kwargs))
-                options = [all_files[:-5] for all_files in all_maps]
+                options = [all_files[:-5] for all_files in all_maps] + ['Quit']
                 map_index = make_menu(options, 'Choose your map: ')
+                if map_index != len(options) - 1:
+                    flag = False
                 print('\nYou have choosen {0}\n'.format(options[map_index]))
             else:
                 print('No available maps.')
@@ -66,17 +66,39 @@ def choose_map() -> str:
             return 'maps/{0}'.format(all_maps[map_index])
 
 
-# Put Building
+# Put or Delete Building
 def build(map_file: str) -> None:
     """Build or delete a building.
 
     Args:
-        map_file : str - pathto the choosen map
+        map_file : str - path of the choosen map
     """
-    option = make_menu(['Create building', 'Delete building', 'Quit'], 'Choose option: ')
-    check_dir('buildings/')
-    all_builds = listdir('buildings/')
-    current_map = Map.from_dict(**read_json(map_file))
+    while True:
+        option = make_menu(['Create building', 'Delete building', 'Quit'], 'Choose option: ')
+        check_dir('buildings/')
+        all_builds = listdir('buildings/')
+        current_map = Map.from_dict(**read_json(map_file))
+        if option == 1:
+            print(current_map)
+            if current_map.buildings:
+                options = list(current_map.buildings.keys()) + ['Quit']
+                building_index = make_menu(options, 'Choose a building to delete: ')
+                if building_index != len(options) - 1:
+                    name_build = options[building_index]
+                    build_file = 'buildings/{0}.json'.format(name_build)
+                    build_obj = Building(**read_json(build_file))
+                    row, column = build_obj.location
+                    del current_map.buildings[name_build]
+                    remove(build_file)
+                    write_json(map_file, current_map.to_dict())
+                    print('Building was successfully removed from the map.')
+                    print(current_map)
+                    break
+            else:
+                print('There is nothing to delete.')
+                break
+        else:
+            break
     if option == 0:
         while True:
             try:
@@ -100,13 +122,17 @@ def build(map_file: str) -> None:
             except ValueError:
                 print('Row and column must be integers!')
             else:
-                if row - 1 not in range(current_map.length) or column - 1 not in range(current_map.width):
+                occupied = []
+                for building_json in current_map.buildings.values():
+                    building_in_map = Building(**read_json(building_json))
+                    occupied.append(building_in_map.location)
+                if row not in range(current_map.length) or column not in range(current_map.width):
                     print('There are no such row and column!')
-                elif current_map.map_list[row - 1][column - 1] == 1:
+                elif [row, column] in occupied:
                     print('This place is occupied! Choose another one.')
                 else:
                     break
-        building.location = (row, column)
+        building.location = [row, column]
         while True:
             build_name = input('Name your building: ')
             if '{0}.json' in all_builds:
@@ -114,27 +140,9 @@ def build(map_file: str) -> None:
             else:
                 break
         write_json('buildings/{0}.json'.format(build_name), building.to_dict())
-        current_map.map_list[row - 1][column - 1] = 1
-        current_map.buildings[build_name] = str(building)
+        current_map.buildings[build_name] = 'buildings/{0}.json'.format(build_name)
         write_json(map_file, current_map.to_dict())
         print(current_map)
-    elif option == 1:
-        print(current_map)
-        if current_map.buildings:
-            options = list(current_map.buildings.keys())
-            building_index = make_menu(options, 'Choose a building to delete: ')
-            name_build = options[building_index]
-            build_file = 'buildings/{0}.json'.format(name_build)
-            build_obj = Building(**read_json(build_file))
-            row, column = build_obj.location
-            current_map.map_list[row - 1][column - 1] = 0
-            del current_map.buildings[name_build]
-            remove(build_file)
-            write_json(map_file, current_map.to_dict())
-            print('Building was successfully removed from the map.')
-            print(current_map)
-        else:
-            print('There is nothing to delete.')
 
 
 # Start the programm
