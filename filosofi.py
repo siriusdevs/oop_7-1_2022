@@ -2,6 +2,7 @@
 from multiprocessing import Process, Lock
 from time import sleep
 from random import randint
+import os
 
 
 class Philosopher(Process):
@@ -9,7 +10,9 @@ class Philosopher(Process):
 
     EATING_INTERVAL = (2, 3)
     THINKING_INTERVAL = (4, 6)
-    TIMEOUT_ACQUIRE = 0.0001
+    TIMEOUT_ACQUIRE = 0.00001
+    LEFT_RIGHT = [0, 1]
+    RIGHT_LEFT = [1, 0]
 
     def __init__(self, name, l_lock, r_lock):
         """Initialization of philosopher.
@@ -31,15 +34,34 @@ class Philosopher(Process):
         self.l_lock.release()
         print('Philosopher {0} is thinking'.format(self.name))
         sleep(randint(*Philosopher.THINKING_INTERVAL))
+        print('Philosopher {0} has finished thinking and wants to eat'.format(self.name))
+
+    def check_pid(self, pid):
+        """Check if process is alive.
+
+        Args:
+            pid (int): process id.
+
+        Returns:
+            _bool_: true if process is alive else false.
+        """
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        return True
 
     def run(self):
         """Main method of philosopher."""
         while True:
-            if self.l_lock.acquire(timeout=Philosopher.TIMEOUT_ACQUIRE):
-                if self.r_lock.acquire(timeout=Philosopher.TIMEOUT_ACQUIRE):
-                    self.eating()
-                else:
-                    self.l_lock.release()
+            check = self.check_pid(os.getpid())
+            chopsticks = self.r_lock, self.l_lock
+            for choice1, choice2 in (Philosopher.LEFT_RIGHT, Philosopher.RIGHT_LEFT):
+                if chopsticks[choice1].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
+                    if chopsticks[choice2].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
+                        self.eating()
+                    else:
+                        chopsticks[choice1].release()
 
 
 class Dinner:
