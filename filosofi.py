@@ -51,17 +51,26 @@ class Philosopher(Process):
             return False
         return True
 
+    def cognitive(self, check, chopsticks):
+        """Method with main logic.
+
+        Args:
+            check (bool): checks if the process is alive.
+            chopsticks (list): list of chopsticks.
+        """
+        for choice1, choice2 in (Philosopher.LEFT_RIGHT, Philosopher.RIGHT_LEFT):
+            if chopsticks[choice1].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
+                if chopsticks[choice2].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
+                    self.eating()
+                else:
+                    chopsticks[choice1].release()
+
     def run(self):
         """Main method of philosopher."""
         while True:
             check = self.check_pid(os.getpid())
             chopsticks = self.r_lock, self.l_lock
-            for choice1, choice2 in (Philosopher.LEFT_RIGHT, Philosopher.RIGHT_LEFT):
-                if chopsticks[choice1].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
-                    if chopsticks[choice2].acquire(timeout=Philosopher.TIMEOUT_ACQUIRE) and check:
-                        self.eating()
-                    else:
-                        chopsticks[choice1].release()
+            self.cognitive(check, chopsticks)
 
 
 class Dinner:
