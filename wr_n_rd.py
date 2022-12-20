@@ -55,11 +55,12 @@ class Writer(Thread):
                     letter, text = text[:1], text[1:]
                     CUR_LETTER = letter
                     print('Writer {0} wrote {1}'.format(self.name, letter))
-                    with cond:
-                        cond.notify_all()
+                    cond.acquire()
+                    cond.notify_all()
+                    cond.release()
                     sleep(randint(*Writer.TIMEOUT_WRITING))
-            print('Writer {0} has wrote {1}'.format(self.name, res))
-            print('Writer {0} goes to sleep'.format(self.name))
+                print('Writer {0} has wrote {1}'.format(self.name, res))
+                print('Writer {0} goes to sleep'.format(self.name))
             sleep(randint(*Writer.TIME_OF_SLEEP))
 
 
