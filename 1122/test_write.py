@@ -1,4 +1,6 @@
 import pytest
+import sys
+sys.path.append('/tests')
 from street import street, House
 import json
 
