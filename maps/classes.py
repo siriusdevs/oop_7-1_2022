@@ -113,7 +113,9 @@ class Building:
         conditions = []
         conditions.append(isinstance(self.height, int | float) and isinstance(self.base_area, int | float))
         conditions.append(isinstance(self.number_of_floors, int))
-        conditions.append(len(set({parametr > 0 for parametr in self.__dict__.values()})) == 1)
+        if all(conditions):
+            for parametr in self.__dict__.values():
+                conditions.append(parametr > 0)
         return all(conditions)
 
     def to_dict(self) -> dict:
@@ -174,7 +176,8 @@ class Map:
         conditions.append(isinstance(self.name, str) and isinstance(self.width, int))
         conditions.append(isinstance(self.height, int))
         if all(conditions):
-            conditions.append(len(set({parametr > 0 for parametr in (self.width, self.height)})) == 1)
+            for parametr in (self.width, self.height):
+                conditions.append(parametr > 0)
         return all(conditions)
 
     def check_coordinate(self, x_coordinate: int, y_coordinate: int) -> bool:
@@ -336,22 +339,26 @@ class Menu:
             list_with_maps.append(map_to_write)
         return list_with_maps
 
-    def open_map(self, name: str, list_with_maps: List[Map], flag_to_maps: bool):
+    def open_map(self, name: str, list_with_maps: List[Map], flag_to_maps: bool) -> bool:
         """Open map and show building on it.
 
         Args:
             name (str): map's name.
             list_with_maps (List[Map]): list with maps.
             flag_to_maps (bool): True if maps exists else False.
+
+        Returns:
+            bool: False if there isn't buildings.
         """
         if not flag_to_maps:
             print("Нет созданных карт!")
-            return
+            return False
         ind = [maps.name for maps in list_with_maps].index(name)
         maps = list_with_maps[ind]
         print(maps)
         if len(maps.list_with_buildings) == 1:
             print("Зданий нет!")
+            return False
         for index, list_with_params in enumerate(maps.list_with_buildings):
             if index == 0:
                 continue
@@ -364,6 +371,7 @@ class Menu:
             bld_number_of_floors = int(dct_with_building["number_of_floors"])
             bld = Building(bld_height, bld_base_area, bld_number_of_floors)
             print(bld)
+        return True
 
     def add_building(
         self, name: str, height: str, base_area: str, number_of_floors: str,\
@@ -389,6 +397,9 @@ class Menu:
             y_coordinate = int(y_coordinate)
         for maps in list_with_maps:
             if name == maps.name:
+                if not maps.check_coordinate(x_coordinate, y_coordinate):
+                    print(WrongCoordinates([x_coordinate, y_coordinate]))
+                    return
                 maps.add_building(x_coordinate, y_coordinate, Building(height, base_area, number_of_floors))
                 print("Здание добавлено!")
                 break
@@ -472,6 +483,8 @@ class Menu:
         except KeyError:
             print("Такой карты не существует!")
             return
+        except AttributeError:
+            return
         self.open_map(name, list_with_maps, flag_to_maps)
 
     def print_fourth_command(self, list_with_maps: List[Map], flag_to_maps: bool):
@@ -485,6 +498,8 @@ class Menu:
             name = self.find_map_name(list_with_maps, flag_to_maps)
         except KeyError:
             print("Такой карты не существует!")
+            return
+        except AttributeError:
             return
         self.open_map(name, list_with_maps, flag_to_maps)
         height = input("Введите высоту: ")
@@ -512,9 +527,13 @@ class Menu:
         except KeyError:
             print("Такой карты не существует!")
             return
-        self.open_map(name, list_with_maps, flag_to_maps)
-        x_coordinate = input("Введите координату по х: ")
-        y_coordinate = input("Введите координату по y: ")
+        except AttributeError:
+            return
+        if self.open_map(name, list_with_maps, flag_to_maps):
+            x_coordinate = input("Введите координату по х: ")
+            y_coordinate = input("Введите координату по y: ")
+        else:
+            return
         try:
             self.delete_building(name, x_coordinate, y_coordinate, list_with_maps)
         except (WrongCoordinates, NeverExistingBuilding) as err:
