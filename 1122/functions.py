@@ -55,7 +55,7 @@ def lst_matrix(file_name):
         matrix: list - list of numbers 0 and 1.
     """
     from setup import SIZE
-    matrix = [[0] * SIZE for _ in range(SIZE)]
+    matrix = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
     array_of_classes = inp_json(file_name)
     for cls_class in array_of_classes:
         matrix[cls_class.y_pos][cls_class.x_pos] = 1
