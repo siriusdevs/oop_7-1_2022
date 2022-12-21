@@ -39,7 +39,7 @@ class House:
         return False
 
 
-def for_remove(file_name, new_house):
+def for_remove(file_name: str, new_house: str):
     """Function for checking position of house for remove.
 
     Args:
@@ -60,7 +60,7 @@ def for_remove(file_name, new_house):
             time.sleep(3)
 
 
-def street(new_house, file_name, action: str = '1'):
+def street(new_house: House, file_name: str, action: str = '1'):
     """Function which controls file and matrix actions.
 
     Args:

@@ -8,7 +8,7 @@ test_replace = [((1, 1, 200, 200, 'test_replace'), 'test.json', '1', None)]
 test_remove = [((1, 1, 200, 200, 'test_move'), 'test.json', '2', [])]
 
 
-def from_obj(cls_obj):
+def from_obj(cls_obj: House) -> tuple:
     """Function which must divide class object on parameters.
 
     Args:
@@ -21,7 +21,7 @@ def from_obj(cls_obj):
 
 
 @pytest.mark.parametrize('par, file_name, action, ans', test_write)
-def test_file_write1(par, file_name, action, ans):
+def test_file_write1(par: tuple, file_name: str, action: str, ans: dict):
     """Function which test writing to file.
 
     Args:
@@ -49,7 +49,7 @@ def test_file_remove(par, file_name, action, ans):
 
 
 @pytest.mark.parametrize('par, file_name, action, ans', test_write)
-def test_file_write2(par, file_name, action, ans):
+def test_file_write2(par: tuple, file_name: str, action: str, ans: dict):
     """Function which test writing to file.
 
     Args:
@@ -64,7 +64,7 @@ def test_file_write2(par, file_name, action, ans):
 
 
 @pytest.mark.parametrize('par, file_name, action, ans', test_replace)
-def test_file_replace(par, file_name, action, ans):
+def test_file_replace(par: tuple, file_name: str, action: str, ans: dict):
     """Function which test writing to file.
 
     Args:

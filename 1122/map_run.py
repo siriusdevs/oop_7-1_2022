@@ -4,7 +4,7 @@
 message = 'House: {0}\nposition: ({1}, {2})\nheight: {3}\nsquare: {4}'
 
 
-def house(act):
+def house(act: str) -> str:
     """Function for interrupt flake error.
 
     Args:
@@ -17,7 +17,7 @@ def house(act):
         return input('name = ')
 
 
-def show_house(file_name, position):
+def show_house(file_name: str, position: tuple):
     """Function which shows parameters of house.
 
     Args:
@@ -36,7 +36,7 @@ def show_house(file_name, position):
             time.sleep(3)
 
 
-def map_print(file_name):
+def map_print(file_name: str) -> str:
     """Function which prints and adds houses map.
 
     Args:

@@ -4,7 +4,7 @@ from map_run import map_print
 from setup import START_PATH
 
 
-def in_key(key, file_name):
+def in_key(key: object, file_name: str):
     """Function which checks keys input.
 
     Args:
@@ -19,11 +19,11 @@ def in_key(key, file_name):
         print('by')
 
 
-def find_maps():
+def find_maps() -> list:
     """Function which finds json files.
 
     Returns:
-        map_files: list - array of json files.
+        list - array of json files.
     """
     maps_files = []
     for _, _, files in os.walk(os.getcwd()):

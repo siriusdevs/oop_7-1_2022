@@ -1,7 +1,7 @@
 """File with functions for other files."""
 
 
-def check(num, left_bound=0, right_bound=None):
+def check(num: str, left_bound: int = 0, right_bound: int = None) -> bool:
     """Function checks number for valid.
 
     Args:
@@ -21,7 +21,7 @@ def check(num, left_bound=0, right_bound=None):
     return left_bound < num
 
 
-def inp_json(file_name):
+def inp_json(file_name: str) -> list:
     """Function reads json file.
 
     Args:
@@ -45,14 +45,14 @@ def inp_json(file_name):
     return []
 
 
-def lst_matrix(file_name):
+def lst_matrix(file_name: str) -> list:
     """Function which fills matrix.
 
     Args:
         file_name: str - path to json file.
 
     Returns:
-        matrix: list - list of numbers 0 and 1.
+        list - list of numbers 0 and 1.
     """
     from setup import SIZE
     matrix = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
@@ -62,7 +62,7 @@ def lst_matrix(file_name):
     return matrix
 
 
-def str_matrix(file_name):
+def str_matrix(file_name: str) -> list:
     """Function turns matrix to string.
 
     Args:
