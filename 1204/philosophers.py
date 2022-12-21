@@ -1,7 +1,6 @@
 """Homework about philosopher's problem."""
 from multiprocessing import Process, Lock
 from random import randint
-from faker import Faker
 
 from time import sleep
 PHILOSOPHERS = 6
@@ -37,22 +36,27 @@ class Philosopher(Process):
         sleep(randint(*Philosopher.THINKING_TIME))
         print('{0} end thinking and hungry'.format(self.name))
 
+    def get(self):
+        """Function which shows if philosopher gets or puts down stick."""
+        if self.num == 0:
+            print('{0} got right stick'.format(self.name))
+            self.num += 1
+        if self.num == 1:
+            print('{0} put down right stick'.format(self.name))
+            self.num += 1
+
     def run(self) -> None:
         """Function which checks acquire of sticks."""
-        num = 0
+        self.num = 0
         while True:
             if self.right.acquire(timeout=Philosopher.TIMEOUT):
-                if num == 0:
-                    print('{0} got right stick'.format(self.name))
-                    num += 1
+                self.get()
                 if self.left.acquire(timeout=Philosopher.TIMEOUT):
                     print('{0} got left stick'.format(self.name))
                     self.eat()
                     print('{0} put down left stick'.format(self.name))
                 else:
-                    if num == 1:
-                        print('{0} put down right stick'.format(self.name))
-                        num += 1
+                    self.get()
                     self.right.release()
 
 
