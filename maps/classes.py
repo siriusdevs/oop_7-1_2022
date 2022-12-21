@@ -275,7 +275,7 @@ class Map:
         if self.matrix[y_coordinate][x_coordinate] == '0':
             raise NeverExistingBuilding([x_coordinate, y_coordinate])
         self.matrix[y_coordinate][x_coordinate] = '0'
-        lst = [par[0] == x_coordinate and par[1] == y_coordinate for par in self.list_with_buildings[1:]]
+        lst = [par[0] == x_coordinate and par[1] == y_coordinate for par in self.list_with_buildings]
         ind = lst.index(True)
         del self.list_with_buildings[ind]
         with open("maps.json", 'rt') as file_json:
