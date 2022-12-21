@@ -34,8 +34,9 @@ class House:
         """
         from setup import SIZE
         valid = {self.square: (float, int), self.height: (float, int), self.x_pos: int, self.y_pos: int}
-        return all(isinstance(attr, lst_val) for attr, lst_val in valid.items()) \
-               and all([self.square, self.height]) > 0 and 0 <= self.x_pos <= SIZE and 0 <= self.y_pos <= SIZE
+        if all([self.square, self.height]) > 0 and 0 <= self.x_pos <= SIZE and 0 <= self.y_pos <= SIZE:
+            return all(isinstance(attr, lst_val) for attr, lst_val in valid.items())
+        return False
 
 
 def for_remove(file_name, new_house):
@@ -53,6 +54,7 @@ def for_remove(file_name, new_house):
     for cls_class in houses:
         if cls_class.x_pos == new_house.x_pos and cls_class.y_pos == new_house.y_pos:
             houses.remove(cls_class)
+            return houses
         else:
             print('Там нет здания')
             time.sleep(3)
@@ -78,7 +80,7 @@ def street(new_house, file_name, action: str = '1'):
         print('Там уже есть здание')
         time.sleep(3)
     if action == '2':
-        for_remove(file_name, new_house)
+        houses = for_remove(file_name, new_house)
 
     with open(file_name, 'w') as map_list:
         class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.name)) for ind in houses}
