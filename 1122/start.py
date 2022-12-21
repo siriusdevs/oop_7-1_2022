@@ -19,6 +19,20 @@ def in_key(key, file_name):
         print('by')
 
 
+def find_maps():
+    """Function which finds json files.
+
+    Returns:
+        map_files: list - array of json files.
+    """
+    maps_files = []
+    for _, _, files in os.walk(os.getcwd()):
+        for name in files:
+            if '.json' in name:
+                maps_files.append(name)
+    return maps_files
+
+
 if __name__ == '__main__':
     while True:
         os.system('clear')
@@ -29,11 +43,7 @@ if __name__ == '__main__':
             in_key(start, '{0}{1}'.format(input('Enter name: '), '.json'))
             break
         elif start == '2':
-            maps = []
-            for _, _, files in os.walk(os.getcwd()):
-                for name in files:
-                    if '.json' in name:
-                        maps.append(name)
+            maps = find_maps()
             if maps:
                 print('Choose file:')
                 for num, file_map in enumerate(maps):
