@@ -31,8 +31,8 @@ class Reader(Thread):
 class Writer(Thread):
     """Class of writer."""
 
-    TIMEOUT_WRITING = (3, 6)
-    TIME_OF_SLEEP = (2, 4)
+    TIMEOUT_WRITING = (1, 2)
+    TIME_OF_SLEEP = (3, 4)
 
     def __init__(self, name):
         """Inialization of writer.
@@ -53,21 +53,26 @@ class Writer(Thread):
                 res = text
                 while text:
                     letter, text = text[:1], text[1:]
-                    CUR_LETTER = letter
-                    print('Writer {0} wrote {1}'.format(self.name, letter))
+                    CUR_LETTER += letter
+                    print('Writer {0} wrote {1}'.format(self.name, CUR_LETTER))
                     cond.acquire()
                     cond.notify_all()
                     cond.release()
                     sleep(randint(*Writer.TIMEOUT_WRITING))
                 print('Writer {0} has wrote {1}'.format(self.name, res))
                 print('Writer {0} goes to sleep'.format(self.name))
+                CUR_LETTER = ''
             sleep(randint(*Writer.TIME_OF_SLEEP))
+
+
+NUM_OF_READERS = 2
+NUM_OF_WRITERS = 4
 
 
 if __name__ == "__main__":
     cond = Condition(lock=Lock())
     lock = Lock()
-    for nums in range(10):
+    for nums in range(NUM_OF_READERS):
         Reader(str(nums)).start()
-    for num in range(2):
+    for num in range(NUM_OF_WRITERS):
         Writer(str(num)).start()
