@@ -13,7 +13,8 @@ def house(act):
     Returns:
         str - name of house.
     """
-    return input('name = ') if act != '2' else None
+    if act != '2':
+        return input('name = ')
 
 
 def show_house(file_name, position):
