@@ -1,0 +1,7 @@
+{
+    "length": 5,
+    "width": 6,
+    "buildings": {
+        "test_building": "buildings/test_building.json"
+    }
+}
