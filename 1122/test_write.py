@@ -18,4 +18,4 @@ def file_write_check(par, file_name, action, ans):
     street(House(*par), file_name, action)
     with open(file_name, 'r') as map_list:
         street_map = json.load(map_list)
-        assert street_map[1] in ans.keys()
+        assert street_map[1] in ans.values()
