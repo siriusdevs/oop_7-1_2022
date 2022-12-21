@@ -60,6 +60,7 @@ def for_remove(file_name, new_house):
             time.sleep(3)
 
 
+
 def street(new_house, file_name, action: str = '1'):
     """Function which controls file and matrix actions.
 
@@ -80,7 +81,8 @@ def street(new_house, file_name, action: str = '1'):
         print('Там уже есть здание')
         time.sleep(3)
     if action == '2':
-        houses = for_remove(file_name, new_house)
+        new_houses = for_remove(file_name, new_house)
+        houses = new_houses if new_houses else []
 
     with open(file_name, 'w') as map_list:
         class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.name)) for ind in houses}
