@@ -60,8 +60,8 @@ class Reader(Thread):
 
 
 READERS = 6
-WRITERS = 2
-LINES = ['check1', 'check2', 'check3']
+WRITERS = 4
+LINES = ['new', 'reader', 'is']
 
 if __name__ == '__main__':
     notifier = Condition(lock=Lock())
@@ -72,5 +72,4 @@ if __name__ == '__main__':
         if writer < len(LINES):
             Writer(writer, LINES[writer]).start()
         else:
-            print('Everything has writen')
-            break
+            print('No more text')
