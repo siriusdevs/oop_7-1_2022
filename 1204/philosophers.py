@@ -29,35 +29,28 @@ class Philosopher(Process):
     def eat(self):
         """Function where philosopher start eating."""
         print('{0} start eating.'.format(self.name))
-        sleep(randint(*Philosopher.EATING_TIME))
+        # sleep(randint(*Philosopher.EATING_TIME))
+        sleep(.1)
         print('{0} end eating and start thinking'.format(self.name))
-        self.right.release()
-        self.left.release()
-        sleep(randint(*Philosopher.THINKING_TIME))
-        print('{0} end thinking and hungry'.format(self.name))
-
-    def get(self):
-        """Function which shows if philosopher gets or puts down stick."""
-        if self.num == 0:
-            print('{0} got right stick'.format(self.name))
-            self.num += 1
-        if self.num == 1:
-            print('{0} put down right stick'.format(self.name))
-            self.num += 1
 
     def run(self) -> None:
         """Function which checks acquire of sticks."""
-        self.num = 0
         while True:
             if self.right.acquire(timeout=Philosopher.TIMEOUT):
-                self.get()
+                print('{0} got right stick'.format(self.name))
                 if self.left.acquire(timeout=Philosopher.TIMEOUT):
                     print('{0} got left stick'.format(self.name))
                     self.eat()
-                    print('{0} put down left stick'.format(self.name))
-                else:
-                    self.get()
                     self.right.release()
+                    self.left.release()
+                    # sleep(randint(*Philosopher.THINKING_TIME))
+                    sleep(.2)
+                    print('{0} end thinking and hungry'.format(self.name))
+                    print('{0} put down left stick'.format(self.name))
+                    print('{0} put down right stick'.format(self.name))
+                else:
+                    self.right.release()
+                    print('{0} put down right stick'.format(self.name))
 
 
 if __name__ == '__main__':
