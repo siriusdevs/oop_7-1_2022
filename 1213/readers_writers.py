@@ -72,4 +72,4 @@ if __name__ == '__main__':
         if writer < len(LINES):
             Writer(writer, LINES[writer]).start()
         else:
-            print('No more text')
+            print('No more text for writer {0}'.format(writer))
