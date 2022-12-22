@@ -4,6 +4,22 @@
 message = 'House: {0}\nposition: ({1}, {2})\nheight: {3}\nsquare: {4}'
 
 
+def checks(size):
+    """Function which checks size of houses.
+
+    Args:
+        size: str - string num.
+
+    Returns:
+        bool - if size int and > 0.
+    """
+    try:
+        size = int(size)
+    except ValueError:
+        return False
+    return size > 0
+
+
 def house(act: str) -> str:
     """Function for interrupt flake error.
 
@@ -70,5 +86,5 @@ def map_print(file_name: str) -> str:
                 continue
             case _:
                 continue
-        if check(position[0], 0, SIZE - 1) and check(position[1], 0, SIZE - 1) and check(size[1]) and check(size[0]):
+        if check(position[0], 0, SIZE - 1) and check(position[1], 0, SIZE - 1) and checks(size[0]) and checks(size[1]):
             street(House(int(position[0]), int(position[1]), int(size[1]), int(size[0]), house(act)), file_name, act)

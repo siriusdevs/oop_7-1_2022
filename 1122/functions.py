@@ -40,7 +40,10 @@ def inp_json(file_name: str) -> list:
             ans = []
             for line in street_map.values():
                 arr = list(str(line).replace(',', '').replace('(', '').replace(')', '').replace("'", "").split())
-                ans.append([int(lst) for lst in arr[:-1] if check(lst, 0)] + [arr[-1]])
+                if arr[2] != '0' and arr[3] != '0':
+                    ans.append([int(lst) for lst in arr[:-1] if check(lst, 0)] + [arr[-1]])
+                else:
+                    return []
             return [House(*lst) for lst in ans]
     return []
 
