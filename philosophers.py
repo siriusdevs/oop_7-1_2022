@@ -34,27 +34,21 @@ class Philosopher(Process):
         print("{0} start eaiting.".format(self.name))
         sleep(randint(*Philosopher.EATING_TIME))
         print("{0} end eating and start thinking.".format(self.name))
-        self.chopstick_right.release()
-        self.chopstick_left.release()
-        sleep(randint(*Philosopher.THINKING_TIME))
-        print("{0} end thinking and want's eating.".format(self.name))
 
     def run(self) -> None:
         """Main philosopher's function that start him."""
         while True:
             chopsticks = self.chopstick_right, self.chopstick_left
             for first_choice, second_choice in (Philosopher.LEFT_RIGHT, Philosopher.RIGHT_LEFT):
-                try:
-                    fst_ack = chopsticks[first_choice].acquire(timeout=Philosopher.TIMEOUT)
-                finally:
-                    if fst_ack:
-                        try:
-                            sec_ack = chopsticks[second_choice].acquire(timeout=Philosopher.TIMEOUT)
-                        finally:
-                            if sec_ack:
-                                self.out()
-                            else:
-                                chopsticks[first_choice].release()
+                if chopsticks[first_choice].acquire(timeout=Philosopher.TIMEOUT):
+                    if chopsticks[second_choice].acquire(timeout=Philosopher.TIMEOUT):
+                        self.out()
+                        self.chopstick_right.release()
+                        self.chopstick_left.release()
+                        sleep(randint(*Philosopher.THINKING_TIME))
+                        print("{0} end thinking and want's eating.".format(self.name))
+                    else:
+                        chopsticks[first_choice].release()
 
 
 if __name__ == '__main__':
