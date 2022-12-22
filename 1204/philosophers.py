@@ -1,6 +1,5 @@
 """Homework about philosopher's problem."""
 from multiprocessing import Process, Lock
-from random import randint
 
 from time import sleep
 PHILOSOPHERS = 6
@@ -11,7 +10,7 @@ class Philosopher(Process):
 
     EATING_TIME = (1, 3)
     THINKING_TIME = (4, 6)
-    TIMEOUT = 0.1
+    TIMEOUT = 0.2
 
     def __init__(self, name: str, left: Lock, right: Lock):
         """Initialization method.
@@ -30,7 +29,7 @@ class Philosopher(Process):
         """Function where philosopher start eating."""
         print('{0} start eating.'.format(self.name))
         # sleep(randint(*Philosopher.EATING_TIME))
-        sleep(.1)
+        sleep(0.1)
         print('{0} end eating and start thinking'.format(self.name))
 
     def run(self) -> None:
@@ -44,7 +43,7 @@ class Philosopher(Process):
                     self.right.release()
                     self.left.release()
                     # sleep(randint(*Philosopher.THINKING_TIME))
-                    sleep(.2)
+                    sleep(self.TIMEOUT)
                     print('{0} end thinking and hungry'.format(self.name))
                     print('{0} put down left stick'.format(self.name))
                     print('{0} put down right stick'.format(self.name))
