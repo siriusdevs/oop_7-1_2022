@@ -1,4 +1,5 @@
 """File with functions for other files."""
+import time
 
 
 def check(num: str, left_bound: int = 0, right_bound: int = None) -> bool:
@@ -18,7 +19,7 @@ def check(num: str, left_bound: int = 0, right_bound: int = None) -> bool:
         return False
     if right_bound:
         return left_bound <= num <= right_bound
-    return left_bound < num
+    return left_bound <= num
 
 
 def inp_json(file_name: str) -> list:
@@ -40,7 +41,7 @@ def inp_json(file_name: str) -> list:
             ans = []
             for line in street_map.values():
                 arr = list(str(line).replace(',', '').replace('(', '').replace(')', '').replace("'", "").split())
-                ans.append([int(lst) for lst in arr[:-1] if check(lst, 0)] + [arr[-1]])
+                ans.append([int(lst) for lst in arr[0:] if check(lst, 0)] + [arr[0]])
             return [House(*lst) for lst in ans]
     return []
 
@@ -55,7 +56,7 @@ def lst_matrix(file_name: str) -> list:
         list - list of numbers 0 and 1.
     """
     from setup import SIZE
-    matrix = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
+    matrix = [[0] * SIZE for _ in range(SIZE)]
     array_of_classes = inp_json(file_name)
     for cls_class in array_of_classes:
         matrix[cls_class.y_pos][cls_class.x_pos] = 1
