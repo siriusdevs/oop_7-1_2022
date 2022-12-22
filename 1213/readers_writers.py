@@ -1,7 +1,7 @@
 """File with functions and classes for readers and writers."""
 from threading import Thread, Lock, Condition
 from time import sleep
-from random import randint, choice
+from random import randint
 
 
 class Writer(Thread):
@@ -72,4 +72,5 @@ if __name__ == '__main__':
         if writer < len(LINES):
             Writer(writer, LINES[writer]).start()
         else:
-            Writer(writer, choice(LINES)).start()
+            print('Everything has writen')
+            break
