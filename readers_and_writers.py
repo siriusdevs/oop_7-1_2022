@@ -2,11 +2,12 @@ from threading import Thread, Lock, Event
 from time import sleep
 from random import randint, choice
 
+
 class Writer(Thread):
 
     def __init__(self, name: str, line: str, book_lock: Lock):
         """Method which initialize cllas Writer.
-        
+
         Args:
             name - name of a writer.
             line - writer's line to write in the book.
@@ -27,7 +28,7 @@ class Writer(Thread):
             print(f'Writer {self.name} wants to write {self.line}')
             with self.book_lock:
                 for letter in self.line:
-                    book += letter 
+                    book += letter
                     print(f'{self.name} writes letter {letter}')
                     adding_letter.set()
                     adding_letter.clear()
@@ -36,11 +37,12 @@ class Writer(Thread):
             print(f'Writer {self.name} is sleeping')
             sleep(randint(*REST))
 
+
 class Reader(Thread):
 
     def __init__(self, name: str):
         """Method which initialize cllas Reader.
-        
+
         Args:
             name - name of a reader.
         """
@@ -55,6 +57,7 @@ class Reader(Thread):
             adding_letter.wait()
             print(f'Reader {self.name} reads {book}')
 
+
 if __name__ == '__main__':
     LINES = ['HELLO WORLD', 'ANYA IS COOL']
     BOOK_LOCK = Lock()
@@ -68,6 +71,3 @@ if __name__ == '__main__':
 
     for writer in WRITERS:
         writer.start()
-
-            
-
