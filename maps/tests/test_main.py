@@ -57,7 +57,9 @@ test_map_add_bld = [
 ]
 
 
-@pytest.mark.parametrize('name, width, height, x_coordinate, y_coordinate, height_bld, base_area, number_of_floors, expectation', test_map_add_bld)
+@pytest.mark.parametrize('name, width, height, x_coordinate, y_coordinate, \
+    height_bld, base_area, number_of_floors, expectation', test_map_add_bld
+                         )
 def test_add_bld(name, width, height, x_coordinate, y_coordinate, height_bld, base_area, number_of_floors, expectation):
     miche = Map(name, width, height)
     miche.add_map_to_json()
