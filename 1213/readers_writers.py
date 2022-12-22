@@ -1,3 +1,4 @@
+"""File with functions and classes for readers and writers."""
 from threading import Thread, Lock, Condition
 from time import sleep
 from random import randint, choice
@@ -5,6 +6,7 @@ from random import randint, choice
 
 class Writer(Thread):
     """Writer class."""
+
     TIME_OUT = (1, 2)
     WRITE_TIME = 1
 
@@ -20,7 +22,7 @@ class Writer(Thread):
         self.text = text
 
     def run(self) -> None:
-        """Function where writer writes and notify readers"""
+        """Function where writer writes and notify readers."""
         global book, lock, notifier
         while True:
             lock.acquire()
