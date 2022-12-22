@@ -9,11 +9,10 @@ forks_lock = [Lock() for n in range(forks)]
 
 def philosophers_dinner(right_fork, left_fork, philosopher):
     while True:
-        
+
         first_fork = min(right_fork, left_fork)
         second_fork = max(right_fork, left_fork)
         forks_lock[first_fork].acquire()
-        counter = 1
 
         print(f'Философ {philosopher} takes right fork')
 
@@ -32,6 +31,6 @@ action = Event()
 
 for philosopher in range(philosophers):
     right_fork = philosopher
-    left_fork = (philosopher+1) % philosophers
+    left_fork = (philosopher + 1) % philosophers
     pr = Process(target=philosophers_dinner, args=(right_fork, left_fork, philosopher))
     pr.start()
