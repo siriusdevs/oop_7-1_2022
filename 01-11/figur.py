@@ -23,7 +23,7 @@ class Triangle:
         Returns:
             perimetr(float) rounds up to 5 numbers after dot.
         """
-        return round((self.a_side + self.b_side + self.c_side), 5)
+        return round((self.a_side + self.b_side + self.c_side), 2)
 
     def area(self) -> None:
         """The area of triangle
@@ -33,7 +33,7 @@ class Triangle:
 
         """
         pol = (self.a_side + self.b_side + self.c_side) / 2
-        return round((pol * (pol - self.a_side) * (pol - self.b_side) * (pol - self.c_side)), 5)
+        return round((pol * (pol - self.a_side) * (pol - self.b_side) * (pol - self.c_side)), 2)
 
 
 class Circle:

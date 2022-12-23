@@ -51,7 +51,7 @@ class Triangle:
                 return False
             if side <= 0:
                 return False
-        if self.side_a + self.side_b <= self.side_c or self.side_a + self.side_c <= self.side_b or self.side_b + self.side_c <= self.side_a:
+        if sides[0] > sides[1] + sides[2]:
             return False
         return True
 
@@ -78,7 +78,7 @@ class Circle:
         Returns:
             length(float): length of circle.
         """
-        return round(2 * math.pi * self.radius)
+        return round((2 * math.pi * self.radius), 2)
 
     def area(self) -> float:
         """The area of circle.
@@ -86,7 +86,7 @@ class Circle:
         Returns:
             area(float).
         """
-        return round(math.pi * self.radius)
+        return (round(math.pi * self.radius), 2)
 
     def is_valid(self) -> bool:
         """Validity check.
