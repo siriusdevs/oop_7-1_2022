@@ -51,7 +51,7 @@ class Triangle:
                 return False
             if side <= 0:
                 return False
-        if sides[0] > sides[1] + sides[2]:
+        if sides[2] > sides[1] + sides[0]:
             return False
         return True
 
