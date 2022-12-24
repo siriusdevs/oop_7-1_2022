@@ -1,6 +1,7 @@
 from main import Buildings
 from random import choice
 import pytest
+import os
 
 shop = {(0, 0): 'shop'}
 s5 = [5, 5, 5, 5, 5, 5]
@@ -14,10 +15,10 @@ for _ in range(6):
         exmaplist.append(choice(p1))
     exmap.append(exmaplist)
 exdict = {}
-for i in range(len(exmap)):
-    for j in range(len(exmap[0])):
-        if exmap[i][j]:
-            exdict[(i, j)] = choice(["house", "shop"])
+for i in enumerate(range(len(exmap))):
+    for j in enumerate(range(len(exmap[0]))):
+        if exmap[i[0]][j[0]]:
+            exdict[(j[0], i[0])] = choice(["house", "shop"])
 build = Buildings()
 tests = [(['G', 'Somemap', '55', '6'], None),\
          (['G', 'Somemap', '-55', '6'], ('Invalid arguments', False))
@@ -51,14 +52,14 @@ tests = [
 ]
 
 
-@pytest.mark.parametrize('inp, Map, answ', tests)
-def test_e_valid(inp, Map, answ):
+@pytest.mark.parametrize('inp, bmap, answ', tests)
+def test_e_valid(inp, bmap, answ):
     """Testing the function of validating the arguments of the map editing function."""
-    assert build.e_valid(inp, Map) == answ
+    assert build.e_valid(inp, bmap) == answ
 
 
 tests = [(['I', '0', '0'], shop, None),\
-         (['I', '0', '1'], shop, ("Invalid arguments", False))
+         (['I', '0', '1'], shop, ("Nothing", False))
          ]
 
 
@@ -80,13 +81,13 @@ def test_generate(x, y, answ):
 tests = [(exmap, 'donttouchthismapplease', exdict)]
 
 
-@pytest.mark.parametrize('Map, name, b_t', tests)
-def test_file(Map, name, b_t):
+@pytest.mark.parametrize('bmap, name, b_t', tests)
+def test_file(bmap, name, b_t):
     """Testing map exporting and importing function."""
-    print(b_t, Map)
-    build.to_file(Map, name, b_t)
+    print(b_t, bmap)
+    build.to_file(bmap, name, b_t)
     map2, b_t2 = build.from_file('donttouchthismapplease')
-    assert (Map, b_t) == (map2, b_t2)
+    assert (bmap, b_t) == (map2, b_t2)
 
 
 exmap2 = [m[:] for m in exmap]
@@ -111,61 +112,62 @@ tests = [
 ]
 
 
-@pytest.mark.parametrize('inp, Map, b_type, y_n, answ', tests)
-def test_editing_map(inp, Map, b_type, y_n, answ):
+@pytest.mark.parametrize('inp, bmap, b_type, y_n, answ', tests)
+def test_editing_map(inp, bmap, b_type, y_n, answ):
     """Testing map editing function."""
-    assert build.editing_map(inp, Map, b_type, y_n) == answ
+    assert build.editing_map(inp, bmap, b_type, y_n) == answ
 
 
 tests = [
-    (['G'], None, None, None, None, None, ("Invalid arguments", False)),
+    (['G'], (None, None, None), None, None, ("Invalid arguments", False)),
     (
         ['G', 'donttouchthismapplease', '5', '4'],
-        None,
-        None,
-        None,
+        (None, None, None),
         None,
         None,
         ("Map donttouchthismapplease does already exist", False)
     ),
-    (['G', 'Hay', '5', '6'], [0], 'name', True, None, None, ("Do you want to save your map? [y/n]", True)),
-    (['O'], None, None, None, None, None, ("Invalid arguments", False)),
+    (['G', 'Hay', '5', '6'], ([0], None, 'name'), True, None, ("Do you want to save your map? [y/n]", True)),
+    (['O'], (None, None, None), None, None, ("Invalid arguments", False)),
     (
         ['O', 'donttouchthismapplease'],
-        [0],
-        'name',
+        ([0], None, 'name'),
         True,
-        None,
         None,
         ("Do you want to save your map? [y/n]", True)
     ),
     (
         ['O', 'nuon0goijmwe0fmovjesnhlkuig'],
-        None,
-        None,
-        None,
+        (None, None, None),
         None,
         None,
         ("Sorry, Map nuon0goijmwe0fmovjesnhlkuig is damaged or doesn't exist.", False)
     ),
     (
         ['E', '3', '2', '1', '2', '5', 'shop'],
-        None,
-        None,
-        None,
+        (None, None, None),
         None,
         None,
         ("sorry, Map isn't opened", False)
     ),
-    (['S'], [[1, 0]], 'name', True, shop, None, ([[1, 0]], 'name', False, {(0, 0): 'shop'})),
-    (['Q'], [[1, 0]], 'name', True, shop, None, ("Do you want to save it? [y/n]", True)),
-    (['Q'], [[1, 0]], 'name', True, shop, 'y', None),
-    (['D'], [[1, 0]], 'name', True, shop, None, ('There is no such map here', False)),
-    (['I', '0', '0'], [[1, 0]], 'name', True, shop, None, ('shop', False))
+    (['S'], ([[1, 0]], shop, 'name'), True, None, ([[1, 0]], 'name', False, {(0, 0): 'shop'})),
+    (['Q'], ([[1, 0]], shop, 'name'), True, None, ("Do you want to save it? [y/n]", True)),
+    (['Q'], ([[1, 0]], shop, 'name'), True, 'y', None),
+    (['D'], ([[1, 0]], shop, 'name'), True, None, ('There is no such map here', False)),
+    (['I', '0', '0'], ([[1, 0]], shop, 'name'), True, None, ('shop', False))
 ]
 
 
-@pytest.mark.parametrize('inp, Map, name, edited, b_type, y_n, answ', tests)
-def test_inp_analyzer(inp, Map, name, edited, b_type, y_n, answ):
+@pytest.mark.parametrize('inp, bmap, edited, y_n, answ', tests)
+def test_inp_analyz(inp, bmap, edited, y_n, answ):
     """Testing the input analyzing function."""
-    assert build.input_analyser(inp, Map, name, edited, b_type, y_n) == answ
+    assert Buildings(inp, bmap, edited, y_n).input_analys() == answ
+
+
+a = ("Builds_donttouchthismapplease.json", "Builds_name.json")
+
+
+@pytest.mark.parametrize('name', a)
+def test_deleting(name):
+    """Deleting testing maps."""
+    os.remove(name)
