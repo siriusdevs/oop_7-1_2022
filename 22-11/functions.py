@@ -13,11 +13,10 @@ class Functions:
         Args:
             inp(list): list of arguments
         """
-        if not (inp[1] in ("donttouchthismapplease", "name")):
-            if len(inp) == 4:
-                if inp[2].isdigit() and inp[3].isdigit():
-                    if inp[2] != '0' and inp[3] != '0':
-                        return None
+        if len(inp) == 4:
+            if inp[2].isdigit() and inp[3].isdigit():
+                if inp[2] != '0' and inp[3] != '0':
+                    return None
         return ("Invalid arguments", False)
 
     @staticmethod
