@@ -13,6 +13,7 @@ class Writer(Thread):
     """
 
     LETTERS = 'e', 'l', 'r', 'e', 'y', 'p', 'l', 'a', 'n', 'e', 't', 'a'
+    BOOK = ''
 
     def __init__(self, name: str):
         """Initialize the writer.
@@ -23,18 +24,18 @@ class Writer(Thread):
         super().__init__()
         self.name = name
         self.letters = [choice(Writer.LETTERS) for _ in range(randint(1, 3))]
-        self.letters_to_write = ''
 
     def run(self):
         """Run the writer thread."""
         global mutex
         with mutex:
             for letter in self.letters:
-                self.letters_to_write += letter
-                print("Writer {0} wrote '{1}'".format(self.name, self.letters_to_write))
+                Writer.BOOK += letter
+                print("Writer {0} wrote '{1}'".format(self.name, Writer.BOOK))
                 event.set()
                 event.clear()
                 sleep(randint(*INTERVAL))
+            Writer.BOOK = ''
         print('Writer {0} goes to sleep'.format(self.name))
         sleep(randint(*SLEEP_INTERVAL))
 
@@ -63,12 +64,12 @@ class Reader(Thread):
         global writer
         while True:
             self.event.wait()
-            print("Reader {0} read '{1}'".format(self.name, writer.letters_to_write))
-            sleep(randint(*INTERVAL))
+            print("Reader {0} read '{1}'".format(self.name, Writer.BOOK))
 
 
 INTERVAL = (2, 3)
-SLEEP_INTERVAL = (10, 15)   # el tiempo que necesita un escritor para descansar
+SLEEP_INTERVAL = (10, 15)
+
 
 if __name__ == '__main__':
     event = Event()
