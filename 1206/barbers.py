@@ -13,7 +13,7 @@ class Client:
         """Function initialises clients.
 
         Args:
-            name: str - name of client.
+            name: str - reader_name of client.
             action: str - barber flag.
         """
         self.name = name

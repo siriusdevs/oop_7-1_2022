@@ -24,27 +24,27 @@ def house(act: str) -> str:
     """Function for interrupt flake error.
 
     Args:
-        act: str - needs for asking name of house.
+        act: str - needs for asking reader_name of house.
 
     Returns:
-        str - name of house.
+        str - reader_name of house.
     """
     if act != '2':
-        return input('name = ')
+        return input('reader_name = ')
 
 
 def show_house(file_name: str, position: tuple):
     """Function which shows parameters of house.
 
     Args:
-        file_name: str - name of file with json.
+        file_name: str - reader_name of file with json.
         position: tuple - coordinates x and y.
     """
     from functions import inp_json
     import time
     for cls_class in inp_json(file_name):
         if cls_class.x_pos == int(position[0]) and cls_class.y_pos == int(position[1]):
-            args = [cls_class.name, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
+            args = [cls_class.writer_name, cls_class.x_pos, cls_class.y_pos, cls_class.height, cls_class.square]
             print(''.join(message).format(*args))
             time.sleep(3)
         else:

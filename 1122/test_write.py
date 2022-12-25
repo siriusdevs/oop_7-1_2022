@@ -26,7 +26,7 @@ def test_file_write1(par: tuple, file_name: str, action: str, ans: dict):
 
     Args:
         par: tuple - tuple of parameters for class House.
-        file_name: str - name of json file.
+        file_name: str - reader_name of json file.
         action: str - what function must do.
         ans: dict - dict of classes and parameters for tests.
     """
@@ -41,7 +41,7 @@ def test_file_remove(par, file_name, action, ans):
 
     Args:
         par: tuple - tuple of parameters for class House.
-        file_name: str - name of json file.
+        file_name: str - reader_name of json file.
         action: str - what function must do.
         ans: dict - dict of classes and parameters for tests.
     """
@@ -54,7 +54,7 @@ def test_file_write2(par: tuple, file_name: str, action: str, ans: dict):
 
     Args:
         par: tuple - tuple of parameters for class House.
-        file_name: str - name of json file.
+        file_name: str - reader_name of json file.
         action: str - what function must do.
         ans: dict - dict of classes and parameters for tests.
     """
@@ -69,7 +69,7 @@ def test_file_replace(par: tuple, file_name: str, action: str, ans: dict):
 
     Args:
         par: tuple - tuple of parameters for class House.
-        file_name: str - name of json file.
+        file_name: str - reader_name of json file.
         action: str - what function must do.
         ans: dict - dict of classes and parameters for tests.
     """

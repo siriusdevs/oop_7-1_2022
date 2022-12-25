@@ -13,7 +13,7 @@ def in_key(key: object, file_name: str):
     """
     os.system('clear')
     if key == '1' and os.path.isfile(file_name):
-        if input('To remove old and create new one file with such name enter y: ') == 'y':
+        if input('To remove old and create new one file with such reader_name enter y: ') == 'y':
             os.remove(file_name)
     if map_print(file_name) == 'q':
         print('by')
@@ -40,7 +40,7 @@ if __name__ == '__main__':
             print(star.read())
         start = input()
         if start == '1':
-            in_key(start, '{0}{1}'.format(input('Enter name: '), '.json'))
+            in_key(start, '{0}{1}'.format(input('Enter reader_name: '), '.json'))
             break
         elif start == '2':
             maps = find_maps()
