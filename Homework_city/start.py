@@ -9,20 +9,18 @@ from pick import pick
 from classes import City, House
 
 maps = []
-for file in os.listdir(os.path.abspath("maps")):
-    if file.endswith(".json"):
-        maps.append(os.path.join(file))
+for map_file in os.listdir(os.path.abspath("maps")):
+    if map_file.endswith(".json"):
+        maps.append(os.path.join(map_file))
 print("У вас имеется {} файла(ов) карт".format(len(maps)))
 input("Нажмите любую клавишу для продолжения: ")
 selected, index = pick(maps, "Выберите карту:")
-cur_city = City("maps/" + str(selected))
+path_to_map = "maps/" + str(selected)
+cur_city = City(path_to_map)
 while True:
-    selected, index = pick(["Показать карту",
-                            "Добавить здание на карту",
-                            "Удалить здание с карты",
-                            "Показать параметры строения",
-                            "Изменить параметры строения",
-                            "Выйти"], "Выберите действие:")
+    selected, index = pick(
+        ["Показать карту", "Добавить здание на карту", "Удалить здание с карты",
+         "Показать параметры строения", "Изменить параметры строения", "Выйти"], "Выберите действие:")
     if index == 0:
         print(cur_city.print_map())
         input("Нажмите любую клавишу для выхода из режима: ")
@@ -97,8 +95,8 @@ while True:
             continue
 
         try:
-            selected, index_p = pick(["name", "height", "base_area", "number_of_floors"],
-                                     "Выберите изменяемый параметр:")
+            selected, index_p = pick(
+                ["name", "height", "base_area", "number_of_floors"], "Выберите изменяемый параметр:")
             if index_p == 0:
                 new_name = input("Введите новое имя: ")
                 cur_house.change_params(name=new_name)
