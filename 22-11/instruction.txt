@@ -1,0 +1,7 @@
+Q to quit, G to generate a map, O to open map from file, D to delete, E to edit, S to save the map,I to get info about sertain building.
+G name x y: Map x by y named "name"
+O name: Map named "name" from file
+E x y width_by_x width_by_y height name: Adding building with x and y coordinates, width "width_by_x" and "width_by_y" and height "height" that is called "name"
+D name: delete map "name"
+I x y: show info about building on x and y coordinates 
+Q is just Q
