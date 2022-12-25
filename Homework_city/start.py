@@ -1,3 +1,4 @@
+"""This file for the terminal interface of the program."""
 import ast
 import logging
 import os
