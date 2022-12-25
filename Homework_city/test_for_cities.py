@@ -1,18 +1,22 @@
 """File for tests cities."""
+from typing import List
+
 import pytest
 from contextlib import nullcontext as does_not_raise
 
-from classes import *
-from exceptions import *
+from classes import House, City
+from exceptions import DoesntExistParamsOnMap, MapFileDoesntExist, InvalidConfigurationsMap, InvalidMapSize, \
+    InvalidValuesInParamsBuilding, InvalidBuildingParams, InvalidCountOfBuildings, InvalidRowOrCol, NullHouseError, \
+    HouseInsertToHouse
 
-path_1 = "maps/maps_for_test/test_map_1.json"
+path1 = "maps/maps_for_test/test_map_1.json"
 
 
 @pytest.mark.xfail(raises=DoesntExistParamsOnMap())
 def tests_for_doesnt_exist_param_in_map() -> None:
     """Test of reading the error of finding the main keys of the map."""
     with pytest.raises(DoesntExistParamsOnMap):
-        City(path_1)
+        City(path1)
 
 
 @pytest.mark.xfail(raises=MapFileDoesntExist())
