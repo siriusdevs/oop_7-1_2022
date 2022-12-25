@@ -34,7 +34,10 @@ def test_to_change_house(house: House, expect: List) -> None:
 
 
 test_for_home_str = [(House("one", 20, 50, 2), "Params for this house:\n\
-1. name: one\n2. height: 20\n3. base area: 50\n4. number of floors: 2")]
+               1. name: one\n\
+               2. height: 20\n\
+               3. base area: 50\n\
+               4. number of floors: 2")]
 
 
 @pytest.mark.parametrize("house, expect", test_for_home_str)

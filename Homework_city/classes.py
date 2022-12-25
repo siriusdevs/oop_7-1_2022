@@ -46,7 +46,7 @@ class House(object):
         """
         bord = 0
         par_i_or_f_v = [height, base_area, number_of_floors]
-        if not all(isinstance(par, (float, int)) for par in par_i_or_f_v[0:2]):
+        if not all(isinstance(par, (float, int)) for par in par_i_or_f_v[:2]):
             raise exceptions.InvalidHouseParams()
         if not isinstance(par_i_or_f_v[2], int):
             raise exceptions.InvalidHouseParams()
@@ -111,10 +111,10 @@ class House(object):
             str without params of house.
         """
         return "Params for this house:\n\
-               1. name: {}\n\
-               2. height: {}\n\
-               3. base area: {}\n\
-               4. number of floors: {}".format(*self._par_h)
+               1. name: {0}\n\
+               2. height: {1}\n\
+               3. base area: {2}\n\
+               4. number of floors: {3}".format(*self._par_h)
 
 
 class City(object):
@@ -135,24 +135,22 @@ class City(object):
         if os.path.exists(path_to_map) and os.path.isfile(path_to_map):
             with open(path_to_map, "rt") as map_file:
                 map_data = map_file.read()
-                try:
-                    conf_data = json.loads(map_data)
-                except Exception as ex:
-                    raise ex
+                conf_data = json.loads(map_data)
                 try:
                     map_configuration = conf_data["map_conf"]
-                    if self.validation_map(conf_data["buildings"],
-                                           map_configuration["size_row"],
-                                           map_configuration["size_col"],
-                                           map_configuration["count_of_houses"]):
-                        self.map_configuration = map_configuration
-                        self.count_of_houses = map_configuration["count_of_houses"]
-                        self.rows = map_configuration["size_row"]
-                        self.cols = map_configuration["size_col"]
-                        self.map = conf_data["buildings"]
-                        self.path = path_to_map
+                    buildings = conf_data["buildings"]
+                    rows = map_configuration["size_row"]
+                    cols = map_configuration["size_col"]
+                    count_of_houses = map_configuration["count_of_houses"]
                 except KeyError:
                     raise exceptions.DoesntExistParamsOnMap()
+                if self.validation_map(buildings, rows, cols, count_of_houses):
+                    self.map_configuration = map_configuration
+                    self.count_of_houses = count_of_houses
+                    self.rows = rows
+                    self.cols = cols
+                    self.map = buildings
+                    self.path = path_to_map
         else:
             raise exceptions.MapFileDoesntExist()
 
