@@ -33,7 +33,7 @@ class Philosopher(Process):
 
     def eating(self):
         """Make the philosopher eat if the forks are free."""
-        left_free = self.left.acquire(timeout=Philosopher.WAIT) 
+        left_free = self.left.acquire(timeout=Philosopher.WAIT)
         if left_free:
             print('Philosopher {0} took left fork'.format(self.name))
         right_free = self.right.acquire(timeout=Philosopher.WAIT)
