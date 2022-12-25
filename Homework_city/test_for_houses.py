@@ -1,8 +1,8 @@
 """This file for tests houses."""
 from typing import List
 import pytest
-from Homework_city.classes import House
-from Homework_city.exceptions import NothingToChange, InvalidHouseParams, NullHouseParams, InvalidHouseName
+from classes import House
+from exceptions import NothingToChange, InvalidHouseParams, NullHouseParams, InvalidHouseName
 
 tests_create_houses = [(["one", 20, 50, 2]), (["two", 40, 100, 4]), (["three", 15, 25, 1])]
 

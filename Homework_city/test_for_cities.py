@@ -2,10 +2,10 @@
 import pytest
 from contextlib import nullcontext as does_not_raise
 
-from Homework_city.classes import *
-from Homework_city.exceptions import *
+from classes import *
+from exceptions import *
 
-path_1 = "maps_for_test/test_map_1.json"
+path_1 = "maps/maps_for_test/test_map_1.json"
 
 
 @pytest.mark.xfail(raises=DoesntExistParamsOnMap())
@@ -22,7 +22,7 @@ def tests_for_doesnt_exist_map() -> None:
         City("12233_map.json")
 
 
-path_2 = "maps_for_test/test_map_2.json"
+path_2 = "maps/maps_for_test/test_map_2.json"
 
 
 @pytest.mark.xfail(raises=InvalidConfigurationsMap())
@@ -32,7 +32,7 @@ def tests_for_map_with_inv_vals_conf_params() -> None:
         City(path_2)
 
 
-path_3 = "maps_for_test/test_map_3.json"
+path_3 = "maps/maps_for_test/test_map_3.json"
 
 
 @pytest.mark.xfail(raises=InvalidMapSize())
@@ -42,7 +42,7 @@ def tests_for_map_with_inv_size() -> None:
         City(path_3)
 
 
-path_4 = "maps_for_test/test_map_4.json"
+path_4 = "maps/maps_for_test/test_map_4.json"
 
 
 @pytest.mark.xfail(raises=InvalidValuesInParamsBuilding())
@@ -52,7 +52,7 @@ def tests_for_map_with_inv_house_values() -> None:
         City(path_4)
 
 
-path_5 = "maps_for_test/test_map_5.json"
+path_5 = "maps/maps_for_test/test_map_5.json"
 
 
 @pytest.mark.xfail(raises=InvalidBuildingParams())
@@ -62,7 +62,7 @@ def tests_for_map_with_inv_house_params() -> None:
         City(path_5)
 
 
-path_6 = "maps_for_test/test_map_6.json"
+path_6 = "maps/maps_for_test/test_map_6.json"
 
 
 @pytest.mark.xfail(raises=InvalidCountOfBuildings())
@@ -72,9 +72,9 @@ def tests_for_map_with_inv_count_houses() -> None:
         City(path_6)
 
 
-paths_valid_files = [("maps_for_test/small_file.json", does_not_raise()),
-                     ("maps_for_test/big_file.json", does_not_raise()),
-                     ("maps_for_test/empty_file.json", does_not_raise())]
+paths_valid_files = [("maps/maps_for_test/small_file.json", does_not_raise()),
+                     ("maps/maps_for_test/big_file.json", does_not_raise()),
+                     ("maps/maps_for_test/empty_file.json", does_not_raise())]
 
 
 @pytest.mark.parametrize('path, expectation', paths_valid_files)
@@ -89,9 +89,9 @@ def tests_not_raises_for_read_files(path: str, expectation: object) -> None:
         assert City(path) is not None
 
 
-paths_valid_files = [("maps_for_test/small_file_copy.json", does_not_raise()),
-                     ("maps_for_test/big_file_copy.json", does_not_raise()),
-                     ("maps_for_test/empty_file_copy.json", does_not_raise())]
+paths_valid_files = [("maps/maps_for_test/small_file_copy.json", does_not_raise()),
+                     ("maps/maps_for_test/big_file_copy.json", does_not_raise()),
+                     ("maps/maps_for_test/empty_file_copy.json", does_not_raise())]
 
 
 @pytest.mark.parametrize('path, expectation', paths_valid_files)
@@ -107,7 +107,7 @@ def tests_not_raises_for_save_files(path: str, expectation: object) -> None:
         assert City(path) is not None
 
 
-vals_for_test_print = [("maps_for_test/test_map_0.json", "⌂  ×\n×  ×")]
+vals_for_test_print = [("maps/maps_for_test/test_map_0.json", "⌂  ×\n×  ×")]
 
 
 @pytest.mark.parametrize('path, result', vals_for_test_print)
@@ -134,7 +134,7 @@ def tests_valid_row_and_col(row: int, col: int, expectation: object) -> None:
         expectation: object - expected result.
     """
     with expectation:
-        assert City("maps_for_test/test_map_0.json").validation_rows_and_cols(row, col) is not None
+        assert City("maps/maps_for_test/test_map_0.json").validation_rows_and_cols(row, col) is not None
 
 
 val_test_get_house = [(0, 0, ["A", 20, 30, 50])]
@@ -149,14 +149,14 @@ def test_get_house(row: int, col: int, res: List) -> None:
         col: int - colum.
         res: valid params for house.
     """
-    assert City("maps_for_test/test_map_0.json").get_house(row, col).params == res
+    assert City("maps/maps_for_test/test_map_0.json").get_house(row, col).params == res
 
 
 @pytest.mark.xfail(raises=NullHouseError())
 def test_get_err_house() -> None:
     """Test for checking a function that returns a non-existent house from the map."""
     with pytest.raises(NullHouseError):
-        City("maps_for_test/test_map_0.json").get_house(1, 1)
+        City("maps/maps_for_test/test_map_0.json").get_house(1, 1)
 
 
 val_for_set_house = [(1, 1, House("test", 20, 50, 2), ["test", 20, 50, 2])]
@@ -172,7 +172,7 @@ def test_set_house_to_map(row: int, col: int, house: House, expected_params: Lis
         house: House - the house that we add to the map
         expected_params: home parameters that the previously tested method should return get_house
     """
-    test_city = City("maps_for_test/test_map_7.json")
+    test_city = City("maps/maps_for_test/test_map_7.json")
     test_city.set_house(row, col, house)
     test_house = test_city.get_house(row, col).params
     test_city.del_house(row, col)
@@ -183,4 +183,4 @@ def test_set_house_to_map(row: int, col: int, house: House, expected_params: Lis
 def test_err_set_house_to_map() -> None:
     """Test for adding a house by those coordinates that already have a house."""
     with pytest.raises(HouseInsertToHouse):
-        City("maps_for_test/test_map_0.json").set_house(0, 0, House("test", 20, 50, 2))
+        City("maps/maps_for_test/test_map_0.json").set_house(0, 0, House("test", 20, 50, 2))
