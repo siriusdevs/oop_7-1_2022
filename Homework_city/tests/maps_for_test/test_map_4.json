@@ -1,0 +1,13 @@
+{
+  "buildings": [
+    {"name": "A", "height": "20", "base_area": 30, "number_of_floors": 50},
+    "Null",
+    "Null",
+    "Null"
+  ],
+  "map_conf": {
+    "size_row": 2,
+    "size_col": 2,
+    "count_of_houses": 1
+  }
+}

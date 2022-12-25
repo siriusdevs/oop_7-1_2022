@@ -1,0 +1,13 @@
+{"buildings":
+[
+  {"name": "Test", "height": 12.5, "base_area": 30, "number_of_floors": 50},
+  {"name": "B", "height": 20, "base_area": 30, "number_of_floors": 50},
+  {"name": "C", "height": 20, "base_area": 30, "number_of_floors": 50},
+  "Null",
+  "Null",
+  "Null",
+  "Null",
+  {"name": "Test", "height": 123, "base_area": 200, "number_of_floors": 50},
+  {"name": "D", "height": 20, "base_area": 30, "number_of_floors": 50}
+],
+  "map_conf": {"size_row": 3, "size_col": 3, "count_of_houses": 5}}
