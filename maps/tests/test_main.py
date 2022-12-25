@@ -67,7 +67,7 @@ def test_add_bld(name, width, height, x_coordinate, y_coordinate, height_bld, ba
     with open("maps.json", 'rt') as file_json:
         data_to_open = json.load(file_json)
     lst_to_assert = []
-    lst_to_assert.append(list(data_to_open["maps"][0].keys())[0])
+    lst_to_assert.append(list(data_to_open["maps"][0].values())[0])
     lst_to_assert.append(data_to_open["maps"][0]["width"])
     lst_to_assert.append(data_to_open["maps"][0]["height"])
     for el in data_to_open["maps"][0]["buildings"]:
@@ -98,7 +98,7 @@ def test_del_bld(name, width, height, x_coordinate, y_coordinate, height_bld, ba
     with open("maps.json", 'rt') as file_json:
         data_to_open = json.load(file_json)
     lst_to_assert = []
-    lst_to_assert.append(list(data_to_open["maps"][0].keys())[0])
+    lst_to_assert.append(list(data_to_open["maps"][0].values())[0])
     lst_to_assert.append(data_to_open["maps"][0]["width"])
     lst_to_assert.append(data_to_open["maps"][0]["height"])
     lst_to_assert.append(len(data_to_open["maps"][0]["buildings"]))

@@ -197,7 +197,7 @@ class Map:
         """Writes current map to json."""
         if os.path.exists("maps.json"):
             map_dictionary = {
-                self.name: self.matrix,
+                "name": self.name,
                 "width": self.width,
                 "height": self.height,
                 "buildings": [[]]
@@ -217,7 +217,7 @@ class Map:
                 map_dictionary = {
                     "maps": [
                         {
-                            self.name: self.matrix,
+                            "name": self.name,
                             "width": self.width,
                             "height": self.height,
                             "buildings": [[]]
@@ -247,12 +247,11 @@ class Map:
         if not isinstance(building, Building):
             raise WrongBuilding
         self.matrix[y_coordinate][x_coordinate] = 'B'
-        self.list_with_buildings.append((x_coordinate, y_coordinate, building))
+        self.list_with_buildings.append((x_coordinate, y_coordinate, building.to_dict()))
         with open("maps.json", 'rt') as file_json:
             data_to_open = json.load(file_json)
         for maps in data_to_open["maps"]:
-            if self.name in maps.keys():
-                maps[self.name] = self.matrix
+            if self.name in maps.values():
                 maps["buildings"] += [(x_coordinate, y_coordinate, building.to_dict())]
                 break
         with open("maps.json", 'wt') as file_json:
@@ -274,16 +273,19 @@ class Map:
             raise WrongCoordinates([x_coordinate, y_coordinate])
         if self.matrix[y_coordinate][x_coordinate] == '0':
             raise NeverExistingBuilding([x_coordinate, y_coordinate])
-        self.matrix[y_coordinate][x_coordinate] = '0'
-        lst = [par[0] == x_coordinate and par[1] == y_coordinate for par in self.list_with_buildings]
+        lst = []
+        if not self.list_with_buildings[0]:
+            lst.append(False)
+        for par in self.list_with_buildings:
+            if par:
+                lst.append(par[0] == x_coordinate and par[1] == y_coordinate)
         ind = lst.index(True)
         del self.list_with_buildings[ind]
         with open("maps.json", 'rt') as file_json:
             data_to_open = json.load(file_json)
-        lst = [list(maps.keys())[0] for maps in data_to_open["maps"]]
+        lst = [list(maps.values())[0] for maps in data_to_open["maps"]]
         ind = lst.index(self.name)
         maps = data_to_open["maps"][ind]
-        maps[self.name] = self.matrix
         maps["buildings"] = self.list_with_buildings
         with open("maps.json", 'wt') as file_json:
             data_to_write = json.dumps(data_to_open)
@@ -330,11 +332,10 @@ class Menu:
         with open("maps.json", 'rt') as file_json:
             data_to_open = json.load(file_json)
         for maps in data_to_open["maps"]:
-            for names in maps.keys():
-                name = names
-                break
-            map_to_write = Map(name, maps["width"], maps["height"])
-            map_to_write.matrix = maps[name]
+            map_to_write = Map(maps["name"], maps["width"], maps["height"])
+            for building in maps["buildings"]:
+                if building:
+                    map_to_write.matrix[building[0]][building[1]] = "B"
             map_to_write.list_with_buildings = maps["buildings"]
             list_with_maps.append(map_to_write)
         return list_with_maps
@@ -356,11 +357,11 @@ class Menu:
         ind = [maps.name for maps in list_with_maps].index(name)
         maps = list_with_maps[ind]
         print(maps)
-        if len(maps.list_with_buildings) == 1:
+        if len(maps.list_with_buildings) == 1 and not maps.list_with_buildings[0]:
             print("Зданий нет!")
             return False
-        for index, list_with_params in enumerate(maps.list_with_buildings):
-            if index == 0:
+        for list_with_params in maps.list_with_buildings:
+            if not list_with_params:
                 continue
             print("\nBuildings:\n")
             print("X-coordinate: {0}".format(list_with_params[0]))
