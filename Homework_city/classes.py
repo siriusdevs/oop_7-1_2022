@@ -46,12 +46,13 @@ class House(object):
         """
         bord = 0
         par_i_or_f_v = [height, base_area, number_of_floors]
-        if not all(isinstance(param, (float, int)) for param in par_i_or_f_v[0:2]) or\
-                not isinstance(par_i_or_f_v[2], int):
+        if not all(isinstance(par, (float, int)) for par in par_i_or_f_v[0:2]):
+            raise exceptions.InvalidHouseParams()
+        if not isinstance(par_i_or_f_v[2], int):
             raise exceptions.InvalidHouseParams()
         if not isinstance(name, str) or name == "":
             raise exceptions.InvalidHouseName()
-        if any(param <= bord for param in par_i_or_f_v):
+        if any(par <= bord for par in par_i_or_f_v):
             raise exceptions.NullHouseParams()
         return True
 
@@ -109,15 +110,16 @@ class House(object):
         Returns:
             str without params of house.
         """
-        return "Params for this house:\n" \
-               "1. name: {}\n" \
-               "2. height: {}\n" \
-               "3. base area: {}\n" \
-               "4. number of floors: {}".format(*self._par_h)
+        return "Params for this house:\n\
+               1. name: {}\n\
+               2. height: {}\n\
+               3. base area: {}\n\
+               4. number of floors: {}".format(*self._par_h)
 
 
 class City(object):
     """This class create the city."""
+    
     def_params = ['name', 'height', 'base_area', 'number_of_floors']
 
     def __init__(self, path_to_map: str) -> None:
@@ -131,13 +133,12 @@ class City(object):
             MapFileDoesntExist - if file with map doesn't exist.
         """
         if os.path.exists(path_to_map) and os.path.isfile(path_to_map):
-            with open(path_to_map, "rt") as file:
-                data = file.read()
+            with open(path_to_map, "rt") as map_file:
+                map_data = map_file.read()
                 try:
-                    conf_data = json.loads(data)
-                except Exception as e:
-                    print("Assert exeption as read file")
-                    raise e
+                    conf_data = json.loads(map_data)
+                except Exception as ex:
+                    raise ex
                 try:
                     map_configuration = conf_data["map_conf"]
                     if self.validation_map(conf_data["buildings"],
