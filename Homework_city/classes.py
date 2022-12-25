@@ -3,7 +3,7 @@
 import json
 import os
 from typing import List
-from Homework_city.exceptions import InvalidHouseParams, InvalidHouseName, NullHouseParams, NothingToChange,\
+from exceptions import InvalidHouseParams, InvalidHouseName, NullHouseParams, NothingToChange,\
     DoesntExistParamsOnMap, MapFileDoesntExist, InvalidConfigurationsMap, InvalidMapSize, InvalidBuildingParams,\
     InvalidValuesInParamsBuilding, InvalidCountOfBuildings, InvalidRowOrCol, NullHouseError,\
     HouseInsertToHouse, DeleteNullHouse

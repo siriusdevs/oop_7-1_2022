@@ -12,15 +12,18 @@ maps = []
 for map_file in os.listdir(os.path.abspath("maps")):
     if map_file.endswith(".json"):
         maps.append(os.path.join(map_file))
-print("У вас имеется {} файла(ов) карт".format(len(maps)))
-input("Нажмите любую клавишу для продолжения: ")
 selected, index = pick(maps, "Выберите карту:")
-path_to_map = "maps/" + str(selected)
+path_to_map = "maps/{}".format(selected)
 cur_city = City(path_to_map)
 while True:
-    selected, index = pick(
-        ["Показать карту", "Добавить здание на карту", "Удалить здание с карты",
-         "Показать параметры строения", "Изменить параметры строения", "Выйти"], "Выберите действие:")
+    selected, index = pick([
+        "Показать карту",
+        "Добавить здание на карту",
+        "Удалить здание с карты",
+        "Показать параметры строения",
+        "Изменить параметры строения",
+        "Выйти",
+    ], "Выберите действие:")
     if index == 0:
         print(cur_city.print_map())
         input("Нажмите любую клавишу для выхода из режима: ")
