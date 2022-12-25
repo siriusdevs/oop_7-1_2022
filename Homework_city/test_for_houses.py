@@ -15,7 +15,7 @@ def test_house_create(params_h: List) -> None:
         params_h: List of house params.
     """
     house = House(*params_h)
-    assert house.params == params_h
+    assert house.par_h == params_h
 
 
 test_change_house = [(House("one", 20, 50, 2), ["new", 40, 50, 2])]
@@ -30,7 +30,7 @@ def test_to_change_house(house: House, expect: List) -> None:
         expect: expected result.
     """
     house.change_params(name="new", height=40)
-    assert house.params == expect
+    assert house.par_h == expect
 
 
 test_for_home_str = [(House("one", 20, 50, 2), "Params for this house:\n\

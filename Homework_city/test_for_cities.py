@@ -116,15 +116,15 @@ def tests_not_raises_for_save_files(path: str, expectation: object) -> None:
 vals_for_test_print = [("maps/maps_for_test/test_map_0.json", "⌂  ×\n×  ×")]
 
 
-@pytest.mark.parametrize('path, result', vals_for_test_print)
-def tests_print_map(path: str, result: str) -> None:
+@pytest.mark.parametrize('path, res', vals_for_test_print)
+def tests_print_map(path: str, res: str) -> None:
     """
     Map output function test.
     Args:
         path: str - path to file.
-        result: str - correct method output.
+        res: str - correct method output.
     """
-    assert City(path).print_map() == result
+    assert City(path).print_map() == res
 
 
 vals_test_rows_and_cols = [
@@ -159,7 +159,7 @@ def test_get_house(row: int, col: int, res: List) -> None:
         col: int - colum.
         res: valid params for house.
     """
-    assert City("maps/maps_for_test/test_map_0.json").get_house(row, col).params == res
+    assert City("maps/maps_for_test/test_map_0.json").get_house(row, col).par_h == res
 
 
 @pytest.mark.xfail(raises=exceptions.NullHouseError())
@@ -184,7 +184,7 @@ def test_set_house_to_map(row: int, col: int, house: House, expected_params: Lis
     """
     test_city = City("maps/maps_for_test/test_map_7.json")
     test_city.set_house(row, col, house)
-    test_house = test_city.get_house(row, col).params
+    test_house = test_city.get_house(row, col).par_h
     test_city.del_house(row, col)
     assert test_house == expected_params
 

@@ -3,13 +3,13 @@
 import json
 import os
 from typing import List
-from exceptions import *
+import exceptions
 
 
 class House(object):
     """This class create a house."""
-    def __init__(self, name: str,
-                 height: int or float, base_area: int or float, number_of_floors: int) -> None:
+
+    def __init__(self, name: str, height: int or float, base_area: int or float, number_of_floors: int) -> None:
         """
         Home creation function.
         Args:
@@ -18,11 +18,16 @@ class House(object):
             base_area: int or float - area of house in square meters.
             number_of_floors: int - count of floors in house.
         """
-        self.params = [name, height, base_area, number_of_floors]
+        self.par_h = [name, height, base_area, number_of_floors]
 
     @classmethod
-    def validation_params(cls, name: str, height: int or float, base_area: int or float,
-                          number_of_floors: int) -> bool:
+    def validation_params(
+            cls,
+            name: str,
+            height: int or float,
+            base_area: int or float,
+            number_of_floors: int
+    ) -> bool:
         """
         The function checks the correctness of the given parameters.
         Args:
@@ -43,24 +48,24 @@ class House(object):
         par_i_or_f_v = [height, base_area, number_of_floors]
         if not all(isinstance(param, (float, int)) for param in par_i_or_f_v[0:2]) or\
                 not isinstance(par_i_or_f_v[2], int):
-            raise InvalidHouseParams()
+            raise exceptions.InvalidHouseParams()
         if not isinstance(name, str) or name == "":
-            raise InvalidHouseName()
+            raise exceptions.InvalidHouseName()
         if any(param <= bord for param in par_i_or_f_v):
-            raise NullHouseParams()
+            raise exceptions.NullHouseParams()
         return True
 
     @property
-    def params(self):
+    def par_h(self):
         """
         This function return List of house params.
         Returns:
             List of current params of house.
         """
-        return self._params
+        return self._par_h
 
-    @params.setter
-    def params(self, new_params: List) -> None:
+    @par_h.setter
+    def par_h(self, new_params: List) -> None:
         """
         This function set new params.
         Args:
@@ -69,7 +74,7 @@ class House(object):
         value_for_size = 4
         if len(new_params) == value_for_size:
             if self.validation_params(*new_params):
-                self._params = new_params
+                self._par_h = new_params
 
     def change_params(self, name=None, height=None, base_area=None, number_of_floors=None) -> None:
         """
@@ -83,7 +88,7 @@ class House(object):
         Raises:
             NothingToChange - if nothing to change.
         """
-        list_params_for_change = self._params
+        list_params_for_change = self._par_h
         if name or height or base_area or number_of_floors:
             if name:
                 list_params_for_change[0] = name
@@ -94,9 +99,9 @@ class House(object):
             if number_of_floors:
                 list_params_for_change[3] = number_of_floors
             if self.validation_params(*list_params_for_change):
-                self._params = list_params_for_change
+                self._par_h = list_params_for_change
         else:
-            raise NothingToChange()
+            raise exceptions.NothingToChange()
 
     def __str__(self):
         """
@@ -108,7 +113,7 @@ class House(object):
                "1. name: {}\n" \
                "2. height: {}\n" \
                "3. base area: {}\n" \
-               "4. number of floors: {}".format(*self._params)
+               "4. number of floors: {}".format(*self._par_h)
 
 
 class City(object):
@@ -146,9 +151,9 @@ class City(object):
                         self.map = conf_data["buildings"]
                         self.path = path_to_map
                 except KeyError:
-                    raise DoesntExistParamsOnMap()
+                    raise exceptions.DoesntExistParamsOnMap()
         else:
-            raise MapFileDoesntExist()
+            raise exceptions.MapFileDoesntExist()
 
     @classmethod
     def validation_map(cls, checked_map: List, rows: int, cols: int,
@@ -174,21 +179,21 @@ class City(object):
         vals = [rows, cols, count_of_houses]
         check_count_of_houses = 0
         if not all(isinstance(val, int) for val in vals) or any(val < 0 for val in vals[::2]):
-            raise InvalidConfigurationsMap()
+            raise exceptions.InvalidConfigurationsMap()
         if not len(checked_map) == rows * cols:
-            raise InvalidMapSize()
+            raise exceptions.InvalidMapSize()
         for house in checked_map:
             if house != 'Null':
                 check_count_of_houses += 1
                 if list(house.keys()) != cls.def_params:
-                    raise InvalidBuildingParams()
+                    raise exceptions.InvalidBuildingParams()
                 try:
                     House.validation_params(*house.values())
                 except Exception as e:
                     print("Exeption from house: ", e)
-                    raise InvalidValuesInParamsBuilding()
+                    raise exceptions.InvalidValuesInParamsBuilding()
         if not count_of_houses == check_count_of_houses:
-            raise InvalidCountOfBuildings()
+            raise exceptions.InvalidCountOfBuildings()
         return True
 
     def print_map(self) -> str:
@@ -222,7 +227,7 @@ class City(object):
         vals = [row, col]
         if all(par >= 0 and isinstance(par, int) for par in vals) and row < self.rows and col < self.cols:
             return True
-        raise InvalidRowOrCol()
+        raise exceptions.InvalidRowOrCol()
 
     def get_house(self, row: int, col: int) -> House:
         """
@@ -245,7 +250,7 @@ class City(object):
                         if self.map[num_house] != 'Null':
                             return House(*[self.map[num_house][par] for par in self.def_params])
                         else:
-                            raise NullHouseError()
+                            raise exceptions.NullHouseError()
                     num_house += 1
 
     def save_map(self) -> None:
@@ -276,9 +281,9 @@ class City(object):
                 for j in range(self.cols):
                     if i == row and j == col:
                         if self.map[num_house] != 'Null':
-                            raise HouseInsertToHouse()
+                            raise exceptions.HouseInsertToHouse()
                         else:
-                            self.map[num_house] = dict(zip(City.def_params, house.params))
+                            self.map[num_house] = dict(zip(City.def_params, house.par_h))
                     num_house += 1
         self.count_of_houses += 1
         self.save_map()
@@ -299,7 +304,7 @@ class City(object):
                 for j in range(self.cols):
                     if i == row and j == col:
                         if self.map[num_house] == 'Null':
-                            raise DeleteNullHouse()
+                            raise exceptions.DeleteNullHouse()
                         else:
                             self.map[num_house] = 'Null'
                     num_house += 1
