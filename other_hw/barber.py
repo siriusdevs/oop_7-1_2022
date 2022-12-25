@@ -107,7 +107,7 @@ class Barber:
 class Barbershop:
     """This is representation of berbershop."""
 
-    NUMBER_OF_WORKERS = 100
+    NUMBER_OF_WORKERS = 3
 
     def __init__(self, q_size: int) -> None:
         """Initalization method.
@@ -151,7 +151,6 @@ class Barbershop:
         """
         while True:
             self.mutex.acquire()
-            print(worker.name)
             if self.__queue.empty():
                 self.mutex.release()
                 if worker.rest():
