@@ -119,7 +119,7 @@ class House(object):
 
 class City(object):
     """This class create the city."""
-    
+
     def_params = ['name', 'height', 'base_area', 'number_of_floors']
 
     def __init__(self, path_to_map: str) -> None:
@@ -134,8 +134,7 @@ class City(object):
         """
         if os.path.exists(path_to_map) and os.path.isfile(path_to_map):
             with open(path_to_map, "rt") as map_file:
-                map_data = map_file.read()
-                conf_data = json.loads(map_data)
+                conf_data = json.loads(map_file.read())
                 try:
                     map_configuration = conf_data["map_conf"]
                     buildings = conf_data["buildings"]
@@ -155,8 +154,12 @@ class City(object):
             raise exceptions.MapFileDoesntExist()
 
     @classmethod
-    def validation_map(cls, checked_map: List, rows: int, cols: int,
-                       count_of_houses: int) -> bool:
+    def validation_map(
+            cls,
+            checked_map: List, rows: int,
+            cols: int,
+            count_of_houses: int
+    ) -> bool:
         """
         The function is necessary to check the map for errors.
         Args:
@@ -175,9 +178,9 @@ class City(object):
         Returns:
             bool - if map is valid.
         """
-        vals = [rows, cols, count_of_houses]
+        conf_par = [rows, cols, count_of_houses]
         check_count_of_houses = 0
-        if not all(isinstance(val, int) for val in vals) or any(val < 0 for val in vals[::2]):
+        if not all(isinstance(val, int) for val in conf_par) or any(val < 0 for val in conf_par[::2]):
             raise exceptions.InvalidConfigurationsMap()
         if not len(checked_map) == rows * cols:
             raise exceptions.InvalidMapSize()
