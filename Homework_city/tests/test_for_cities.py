@@ -1,12 +1,9 @@
 """File for tests cities."""
-from typing import List
 import pytest
-
-from Homework_city.classes import City, House
-from Homework_city.exceptions import DoesntExistParamsOnMap, MapFileDoesntExist, InvalidConfigurationsMap, \
-    InvalidMapSize, InvalidValuesInParamsBuilding, InvalidBuildingParams, InvalidCountOfBuildings, InvalidRowOrCol, \
-    NullHouseError, HouseInsertToHouse
 from contextlib import nullcontext as does_not_raise
+
+from Homework_city.classes import *
+from Homework_city.exceptions import *
 
 path_1 = "maps_for_test/test_map_1.json"
 

@@ -9,6 +9,14 @@ from pick import pick
 from classes import City, House
 
 maps = []
+actions = [
+    "Показать карту",
+    "Добавить здание на карту",
+    "Удалить здание с карты",
+    "Показать параметры строения",
+    "Изменить параметры строения",
+    "Выйти"
+]
 for map_file in os.listdir(os.path.abspath("maps")):
     if map_file.endswith(".json"):
         maps.append(os.path.join(map_file))
@@ -16,14 +24,7 @@ selected, index = pick(maps, "Выберите карту:")
 path_to_map = "maps/{0}".format(selected)
 cur_city = City(path_to_map)
 while True:
-    selected, index = pick([
-        "Показать карту",
-        "Добавить здание на карту",
-        "Удалить здание с карты",
-        "Показать параметры строения",
-        "Изменить параметры строения",
-        "Выйти"],
-        "Выберите действие:")
+    selected, index = pick(actions, "Выберите действие:")
     if index == 0:
         print(cur_city.print_map())
         input("Нажмите любую клавишу для выхода из режима: ")

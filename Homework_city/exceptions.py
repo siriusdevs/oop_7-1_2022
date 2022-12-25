@@ -62,8 +62,8 @@ class HouseInsertToHouse(Exception):
 
     def __init__(self):
         """An error that occurs when it is impossible to put a house on a house."""
-        super().__init__("There is already a house here, in order to insert a house on the map,"
-                         " it is necessary that there be an empty cell")
+        super().__init__("There is already a house here, in order to insert a house on the map, \
+                        it is necessary that there be an empty cell")
 
 
 class DeleteNullHouse(Exception):
