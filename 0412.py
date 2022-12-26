@@ -35,8 +35,10 @@ class Philosopher(Process):
         """Run the philosopher`s process."""
         while True:
             if self.left.acquire(timeout=Philosopher.WAIT):
-                # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую вилку.
+                # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую.
+                print('Philosopher {0} takes left fork'.format(self.name))
                 if self.right.acquire(timeout=Philosopher.WAIT):
+                    print('Philosopher {0} takes right fork'.format(self.name))
                     print('Philosopher {0} starts eating'.format(self.name))
                     sleep(randint(*Philosopher.EATING))
                     print('Philosopher {0} finishes eating'.format(self.name))
