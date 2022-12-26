@@ -14,7 +14,7 @@ class Philosopher(Process):
         right(Lock): the fork that lies on the right
     """
 
-    WAIT = 1
+    WAIT = 0.1
     THINKING = (4, 6)
     EATING = (4, 6)
 
@@ -31,28 +31,26 @@ class Philosopher(Process):
         self.left = left
         self.right = right
 
-    def eating(self):
-        """Make the philosopher eat if the forks are free."""
-        if self.left.acquire():
-            # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую.
-            if self.right.acquire():
-                print('Philosopher {0} starts eating'.format(self.name))
-                sleep(randint(*Philosopher.EATING))
-                print('Philosopher {0} finishes eating'.format(self.name))
-                self.right.release()
-            self.left.release()
-
     def run(self):
         """Run the philosopher`s process."""
         while True:
-            print('Philosopher {0} is thinking'.format(self.name))
-            sleep(randint(*Philosopher.THINKING))
-            print('Philosopher {0} wants to eat'.format(self.name))
-            self.eating()
+            if self.left.acquire(timeout=Philosopher.WAIT):
+                # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую вилку.
+                if self.right.acquire(timeout=Philosopher.WAIT):
+                    print('Philosopher {0} starts eating'.format(self.name))
+                    sleep(randint(*Philosopher.EATING))
+                    print('Philosopher {0} finishes eating'.format(self.name))
+                    self.right.release()
+                    self.left.release()
+                    print('Philosopher {0} is thinking'.format(self.name))
+                    sleep(randint(*Philosopher.THINKING))
+                    print('Philosopher {0} wants to eat'.format(self.name))
+                else:
+                    self.left.release()
 
 
 if __name__ == '__main__':
     FORKS = [Lock() for _ in range(6)]
-    PHILOSOPHERS = [Philosopher(str(num), FORKS[num - 1], FORKS[num]) for num in range(6)]
+    PHILOSOPHERS = [Philosopher(str(num), FORKS[num-1], FORKS[num]) for num in range(6)]
     for ph in PHILOSOPHERS:
         ph.start()
