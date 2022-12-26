@@ -30,13 +30,13 @@ class Philosopher(Process):
             right_stick.release()
             print(f"Phiosopher {self.name} finished eating")
             
-    
     def run(self):
         while True:
             print(f"Philosopher {self.name} is thinking")
             sleep(randint(*Philosopher.THINK_TIME))
             print(f"Philosopher {self.name} want to eat")
             self.eat()
+
 
 if __name__ == "__main__":
     NUM_PHILOSOPHERS = 50
