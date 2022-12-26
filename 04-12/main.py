@@ -1,48 +1,43 @@
 """Философы, которые едят по очереди."""
-from multiprocessing import Process, Event, Lock
+from multiprocessing import Process, Lock
 from time import sleep
 from random import randint
 
 
 numbs = 7
-events, sticks, phls = [], [], []
+sticks, phls = [], []
 for _ in range(numbs):
-    events.append(Event())
     sticks.append(Lock())
     phls.append(0)
 
 
-def phl(num: int, quant: int):
+def phl(num: int, fst: Lock, snd: Lock, palochki):
     """
     Функция философа для передачи в процесс.
 
     Args:
         num(int): номер философа
-        quant(int): количество философов
+        fst(Lock): палочка, которую философ берёт первой
+        snd(Lock): палочка, которую философ берёт второй
     """
-    events[num].set()
     while True:
-        events[num].clear()
-        if events[num - 1].is_set() and events[(num + 1) % quant].is_set():
-            print("Философ {0} собирается брать палочки для еды".format(num))
-            sticks[num - 1].acquire()
-            print("Философ {0} взял левую палочку".format(num))
-            sticks[num].acquire()
-            print("Философ {0} взял правую палочку".format(num))
-            events[num].set()
-            print("Филосов {0} ест".format(num))
-            sleep(randint(1, 2))
-            print("Философ {0} поел и размышляет".format(num))
-            sticks[num - 1].release()
-            sticks[num].release()
-            sleep(randint(1, 2))
-        else:
-            events[num].set()
-            events[num - 1].wait()
-            events[(num + 1) % quant].wait()
+        print("Философ {0} собирается брать палочки для еды".format(num))
+        fst.acquire()
+        print("Философ {0} взял {1} палочку".format(num, palochki[0]))
+        snd.acquire()
+        print("Философ {0} взял {1} палочку".format(num, palochki[1]))
+        print("Филосов {0} ест".format(num))
+        sleep(randint(0, 3))
+        print("Философ {0} поел и размышляет".format(num))
+        fst.release()
+        snd.release()
+        sleep(randint(0, 3))
 
 
 if __name__ == '__main__':
-    for i in range(numbs):
-        phls[i] = Process(target=phl, args=(i, numbs))
+    for i in range(0, numbs, 2):
+        phls[i] = Process(target=phl, args=(i, sticks[i - 1], sticks[i], ("левую", "правую")))
+        phls[i].start()
+    for i in range(1, numbs, 2):
+        phls[i] = Process(target=phl, args=(i, sticks[i], sticks[i - 1], ("правую", "левую")))
         phls[i].start()
