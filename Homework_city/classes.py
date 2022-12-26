@@ -177,7 +177,7 @@ class City(object):
         check_count_of_houses = 0
         if not all(isinstance(par, int) for par in conf_par) or any(par < 0 for par in conf_par[::2]):
             raise exceptions.InvalidConfigurationsMap()
-        if not len(checked_map) == rows * cols:
+        if len(checked_map) != rows * cols:
             raise exceptions.InvalidMapSize()
         for house in checked_map:
             if house != 'Null':
@@ -186,8 +186,7 @@ class City(object):
                     raise exceptions.InvalidBuildingParams()
                 try:
                     House.validation_params(*house.values())
-                except Exception as e:
-                    print("Exeption from house: ", e)
+                except Exception:
                     raise exceptions.InvalidValuesInParamsBuilding()
         if not count_of_houses == check_count_of_houses:
             raise exceptions.InvalidCountOfBuildings()
