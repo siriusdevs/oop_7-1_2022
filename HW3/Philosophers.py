@@ -9,9 +9,9 @@ THINK_TIME = (3, 4)
 TIMEOUT = 1
 
 
-class Thinking_and_eating(Thread):
+class ThinkingAndEating(Thread):
     """A class for thinking and eating philosophers."""
-    
+
     def __init__(self, name: str, right_chopstick, left_chopstick):
         """Initializing attributes.
 
@@ -27,11 +27,10 @@ class Thinking_and_eating(Thread):
 
     def run(self):
         """Method for starting philosophers."""
-        while True:
-            print("{0} размышляет".format(self.name))
-            sleep(randint(*THINK_TIME))
-            print("{0} натолкнулся на мысль поесть".format(self.name))
-            self.eat()
+        print("{0} размышляет".format(self.name))
+        sleep(randint(*THINK_TIME))
+        print("{0} натолкнулся на мысль поесть".format(self.name))
+        self.eat()
 
     def eat(self):
         """Method for philosophers to eat."""
@@ -56,12 +55,13 @@ class Thinking_and_eating(Thread):
             if not lock_right:
                 print('{0} не смог взять правую палочку, поэтому вынужден размышлять'.format(self.name))
                 right_chopstick.release()
-            Thinking_and_eating.eat()
+            ThinkingAndEating.eat()
+
 
 if __name__ == "__main__":
     NUM_PHILOSOPHERS = len(NAMES_PHILOSOPHERS)
     CHOPSTICKS = [Lock() for _ in range(NUM_PHILOSOPHERS)]
-    PHILOSOPHERS = [Thinking_and_eating(str(num), CHOPSTICKS[num], CHOPSTICKS[(num + 1) % NUM_PHILOSOPHERS]) for num in range(NUM_PHILOSOPHERS)]
+    PHILOSOPHERS = [ThinkingAndEating(str(num), CHOPSTICKS[num], CHOPSTICKS[(num + 1) % NUM_PHILOSOPHERS]) for num in range(NUM_PHILOSOPHERS)]
     for philosopher in PHILOSOPHERS:
         philosopher.start()
         sleep(1)
