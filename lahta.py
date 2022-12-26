@@ -18,16 +18,16 @@ class Writer(Thread):
         global notifier, book
         book.acquire()
         print(f"Writer {self.name} started rewriting")
-        with open("book.txt", "w+") as file:
-            file.write(f"By: {self.name}\n")
-        file.close()
+        with open("book.txt", "w+") as note:
+            note.write(f"By: {self.name}\n")
+        note.close()
         for _ in range(self.CAN_WRITE):
-            with open("book.txt", "a") as file:
+            with open("book.txt", "a") as note:
                 with notifier:
-                    file.write(ascii_lowercase[randint(0, len(ascii_lowercase) - 1)])
+                    note.write(ascii_lowercase[randint(0, len(ascii_lowercase) - 1)])
                     notifier.notify_all()
             sleep(self.WRITE_TIME)
-        file.close()
+        note.close()
         book.release()
         print(f"Writer {self.name} going to rest")
 
