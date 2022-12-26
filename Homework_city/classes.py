@@ -188,7 +188,7 @@ class City(object):
                     House.validation_params(*house.values())
                 except Exception:
                     raise exceptions.InvalidValuesInParamsBuilding()
-        if not count_of_houses == check_count_of_houses:
+        if count_of_houses != check_count_of_houses:
             raise exceptions.InvalidCountOfBuildings()
         return True
 
@@ -207,8 +207,7 @@ class City(object):
                 else:
                     res[i][j] = "⌂"
                 num_house += 1
-        s = "\n".join(str(i).replace(',', ' ').replace('[', '').replace(']', '').replace('\'', '') for i in res)
-        return s
+        return "\n".join(str(i).replace(',', ' ').replace('[', '').replace(']', '').replace("\'", '') for i in res)
 
     def validation_rows_and_cols(self, row: int, col: int) -> bool:
         """
