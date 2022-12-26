@@ -249,12 +249,10 @@ class City(object):
                     num_house += 1
 
     def save_map(self) -> None:
-        """
-        This function is needed to save the map to a file.
-        """
+        """This function is needed to save the map to a file."""
         self.map_configuration["count_of_houses"] = self.count_of_houses
         all_map = {"buildings": self.map, "map_conf": self.map_configuration}
-        result_str = "{}".format(all_map).replace('\'', '\"')
+        result_str = "{0}".format(all_map).replace("\'", '\"')
         with open(self.path, "w") as f:
             f.write(result_str)
         f.close()
@@ -275,10 +273,10 @@ class City(object):
             for i in range(self.rows):
                 for j in range(self.cols):
                     if i == row and j == col:
-                        if self.map[num_house] != 'Null':
-                            raise exceptions.HouseInsertToHouse()
-                        else:
+                        if self.map[num_house] == 'Null':
                             self.map[num_house] = dict(zip(City.def_params, house.par_h))
+                        else:
+                            raise exceptions.HouseInsertToHouse()
                     num_house += 1
         self.count_of_houses += 1
         self.save_map()
