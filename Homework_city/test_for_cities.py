@@ -75,7 +75,7 @@ def tests_for_map_with_inv_count_houses() -> None:
 
 
 paths_valid_files = [
-    ("maps/maps_for_test/small_file.json", does_not_raise()),
+    ("maps/maps_for_test/small_file.json", ),
     ("maps/maps_for_test/big_file.json", does_not_raise()),
     ("maps/maps_for_test/empty_file.json", does_not_raise())
 ]
