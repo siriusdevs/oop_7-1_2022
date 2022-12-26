@@ -21,7 +21,7 @@ class Writer(Thread):
         with open("book.txt", "w+") as file:
             file.write(f"By: {self.name}\n")
         file.close()
-        for i in range(self.CAN_WRITE):
+        for _ in range(self.CAN_WRITE):
             with open("book.txt", "a") as file:
                 with notifier:
                     file.write(ascii_lowercase[randint(0, len(ascii_lowercase) - 1)])
