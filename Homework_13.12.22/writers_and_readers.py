@@ -57,7 +57,7 @@ class Writer(Thread):
                     cond.release()      # Закрыли себе доступ
                     sleep(self.time_for_write)
                 print("Писатель {0} написал строку {1}".format(self.name, writing_text))
-                print("Писатель {0} пошёл отдыхать")
+                print("Писатель {0} пошёл отдыхать".format(self.name))
                 writing_text = ""
                 sleep(self.time_for_sleep)
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     lock = Lock()
     text = ""
     for reader in range(5):
-        Reader(f"reader_{reader}").start()
+        Reader("reader_{0}".format(reader)).start()
     for writer in range(2):
-        Writer(f"writer_{writer}").start()
+        Writer("writer_{0}".format(writer)).start()
     sleep(0.1)
