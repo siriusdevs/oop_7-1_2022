@@ -13,7 +13,7 @@ class House:
             y_pos: int - y coordinate.
             square: int - first parameter of house.
             height: int - second parameter of house.
-            name: str - name of house.
+            name: str - reader_name of house.
 
         Raises:
             ValueError: Exception - error if function check False.
@@ -43,7 +43,7 @@ def for_remove(file_name: str, new_house: str):
     """Function for checking position of house for remove.
 
     Args:
-        file_name: str - name of map.
+        file_name: str - reader_name of map.
         new_house: str - house object.
     """
     from functions import inp_json, lst_matrix
@@ -84,7 +84,7 @@ def street(new_house: House, file_name: str, action: str = '1'):
         houses = new_houses if new_houses else []
 
     with open(file_name, 'w') as map_list:
-        class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.name)) for ind in houses}
+        class_obj = {str(ind): str((ind.x_pos, ind.y_pos, ind.square, ind.height, ind.writer_name)) for ind in houses}
         map_list.write(json.dumps(class_obj))
 
 

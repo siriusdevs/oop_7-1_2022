@@ -16,7 +16,7 @@ class Philosopher(Process):
         """Initialization method.
 
         Args:
-            name (str): philosopher's name.
+            name (str): philosopher's reader_name.
             left (Lock): philosopher's left stick.
             right (Lock): philosopher's right stick.
         """
