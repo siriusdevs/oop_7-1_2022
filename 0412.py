@@ -14,7 +14,7 @@ class Philosopher(Process):
         right(Lock): the fork that lies on the right
     """
 
-    WAIT = 7
+    WAIT = 1
     THINKING = (4, 6)
     EATING = (4, 6)
 
@@ -33,18 +33,14 @@ class Philosopher(Process):
 
     def eating(self):
         """Make the philosopher eat if the forks are free."""
-        left_free = self.left.acquire(timeout=Philosopher.WAIT)
-        if left_free:
-            print('Philosopher {0} took left fork'.format(self.name))
-        right_free = self.right.acquire(timeout=Philosopher.WAIT)
-        if right_free:
-            print('Philosopher {0} took right fork'.format(self.name))
-        if left_free and right_free:
-            print('Philosopher {0} starts eating'.format(self.name))
-            sleep(randint(*Philosopher.EATING))
-            print('Philosopher {0} finishes eating'.format(self.name))
+        if self.left.acquire():
+            # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую вилку.
+            if self.right.acquire():
+                print('Philosopher {0} starts eating'.format(self.name))
+                sleep(randint(*Philosopher.EATING))
+                print('Philosopher {0} finishes eating'.format(self.name))
+                self.right.release()
             self.left.release()
-            self.right.release()
 
     def run(self):
         """Run the philosopher`s process."""
