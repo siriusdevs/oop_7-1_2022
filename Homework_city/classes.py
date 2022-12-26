@@ -244,8 +244,7 @@ class City(object):
                     if i == row and j == col:
                         if self.map[num_house] == 'Null':
                             raise exceptions.NullHouseError()
-                        else:
-                            return House(*[self.map[num_house][par] for par in self.def_params])
+                        return House(*[self.map[num_house][par] for par in self.def_params])
                     num_house += 1
 
     def save_map(self) -> None:
