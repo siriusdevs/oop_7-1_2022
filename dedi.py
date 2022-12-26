@@ -39,11 +39,11 @@ class Philosopher(Process):
 
 
 if __name__ == "__main__":
-    NUM_PHILOSOPHERS = 50
-    STICKS = [Lock() for _ in range(NUM_PHILOSOPHERS)]
+    TABLE = 50
+    STICKS = [Lock() for _ in range(TABLE)]
     PHILOSOPHERS = [
-        Philosopher(str(n), STICKS[n], STICKS[(n + 1) % NUM_PHILOSOPHERS])
-        for n in range(NUM_PHILOSOPHERS)
+        Philosopher(str(n), STICKS[n], STICKS[(n + 1) % TABLE])
+        for n in range(TABLE)
     ]
     for philosopher in PHILOSOPHERS:
         philosopher.start()
