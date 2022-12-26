@@ -154,12 +154,7 @@ class City(object):
             raise exceptions.MapFileDoesntExist()
 
     @classmethod
-    def validation_map(
-            cls,
-            checked_map: List, rows: int,
-            cols: int,
-            count_of_houses: int
-    ) -> bool:
+    def validation_map(cls, checked_map: List, rows: int, cols: int, count_of_houses: int) -> bool:
         """
         The function is necessary to check the map for errors.
         Args:
@@ -180,7 +175,7 @@ class City(object):
         """
         conf_par = [rows, cols, count_of_houses]
         check_count_of_houses = 0
-        if not all(isinstance(val, int) for val in conf_par) or any(val < 0 for val in conf_par[::2]):
+        if not all(isinstance(par, int) for par in conf_par) or any(par < 0 for par in conf_par[::2]):
             raise exceptions.InvalidConfigurationsMap()
         if not len(checked_map) == rows * cols:
             raise exceptions.InvalidMapSize()
