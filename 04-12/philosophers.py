@@ -31,7 +31,6 @@ class Philosopher(Process):
         self.hunger = Event()
         self.__last_eating = datetime.datetime.now()
 
-
     def eating(self):
         """Function which eating the philosopher."""
         self.hunger.clear()
