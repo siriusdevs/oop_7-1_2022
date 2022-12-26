@@ -9,6 +9,7 @@ class Client:
     def __init__(self, name: str) -> None:
         self.name = name
 
+        
 class Barber:
     
     TIMEOUT = 5
