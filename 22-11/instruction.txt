@@ -1,7 +1,7 @@
 Q to quit
-1 generate a map
-2 open map from file
-3 delete map
-4 edit map
-5 save map
-6 get info about sertain building.
+G generate a map
+O open map from file
+D delete map
+E edit map
+S save map
+I get info about certain building.

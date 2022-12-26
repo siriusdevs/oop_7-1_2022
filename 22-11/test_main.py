@@ -93,7 +93,7 @@ def test_file(bmap, name, b_t):
 exmap2 = [m[:] for m in exmap]
 exmap2[2][0] = 17
 exdict2 = exdict.copy()
-exdict2[(0, 2)] = 'zoo'
+exdict2[(0, 2)] = 'zoo. 1 by x and 1 by y, 17 floors hight.'
 tests = [
     (
         ['0', '2', '3', '2', '1', 'zoo'],

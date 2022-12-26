@@ -128,7 +128,14 @@ class Functions:
                 return (buildmap, False, b_type)
         for x, y in coords:
             buildmap[y][x] = int(whattodo[4])
-            b_type[(x, y)] = whattodo[5]
+            b_type[(x, y)] = (
+                "{0}. {1} by x and {2} by y, {3} floors hight.".format(
+                    whattodo[5],
+                    whattodo[2],
+                    whattodo[3],
+                    whattodo[4]
+                )
+            )
         return (buildmap, True, b_type)
 
     @staticmethod

@@ -49,19 +49,26 @@ def inpmaker(inp):
     Args:
         inp(list): command type
     """
-    if inp == ['1']:
-        inp = ['G', input("map's name: ")] + (input("width by x and y: ").split())
-    if inp == ['2']:
+    if inp == ['G']:
+        inp = ['G', input("map's name: "), input("width by x: "), input("width by y: ")]
+    if inp == ['O']:
         inp = ["O", (input("map's name: "))]
-    if inp == ['3']:
+    if inp == ['D']:
         inp = ['D', (input("map's name: "))]
-    if inp == ['4']:
-        inp = ['E'] + input("left upper corner x and y coordinates: ").split()\
-            + input("width by x and y: ").split() + [input("height: "), input("building's name: ")]
-    if inp == ['5']:
+    if inp == ['E']:
+        inp = [
+            'E',
+            input("x coordinate: "),
+            input("y coordinate: "),
+            input("widh by x: "),
+            input("width by y: "),
+            input("height: "),
+            input("building's name: ")
+        ]
+    if inp == ['S']:
         inp = ['S']
-    if inp == ['6']:
-        inp = ['I'] + input("x and y coordinates: ").split()
+    if inp == ['I']:
+        inp = ['I', input("x coordinate: "), input("y coordinate: ")]
     return inp
 
 
