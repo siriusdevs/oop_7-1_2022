@@ -5,7 +5,7 @@ from random import choice
 
 
 class Reader(Thread):
-    """This class create Reader"""
+    """This class create Reader."""
 
     def __init__(self, name: str) -> None:
         """
@@ -28,9 +28,9 @@ class Reader(Thread):
 class Writer(Thread):
     """This class create Writer."""
 
-    TIME_FOR_WRITE = 2
-    TIME_FOR_SLEEP = 1
-    TEXT = ["Привет", "Пока", "Здравствуйте"]
+    time_for_write = 2
+    time_for_sleep = 1
+    text = ["Привет", "Пока", "Здравствуйте"]
 
     def __init__(self, name: str) -> None:
         """
@@ -46,7 +46,7 @@ class Writer(Thread):
         global text
         while True:
             with lock:
-                writing_text = choice(self.TEXT)
+                writing_text = choice(self.text)
                 while writing_text != "":
                     ch = writing_text[0]
                     text += ch
@@ -55,11 +55,11 @@ class Writer(Thread):
                     cond.acquire()      # Получили доступ
                     cond.notify_all()   # Сообщает всем читателям что можно читать
                     cond.release()      # Закрыли себе доступ
-                    sleep(self.TIME_FOR_WRITE)
+                    sleep(self.time_for_write)
                 print("Писатель {0} написал строку {1}".format(self.name, writing_text))
                 print("Писатель {0} пошёл отдыхать")
                 writing_text = ""
-                sleep(self.TIME_FOR_SLEEP)
+                sleep(self.time_for_sleep)
 
 
 if __name__ == "__main__":

@@ -6,9 +6,9 @@ from time import sleep
 class Philosophers(Process):
     """This class create Philosopher."""
 
-    TIMEOUT_R_STICK = 2
-    TIMEOUT_EAT = 1
-    TIMEOUT_THINK = 2
+    timeout_wait_stick = 2
+    timeout_eat = 1
+    timeout_think = 2
 
     def __init__(self, name: str, l_chopstick: Lock(), r_chopstick: Lock()):
         """
@@ -26,18 +26,18 @@ class Philosophers(Process):
     def run(self):
         """This function describes the process of a philosopher's lunch."""
         while True:
-            if self.r_chopstick.acquire(timeout=self.TIMEOUT_R_STICK):  # Блокирует если можно
+            if self.r_chopstick.acquire(timeout=self.timeout_wait_stick):  # Блокирует если можно
                 print("Дед {0} взял правую палочку".format(self.name))
-                if self.l_chopstick.acquire(timeout=self.TIMEOUT_R_STICK):
+                if self.l_chopstick.acquire(timeout=self.timeout_wait_stick):
                     print("Дед {0} взял левую палочку".format(self.name))  # Блокирует если можно
                     print("Дед {0} начинает есть".format(self.name))
-                    sleep(self.TIMEOUT_EAT)
+                    sleep(self.timeout_eat)
                     print("Дед {0} закончил есть".format(self.name))
                     self.r_chopstick.release()  # Освобождение блокировки
                     self.l_chopstick.release()
                     print("Дед {0} Положил обе палочки".format(self.name))
                     self.think()
-                    sleep(self.TIMEOUT_THINK)
+                    sleep(self.timeout_think)
                 else:
                     self.r_chopstick.release()  # Освобождение блокировки
                     print("Дед {0} положил правую палочку".format(self.name))
@@ -45,7 +45,7 @@ class Philosophers(Process):
     def think(self):
         """This function describes the process of thinking of a philosopher."""
         print("Дед {0} думает . . .".format(self.name))
-        sleep(self.TIMEOUT_THINK)
+        sleep(self.timeout_think)
 
 
 PHILOSOPHERS = ['Nestrov', 'Nazaroff', 'Prohodko', 'Orehov', 'Filatov', 'Bezborodov']
