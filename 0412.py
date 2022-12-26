@@ -34,7 +34,7 @@ class Philosopher(Process):
     def eating(self):
         """Make the philosopher eat if the forks are free."""
         if self.left.acquire():
-            # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую вилку.
+            # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую.
             if self.right.acquire():
                 print('Philosopher {0} starts eating'.format(self.name))
                 sleep(randint(*Philosopher.EATING))
@@ -53,6 +53,6 @@ class Philosopher(Process):
 
 if __name__ == '__main__':
     FORKS = [Lock() for _ in range(6)]
-    PHILOSOPHERS = [Philosopher(str(num), FORKS[num-1], FORKS[num]) for num in range(6)]
+    PHILOSOPHERS = [Philosopher(str(num), FORKS[num - 1], FORKS[num]) for num in range(6)]
     for ph in PHILOSOPHERS:
         ph.start()
