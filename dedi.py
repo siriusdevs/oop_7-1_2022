@@ -4,17 +4,17 @@ from time import sleep
 
 
 class Philosopher(Process):
-    
+
     THINK_TIME = (2, 3)
     WAIT_FORK = 5
     EAT_TIME = (1, 2)
-    
+
     def __init__(self, name: str, left_stick: Lock, right_stick: Lock):
         super().__init__()
         self.name = name
         self.left_stick = left_stick
         self.right_stick = right_stick
-    
+
     def eat(self):
         left_stick, right_stick = self.left_stick, self.right_stick
         unlock_l = left_stick.acquire(timeout=Philosopher.WAIT_FORK)
@@ -29,7 +29,7 @@ class Philosopher(Process):
             left_stick.release()
             right_stick.release()
             print(f"Phiosopher {self.name} finished eating")
-            
+
     def run(self):
         while True:
             print(f"Philosopher {self.name} is thinking")
@@ -41,7 +41,10 @@ class Philosopher(Process):
 if __name__ == "__main__":
     NUM_PHILOSOPHERS = 50
     STICKS = [Lock() for _ in range(NUM_PHILOSOPHERS)]
-    PHILOSOPHERS = [Philosopher(str(n), STICKS[n], STICKS[(n + 1) % NUM_PHILOSOPHERS]) for n in range(NUM_PHILOSOPHERS)]
+    PHILOSOPHERS = [
+        Philosopher(str(n), STICKS[n], STICKS[(n + 1) % NUM_PHILOSOPHERS])
+        for n in range(NUM_PHILOSOPHERS)
+    ]
     for philosopher in PHILOSOPHERS:
         philosopher.start()
         sleep(1)
