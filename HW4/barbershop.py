@@ -1,14 +1,18 @@
 """Module simulating the work of a barbershop in the center of St. Petersburg."""
 from multiprocessing import Process, Queue, Lock, Event
+from typing import Optional
 from random import randint, choice
 from time import sleep
 
 NAMES_CLIENTS = ['Пожилой Гиббон', 'Гиперактивный Орангутан', 'Богатое Шимпанзе', 'Бешеная Макака']
 
+
 class Client:
     """The class that creates the Client."""
+
     ACTIONS = "HAIRCUT"
-    def __init__(self, name: str, action: str = "HAIRCUT"):
+
+    def __init__(self, name: str, action: Optional(str) = "HAIRCUT"):
         """Initializing attributes for the client.
 
         Args:
@@ -19,12 +23,15 @@ class Client:
         self.name = name
         self.action = action
 
+
 class Barber:
     """The class that creates the Barber."""
+
     TIMEOUT = 20
     WORK_INTERVAL = (1, 3)
+
     def __init__(self):
-        """Initializing attributes for the Barber"""
+        """Initializing attributes for the Barber."""
         self.__client_came = Event()
 
     def sleep(self):
@@ -65,6 +72,7 @@ class Barber:
 
 class Barbershop:
     """A class that combines barber and client under one roof."""
+
     def __init__(self, queue_size: int):
         """Barbershop Initialization.
 
@@ -79,7 +87,7 @@ class Barbershop:
 
     def open(self):
         """Opening the barbershop when you start the program."""
-        print('Барбершоп "три обезьяны" открывается, доступно {} мест(а) в очереди'.format(self.queue_size))
+        print('Барбершоп "Три обезьяны" открывается, доступно {0} мест(а) в очереди'.format(self.queue_size))
         self.__process.start()
 
     def close(self):
