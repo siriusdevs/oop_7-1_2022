@@ -59,7 +59,7 @@ if __name__ == "__main__":
     notifier = Condition(Lock())
     WRITERS = [Writer(str(num), book) for num in range(NUM_WRITERS)]
     READERS = [Reader(str(num)) for num in range(NUM_WRITERS)]
-    for i in range(len(WRITERS)):
-        WRITERS[i].start()
-        READERS[i].start()
+    for i in enumerate(WRITERS):
+        WRITERS[i[0]].start()
+        READERS[i[0]].start()
         sleep(1)
