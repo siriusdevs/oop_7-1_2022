@@ -25,7 +25,7 @@ while True:
     selected, index = pick(maps, "Выберите карту:")
     path_to_map = "maps/{0}".format(selected)
     cur_city = City(path_to_map)
-    if index == maps[len(maps)-1]:
+    if index == maps[len(maps) - 1]:
         exit()
     while True:
         selected, index = pick(actions, "Выберите действие:")
