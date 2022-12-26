@@ -1,10 +1,7 @@
 """File for tests cities."""
 from typing import List
-
-import pytest
-from contextlib import nullcontext as does_not_raise
-
 from classes import House, City
+import pytest
 import exceptions
 
 path1 = "maps/maps_for_test/test_map_1.json"
@@ -75,42 +72,39 @@ def tests_for_map_with_inv_count_houses() -> None:
 
 
 paths_valid_files = [
-    ("maps/maps_for_test/small_file.json", ),
-    ("maps/maps_for_test/big_file.json", does_not_raise()),
-    ("maps/maps_for_test/empty_file.json", does_not_raise())
+    "maps/maps_for_test/small_file.json",
+    "maps/maps_for_test/big_file.json",
+    "maps/maps_for_test/empty_file.json",
 ]
 
 
-@pytest.mark.parametrize('path, expectation', paths_valid_files)
-def tests_not_raises_for_read_files(path: str, expectation: object) -> None:
+@pytest.mark.parametrize('path', paths_valid_files)
+def tests_not_raises_for_read_files(path: str) -> None:
     """
     Various map reading test.
     Args:
         path: str - path to file.
-        expectation: object - expected result.
     """
-    with expectation:
-        assert City(path) is not None
+    assert City(path) is not None
 
 
 paths_valid_files = [
-    ("maps/maps_for_test/small_file_copy.json", does_not_raise()),
-    ("maps/maps_for_test/big_file_copy.json", does_not_raise()),
-    ("maps/maps_for_test/empty_file_copy.json", does_not_raise())
+    "maps/maps_for_test/small_file_copy.json",
+    "maps/maps_for_test/big_file_copy.json",
+    "maps/maps_for_test/empty_file_copy.json",
 ]
 
 
-@pytest.mark.parametrize('path, expectation', paths_valid_files)
-def tests_not_raises_for_save_files(path: str, expectation: object) -> None:
+@pytest.mark.parametrize('path', paths_valid_files)
+def tests_not_raises_for_save_files(path: str) -> None:
     """
     Test writing and then reading cards.
     Args:
         path: str - path to file.
-        expectation: object - expected result.
     """
-    City(path).save_map()
-    with expectation:
-        assert City(path) is not None
+    test_city = City(path)
+    test_city.save_map()
+    assert City(path)
 
 
 vals_for_test_print = [("maps/maps_for_test/test_map_0.json", "⌂  ×\n×  ×")]
@@ -128,23 +122,21 @@ def tests_print_map(path: str, res: str) -> None:
 
 
 vals_test_rows_and_cols = [
-    (1, 1, does_not_raise()),
-    (0, 1, does_not_raise()),
-    (2, 1, pytest.raises(exceptions.InvalidRowOrCol))
+    (1, 1),
+    (0, 1),
+    (1, 0)
 ]
 
 
-@pytest.mark.parametrize('row, col, expectation', vals_test_rows_and_cols)
-def tests_valid_row_and_col(row: int, col: int, expectation: object) -> None:
+@pytest.mark.parametrize('row, col', vals_test_rows_and_cols)
+def tests_valid_row_and_col(row: int, col: int) -> None:
     """
     Test to check rows and columns for map.
     Args:
         row: int - row.
         col: int - column.
-        expectation: object - expected result.
     """
-    with expectation:
-        assert City("maps/maps_for_test/test_map_0.json").validation_rows_and_cols(row, col) is not None
+    assert City("maps/maps_for_test/test_map_0.json").validation_rows_and_cols(row, col)
 
 
 val_test_get_house = [(0, 0, ["A", 20, 30, 50])]
