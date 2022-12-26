@@ -57,6 +57,6 @@ class Philosopher(Process):
 
 if __name__ == '__main__':
     FORKS = [Lock() for _ in range(6)]
-    PHILOSOPHERS = [Philosopher(str(num), FORKS[num % 6], FORKS[(num + 1) % 6]) for num in range(6)]
+    PHILOSOPHERS = [Philosopher(str(num), FORKS[num-1], FORKS[num]) for num in range(6)]
     for ph in PHILOSOPHERS:
         ph.start()
