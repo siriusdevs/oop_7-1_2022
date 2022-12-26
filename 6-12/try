@@ -1,0 +1,6 @@
+from threading import Lock
+a = Lock()
+def func():
+    a.acquire()
+func()
+print(a)

@@ -1,6 +1,5 @@
-"""Парикмахер стрижёт приходящих клиентов и спит в промежутках."""
-from threading import Thread, Event
-from multiprocessing import Queue
+"""Парикмахер стрижёт приходящих клиентов и спит в промежутках."""# в процессы
+from multiprocessing import Queue, Process, Event
 from random import randint
 from time import sleep, monotonic
 from sys import exit
@@ -95,5 +94,5 @@ que = Queue(maxsize=4)
 wakeup = Event()
 hairdresser = Hairdresser()
 
-Thread(target=barbershop).start()
+Process(target=barbershop).start()
 clients_are_coming(5)
