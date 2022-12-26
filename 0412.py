@@ -35,7 +35,7 @@ class Philosopher(Process):
         """Run the philosopher`s process."""
         while True:
             if self.left.acquire(timeout=Philosopher.WAIT):
-                # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую.
+                # если философ возьмет правую вилку, он зайдет в if и будет есть, если нет, он отпустит левую
                 print('Philosopher {0} takes left fork'.format(self.name))
                 if self.right.acquire(timeout=Philosopher.WAIT):
                     print('Philosopher {0} takes right fork'.format(self.name))
@@ -53,6 +53,6 @@ class Philosopher(Process):
 
 if __name__ == '__main__':
     FORKS = [Lock() for _ in range(6)]
-    PHILOSOPHERS = [Philosopher(str(num), FORKS[num-1], FORKS[num]) for num in range(6)]
+    PHILOSOPHERS = [Philosopher(str(num), FORKS[num - 1], FORKS[num]) for num in range(6)]
     for ph in PHILOSOPHERS:
         ph.start()
