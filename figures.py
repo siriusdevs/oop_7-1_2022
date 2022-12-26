@@ -7,7 +7,7 @@ class Triangle:
 
     @property
     def sides(self):
-        return self.__sides
+        return self._sides
 
     @sides.setter
     def sides(self, sides):
@@ -26,7 +26,7 @@ class Triangle:
         if side_a < 0 or side_b < 0 or side_c < 0:
             raise Exception("Отрицательных сторон не бывает челлл")
         else:
-            self.__sides = [side_a, side_b, side_c]
+            self._sides = [side_a, side_b, side_c]
 
     def perimetr(self):
         return round(sum(self.sides), 2)
@@ -49,7 +49,7 @@ class Circle:
 
     @property
     def radius(self):
-        return self.__radius
+        return self._radius
 
     @radius.setter
     def radius(self, radius):
