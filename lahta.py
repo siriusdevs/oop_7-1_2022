@@ -49,8 +49,8 @@ class Reader(Thread):
         while True:
             with notifier:
                 notifier.wait()
-                with open("book.txt", "r") as file:
-                    print(f"Reader {self.name} reads \n{' '.join(file.readlines())}")
+                with open("book.txt", "r") as note:
+                    print(f"Reader {self.name} reads \n{' '.join(note.readlines())}")
 
 
 if __name__ == "__main__":
