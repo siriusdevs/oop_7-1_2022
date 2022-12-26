@@ -30,7 +30,7 @@ class Philosopher(Process):
         self.patience = datetime.timedelta(seconds=randint(*Philosopher.FAMINE_TIME))
         self.hunger = Event()
         self.__last_eating = datetime.datetime.now()
-        self.hunger.set()
+
 
     def eating(self):
         """Function which eating the philosopher."""
@@ -38,6 +38,7 @@ class Philosopher(Process):
         print("{0} начал есть".format(self.name))
         sleep(randint(*Philosopher.EATING_TIME))
         print("{0} поел и начал мыcлить".format(self.name))
+        self.hunger.set()
 
     def check_hunger(self):
         """Сhecks how long the philosopher has not eaten the philosopher."""
