@@ -2,7 +2,7 @@
 
 from random import randint
 
-from oop5.barber import Client, Barbershop
+from barber import Client, Barbershop
 from time import sleep
 
 SIZE_QUEUE = 2
