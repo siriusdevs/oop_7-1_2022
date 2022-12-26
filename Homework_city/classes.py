@@ -219,8 +219,8 @@ class City(object):
         Raises:
             InvalidRowOrCol: if the selected row or column cannot exist in the given map.
         """
-        vals = [row, col]
-        if all(par >= 0 and isinstance(par, int) for par in vals) and row < self.rows and col < self.cols:
+        pars = [row, col]
+        if all(par >= 0 and isinstance(par, int) for par in pars) and row < self.rows and col < self.cols:
             return True
         raise exceptions.InvalidRowOrCol()
 
@@ -242,10 +242,10 @@ class City(object):
             for i in range(self.rows):
                 for j in range(self.cols):
                     if i == row and j == col:
-                        if self.map[num_house] != 'Null':
-                            return House(*[self.map[num_house][par] for par in self.def_params])
-                        else:
+                        if self.map[num_house] == 'Null':
                             raise exceptions.NullHouseError()
+                        else:
+                            return House(*[self.map[num_house][par] for par in self.def_params])
                     num_house += 1
 
     def save_map(self) -> None:
