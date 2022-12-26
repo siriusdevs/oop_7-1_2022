@@ -1,4 +1,4 @@
-"""Парикмахер стрижёт приходящих клиентов и спит в промежутках."""# в процессы
+"""Парикмахер стрижёт приходящих клиентов и спит в промежутках."""
 from multiprocessing import Queue, Process, Event
 from random import randint
 from time import sleep, monotonic
