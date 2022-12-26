@@ -132,8 +132,8 @@ class Barbershop(object):
 
 CLIENTS = ['Nestrov', 'Nazaroff', 'Prohodko', 'Orehov', 'Filatov', 'Bezborodov']
 
-SIZE_QUEUE = 3
-ENTER_TIME_INTERVAL = (1, 10)
+SIZE_QUEUE = 1
+ENTER_TIME_INTERVAL = (10, 15)
 
 if __name__ == "__main__":
     clients = [Client(str(cl)) for cl in CLIENTS]
