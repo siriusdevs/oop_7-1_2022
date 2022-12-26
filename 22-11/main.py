@@ -3,14 +3,21 @@ from os import system
 from analyzing import Buildings
 
 
-def printer(lis):
-    """Printing rhe instruction.
+def printer(lis, rdata):
+    """
+    Printing all the data.
 
     Args:
         lis(list): instruction list
+        rdata(list): data about map
     """
+    system('clear')
     for i in lis:
         print(i)
+    if rdata[1]:
+        print(rdata[2])
+        for string in rdata[1]:
+            print(string)
 
 
 def itog_to_data(itog, rdata):
@@ -35,26 +42,51 @@ def itog_to_data(itog, rdata):
     return rdata
 
 
-def start():
-    """Function that runs the programm."""
-    with open('instruction.txt', 'r') as i:
-        lis = []
-        for string in i.readlines():
-            lis.append(string[:-1])
-    rdata = [None, None, None, None, {}, None]
+def inpmaker(inp):
+    """
+    Constructs input in one list.
+
+    Args:
+        inp(list): command type
+    """
+    if inp == ['1']:
+        inp = ['G', input("map's name: ")] + (input("width by x and y: ").split())
+    if inp == ['2']:
+        inp = ["O", (input("map's name: "))]
+    if inp == ['3']:
+        inp = ['D', (input("map's name: "))]
+    if inp == ['4']:
+        inp = ['E'] + input("left upper corner x and y coordinates: ").split()\
+            + input("width by x and y: ").split() + [input("height: "), input("building's name: ")]
+    if inp == ['5']:
+        inp = ['S']
+    if inp == ['6']:
+        inp = ['I'] + input("x and y coordinates: ").split()
+    return inp
+
+
+def start(lis, rdata):
+    """
+    Function that runs the programm.
+
+    Args:
+        lis(list): programm instruction
+        rdata(list): programm data
+    """
     while rdata[0] != ['Q']:
-        system('clear')
-        printer(lis)
-        if rdata[1]:
-            print(rdata[2])
-            for string in rdata[1]:
-                print(string)
-        rdata[0] = input().split()
-        if rdata[0]:
+        printer(lis, rdata)
+        inp = inpmaker([input()])
+        if inp:
+            rdata[0] = inp
             itog = Buildings(rdata[0], (rdata[1], rdata[4], rdata[2]), rdata[3]).input_analys()
         if itog:
             rdata = itog_to_data(itog, rdata)
 
 
 if __name__ == "__main__":
-    start()
+    with open('instruction.txt', 'r') as i:
+        lis = []
+        for string in i.readlines():
+            lis.append(string[:-1])
+    rdata = [None, None, None, None, {}, None]
+    start(lis, rdata)
