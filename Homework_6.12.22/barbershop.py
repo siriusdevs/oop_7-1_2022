@@ -40,7 +40,7 @@ class Barber(object):
 
     def __init__(self) -> None:
         """Creates a barber."""
-        self.__client_came = Event()
+        self._client_came = Event()
 
     def have_rest(self) -> bool:
         """
@@ -49,11 +49,11 @@ class Barber(object):
             bool: if the client comes.
         """
         print('Barber have rest on chair')
-        return self.__client_came.wait(timeout=Barber.timeout)
+        return self._client_came.wait(timeout=Barber.timeout)
 
     def call(self) -> None:
         """Wakes up the barber when the client arrives."""
-        self.__client_came.set()
+        self._client_came.set()
 
     def worked(self, client: Client) -> None:
         """
@@ -71,7 +71,7 @@ class Barber(object):
             client: Client - the client of barbershop
         """
         print('Barber greets client {0}'.format(client.name))
-        self.__client_came.clear()
+        self._client_came.clear()
         self.worked(client)
         print('Client {0} is done'.format(client.name))
 
@@ -86,15 +86,15 @@ class Barbershop(object):
             q_size: int - the queue max size.
         """
         self.q_size = q_size
-        self.__queue = Queue(maxsize=q_size)
-        self.__worker = Barber()
-        self.__process = Process(target=self.work)
+        self._queue = Queue(maxsize=q_size)
+        self._worker = Barber()
+        self._process = Process(target=self.work)
         self.mutex = Lock()
 
     def open(self) -> None:
         """Barbershop opens."""
         print('Barbershop opens with queue size of {0}'.format(self.q_size))
-        self.__process.start()
+        self._process.start()
 
     def close(self) -> None:
         """Barbershop closes."""
@@ -104,16 +104,16 @@ class Barbershop(object):
         """Work when the client comes."""
         while True:
             self.mutex.acquire()
-            if self.__queue.empty():
+            if self._queue.empty():
                 self.mutex.release()
-                work_result = self.__worker.have_rest()
+                work_result = self._worker.have_rest()
                 if not work_result:
                     self.close()
                     break
             else:
                 self.mutex.release()
-                client = self.__queue.get()
-                self.__worker.greet(client)
+                client = self._queue.get()
+                self._worker.greet(client)
 
     def enter(self, client: Client) -> None:
         """
@@ -123,11 +123,11 @@ class Barbershop(object):
         """
         with self.mutex:
             print('Client {0} has entered to the barbershop'.format(client.name))
-            if self.__queue.full():
+            if self._queue.full():
                 print('Client {0} sees full queue, leaves'.format(client.name))
             else:
-                self.__queue.put(client)
-                self.__worker.call()
+                self._queue.put(client)
+                self._worker.call()
 
 
 CLIENTS = ['Nestrov', 'Nazaroff', 'Prohodko', 'Orehov', 'Filatov', 'Bezborodov']
