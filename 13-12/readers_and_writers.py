@@ -47,7 +47,7 @@ class Writer(Thread):
                 for symbol in self.text:
                     self.book.acquire()
                     self.book.notify_all()
-                    self.book.text = symbol
+                    self.book.text += symbol
                     # print('Writer {0} write new symbol'.format(self.name))
                     self.book.release()
                     sleep(randint(*Writer.TIME_OF_SLEEP))
