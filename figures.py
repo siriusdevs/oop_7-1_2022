@@ -57,7 +57,7 @@ class Circle:
             raise Exception("Радиус задается числом")
         if radius < 0:
             raise Exception("Отрицательный радиус....Серьезно?")
-        self.__radius = radius
+        self._radius = radius
 
     def len_circle(self):
         return round(math.pi * self.radius**2, 2)
