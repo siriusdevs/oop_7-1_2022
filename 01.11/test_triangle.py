@@ -22,4 +22,4 @@ def test_classes_area(a, b, c, area):
 @pytest.mark.xfail(raises=NotValidArgs)
 def test_validball():
     """Проверка отработки ошибки параметров треугольника."""
-    assert Triangle(3, 55, 4).is_valid()
+    assert Triangle(3, 10, 4).is_valid()
