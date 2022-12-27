@@ -29,6 +29,7 @@ class Philosopher(Process):
                 right_stick.release()
                 print(f"Phiosopher {self.name} finished eating")
             else:
+                print(f"Philosopher {self.name} putted back left stick")
                 left_stick.release()
 
     def run(self):
