@@ -8,28 +8,22 @@ from sys import exit
 class Hairdresser:
     """Парикмахер."""
 
-    def __init__(self) -> None:
-        """Инициализация барбера."""
-        self.status = 0
-
     def go_sleep(self):
         """Барбер идёт спать, потому что нет клиентов."""
         print("Barber goes sleeping")
-        if not wakeup.wait(timeout=20):
+        if not wakeup.wait(timeout=TIMEOUT):
             print("Barbershop closes")
             exit()
 
     def take_client(self):
         """Барбер идет смотреть, есть ли клиенты. Если да, то начинает работать."""
         if que.empty():
-            self.status = 0
             self.go_sleep()
         else:
             wakeup.clear()
-            self.status = 1
             client = que.get()
             print("Client {0} is being trimmed".format(client.name))
-            sleep(randint(2, 5))
+            sleep(randint(*CUTTING_TIME))
             print("Client {0} is trimmed".format(client.name))
 
 
@@ -45,23 +39,15 @@ class Client:
         """
         self.name = name
 
-    def came(self, dresser):
-        """
-        Клиент приходит в парикмахерсую.
-
-        Args:
-            dresser(obj): парикмахер
-        """
+    def came(self):
+        """Клиент приходит в парикмахерсую."""
         print("Client {0} came".format(self.name))
         if que.full():
             print("Client {0} sees ful queue and goes away".format(self.name))
-        elif dresser.status == 0:
-            que.put(Client(self.name))
-            print("Client {0} wakes up the barber".format(self.name))
-            wakeup.set()
         else:
             que.put(Client(self.name))
             print("Client {0} sits into the queue".format(self.name))
+            wakeup.set()
 
 
 def barbershop():
@@ -77,16 +63,18 @@ def clients_are_coming(n):
     Args:
         n(int): рассчётное количество клиентов
     """
-    num = -1
-    while num < n:
-        num += 1
-        Client(num).came(hairdresser)
-        sleep(randint(4, 7))
+    for i in range(n):
+        Client(i).came()
+        sleep(randint(*CLIENT_COMING_TIME))
 
 
-que = Queue(maxsize=4)
+TIMEOUT = 20
+CUTTING_TIME = (1, 3)
+CLIENT_COMING_TIME = (4, 7)
+CLIENTS_QUANTITY = 6
+que = Queue(maxsize=1)
 wakeup = Event()
 hairdresser = Hairdresser()
 
 Process(target=barbershop).start()
-clients_are_coming(5)
+clients_are_coming(CLIENTS_QUANTITY)
