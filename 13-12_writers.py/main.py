@@ -1,6 +1,6 @@
 """Конфликтные исатели по очереди пишут одну и ту же книгу для своих писателей."""
 from time import sleep
-from random import randint, choices
+from random import randint, choice
 from threading import Thread, Condition, Lock
 from string import ascii_letters
 
@@ -23,12 +23,11 @@ class Writer(Thread):
         global book
         while True:
             booklock.acquire()
-            book = []
+            book = ''
             print("Writer {0} started writing the book".format(self.name))
             for _ in range(randint(1, 10)):
-                letter = choices(ascii_letters)[0]
-                print("Writer {0} added {1} into the book".format(self.name, letter))
-                book.append(letter)
+                book += (choice(ascii_letters))
+                print("Writer {0} wrote {1} in the the book".format(self.name, book))
                 with cond:
                     cond.notify_all()
                 sleep(TIMEOUT)
@@ -54,13 +53,13 @@ class Reader(Thread):
         while True:
             with cond:
                 cond.wait()
-            print("Reader {0} read {1} in the book".format(self.name, book[-1]))
+            print("Reader {0} read {1} in the book".format(self.name, book))
 
 
 if __name__ == '__main__':
     TIMEOUT = 1
     booklock = Lock()
-    book = []
+    book = ''
     cond = Condition()
     for i in range(3):
         Reader(i).start()
