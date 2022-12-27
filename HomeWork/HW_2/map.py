@@ -1,51 +1,60 @@
+"""This map."""
 from math import floor
-from time import sleep
-import os
 from typing import List
 from json import dumps, load
+import os
+from inspect import getsourcefile
 
 
 class ImpossibleHouse(Exception):
     """This error means that a house with such parameters cannot be built."""
 
     def __init__(self) -> None:
+        """This method creates a class environment."""
         super().__init__()
 
     def __str__(self) -> None:
         """Exception in special format."""
         return "These options caused an error ImpossibleHouse"
 
+
 class ImpossibleCity(Exception):
     """This error means that a City with such parameters cannot be built."""
 
     def __init__(self) -> None:
+        """This method creates a class environment."""
         super().__init__()
 
     def __str__(self) -> None:
         """Exception in special format."""
         return "These options caused an error ImpossibleCity"
 
+
 class ImpossibleStructureMap(Exception):
     """This error arose due to the incorrect structure of map.json."""
 
     def __init__(self) -> None:
+        """This method creates a class environment."""
         super().__init__()
 
     def __str__(self) -> None:
         """Exception in special format."""
         return "map.json struct was causing error ImpossibleStructureMap"
 
-class House:
-    """This is a representation of the house\Это изображение дома."""
 
-    def __init__(self, height: float, base_area: float, count_floors: int, coordinate=[0, 0], name=None) -> None:
+class House:
+    """This is a representation of the houser/Это изображение дома."""
+
+    def __init__(self, height: float, base_area: float, count_floors: int, coordinate=[0, 0], name=None):
         """This method takes the parameters of the house and remembers them\
         Метод получает параметры и запоминает их.
 
         Arguments:
-            height(float): Height of the represented house\Высота изображаемого дома.
-            base_area(float): Base area of the represented house\Площадь основания изображаемого дома.
-            count_floors(int): Number of floors of the presented house\Количество этажей изображаемого дома.
+            height(float): Height of the represented house/Высота изображаемого дома.
+            base_area(float): Base area of the represented house/Площадь основания изображаемого дома.
+            count_floors(int): Number of floors of the presented house/Количество этажей изображаемого дома.
+            coordinate(List(int)): House location/Расположение изоброжаемого дома.
+            name(str): Name house/Имя компьютера.
         Raises:
             NonexistentFigure: if the figure cannot exist.
         """
@@ -62,39 +71,44 @@ class House:
             self.name = "Площадка для стройки"
 
     def to_dict(self):
-        """This method allows you to work with the class as a dictionary,
+        """This method allows you to work with the class as a dictionary.
+
+        **
         where the key name is the name of the variable,
-        and the value is the value of the variable\
+        and the value_x is the value_x of the variable.
         Данный метод позволяет работать с классом как с словарём,
         где ключ - это имя переменой,
         а значение словаря - значение переменной.
+        **
         """
         return self.__dict__
 
     def __str__(self):
-        """This magic method creates a string representation of the class representation of the class\
-        Данный магический метод создаёт строковое представление класса.    
+        """This magic method creates a string representation of the class representation of the class.
+
+        **Данный магический метод создаёт строковое представление класса.**
         """
         if self.height and self.base_area and self.count_floors:
-            return '''\33[33m{0}\
-                \33[31m\nВысота дома: {1}\
-                \nПлощадь основания дома: {2}\
-                \nКоличество этажей: {3}\
-                \n{4}я улица {5}й дом\n\33[0m'''.format(self.name,\
-                                                  self.height,\
-                                                  self.base_area,\
-                                                  self.count_floors,\
-                                                  int(self.coordinate[1]) + 1,\
-                                                  int(self.coordinate[0]) + 1)
+            return """\33[33m{0}
+                \33[31m\nВысота дома: {1}
+                \nПлощадь основания дома: {2}
+                \nКоличество этажей: {3}
+                \n{4}я улица {5}й дом\n\33[0m""".format(self.name,\
+                                                        self.height,\
+                                                        self.base_area,\
+                                                        self.count_floors,\
+                                                        int(self.coordinate[1]) + 1,\
+                                                        int(self.coordinate[0]) + 1)
         else:
             return "\33[32mЗдесь ещё нет дома(((\n\33[0m"
 
     def change_option(self):
-        """This method is to make changes to the home view settings\
-        Этот метод внесения изменений в параметры изображаемого дома(Строительства и перестройки дома).
+        """This method is to make changes to the home view settings.
+
+        **Этот метод внесения изменений в параметры изображаемого дома(Строительства и перестройки дома).**
         """
         if self.height and self.base_area and self.count_floors:
-            while 1:
+            while True:
                 os.system("clear")
                 sel = input("\33[32mЧто хотите изменить?\n\33[0m\
                             \n1. Высота постройки\
@@ -119,7 +133,7 @@ class House:
                     break
                 elif sel == "4":
                     break
-                elif sel == "q":
+                if sel == "q":
                     return False
         else:
             os.system("clear")
@@ -132,8 +146,9 @@ class House:
         return True
 
     def delete_house(self):
-        """This method is designed to reset all parameters (demolition) of the house\
-        Этот метод предназначен для обнуления всех параметров (сноса) дома.
+        """This method is designed to reset all parameters (demolition) of the house.
+
+        **Этот метод предназначен для обнуления всех параметров (сноса) дома.**
         """
         self.height = None
         self.base_area = None
@@ -141,31 +156,36 @@ class House:
         self.name = "Площадка для стройки"
 
     def if_valid(self):
+        """This method of validity of the received data_json."""
         val_type = (int, float)
         if all([self.height, self.base_area, self.count_floors]):
-            if all([isinstance(x, val_type) for x in [self.height, self.base_area, self.count_floors]]):
-                if all([x > 0 for x in [self.height, self.base_area, self.count_floors]]): 
+            if all([isinstance(value_x, val_type) for value_x in [self.height,\
+                                                                  self.base_area,
+                                                                  self.count_floors]]):
+                if all([value_x > 0 for value_x in [self.height, self.base_area, self.count_floors]]):
                     self.height = float(self.height)
                     self.base_area = float(self.base_area)
                     self.count_floors = floor(self.height / 2.5)
                     return True
                 else:
                     raise ImpossibleHouse
-                    
             else:
                 raise ImpossibleHouse
 
 
 class City:
-    """This is a representation of the City\Это изображение города."""
+    """This is a representation of the City/Это изображение города."""
 
     def __init__(self, name: str, size: List[int], houses=None, sort=False) -> None:
-        """This method takes the parameters of the city and remembers them\
-        Метод получает параметры и запоминает их.
+        """This method takes the parameters of the city and remembers them.
+
+        **Метод получает параметры и запоминает их.**
 
         Arguments:
-            name(str): Name of the represented city\Название изображаемого города.
-            size(List(int)): Number of streets and houses of the represented city\Количество улиц и домов изображаемого дома.
+            name(str): Name of the represented city.
+            size(List(int)): Number of streets and houses of the represented city.
+            houses(dict): House list.
+            sort(bool): Is the city sorted.
         """
         self.name = name
         self.length = size[0]
@@ -175,51 +195,66 @@ class City:
         self.sort = sort
 
     def new_city(self, PWD=None, title_map="map"):
-        """This function writes a new city to a file, recreates it if the file does not exist\
-        Эта функция записывает новый город в файл, исоздаёт его если файла нет."""
+        """This function writes a new city to a file_json, recreates it if the file_json does not exist.
+
+        **Эта функция записывает новый город в файл, исоздаёт его если файла нет.**
+
+        Arguments:
+            PWD(str): puth to dirictory.
+            title_map(str): name file_json.json.
+        """
+        config = Config(PWD, title_map)
         if Map.get_cities() == 0:
             cities = ""
-        elif os.path.exists('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map)):
+        elif os.path.exists('{}{}.json'.format(config.PWD, config.title_map)):
             cities = Map.get_cities().cities
         else:
             cities = ""
-        with open('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map), 'w') as file:
+        with open('{}{}.json'.format(config.PWD, config.title_map), 'w') as file_json:
             houses = [[self.length, self.weigth]]
-            for y in range(self.length):
-                for x in range(self.weigth):
-                    houses.append({"{0} {1}".format(x, y): House(None, None, None).to_dict()})
-            data = {"{0}".format(self.name): houses}
+            for value_y in range(self.length):
+                for value_x in range(self.weigth):
+                    houses.append({"{0} {1}".format(value_x, value_y): House(None, None, None).to_dict()})
+            data_json = {"{0}".format(self.name): houses}
             if cities != "":
-                data = {**cities, **data}
-            file.write(dumps(data))
+                data_json = {**cities, **data_json}
+            file_json.write(dumps(data_json))
 
     def save_city(self, PWD=None, title_map="map"):
-        """This method saves all changes to the map\
-        Этот метод сохраняет все изменения в карте.
+        """This method saves all changes to the map.
+
+        **Этот метод сохраняет все изменения в карте.**
+
+        Arguments:
+            PWD(str): puth to dirictory.
+            title_map(str): name file_json.json.
         """
         if os.path.exists('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map)):
             cities = Map.get_cities().cities
         else:
             cities = ""
-        city_dict = {"{}".format(self.name): [[self.length, self.weigth]]}
+        city = {"{}".format(self.name): [[self.length, self.weigth]]}
         for street in self.houses:
             for house in street:
-                city_dict["{}".format(self.name)].append({"{0} {1}".format(house.coordinate[0], house.coordinate[1]):
-                                                         {"name": house.name,
-                                                          "height": house.height,
-                                                          "base_area": house.base_area,
-                                                          "count_floors": house.count_floors,
-                                                          "coordinate": list(map(int, house.coordinate))}})
-        with open('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map), 'w') as file:
+                coor = house.coordinate
+                city["{}".format(self.name)].append({"{0} {1}".format(coor[0], coor[1]):
+                                                    {"name": house.name,
+                                                     "height": house.height,
+                                                     "base_area": house.base_area,
+                                                     "count_floors": house.count_floors,
+                                                     "coordinate": list(map(int, coor))}})
+        config = Config(PWD, title_map)
+        with open('{}{}.json'.format(config.PWD, config.title_map), 'w') as file_json:
             if cities != "":
-                data = {**cities, **city_dict}
-            file.write(dumps(data))
+                data_json = {**cities, **city}
+            file_json.write(dumps(data_json))
 
     def sort_city(self):
-        """This method puts all the houses in their places on the map\
-        Этот метод ставит все дома на свои места на карте.
+        """This method puts all the houses in their places on the map.
+
+        **Этот метод ставит все дома на свои места на карте.**
         """
-        houses = [[None for _ in range(self.weigth)] for __ in range(self.length)]
+        houses = [[None for val_x in range(self.weigth)] for val_y in range(self.length)]
         for house in self.houses:
             coordinate = list(map(int, house.coordinate))
             houses[coordinate[1]][coordinate[0]] = house
@@ -227,8 +262,9 @@ class City:
         self.sort = True
 
     def projection_city(self):
-        """This method returns a projection of the city's houses where 1 house exists and 0 house does not exist\
-        Этот метод возвращает проекцию домов города, где 1 дом существует и 0 дом не существует.
+        """This method returns a projection of the city's houses where 1 house exists and 0 house does not exist.
+
+        **Этот метод возвращает проекцию домов города, где 1 дом существует и 0 дом не существует.**
         """
         if self.sort:
             houses = []
@@ -243,8 +279,9 @@ class City:
             return houses
 
     def __str__(self):
-        """This magic method creates a string representation of the class representation of the class\
-        Данный магический метод создаёт строковое представление класса.    
+        """This magic method creates a string representation of the class representation of the class.
+
+        **Данный магический метод создаёт строковое представление класса.**
         """
         text = ""
         if self.sort:
@@ -252,13 +289,14 @@ class City:
                 text += "\t" + str(street) + "\n"
         else:
             self.sort_city()
-            for street in self.projection_city():
-                text += "\t" + str(street) + "\n"
+            for streat in self.projection_city():
+                text += "\t" + str(streat) + "\n"
         return text
 
     def selecter(self):
-        """This method returns the projection of the city, if the city is not sorted sort it\
-        Этот метод возвращает проекцию города, если город не отсортирован сортирует его.
+        """This method returns the projection of the city, if the city is not sorted sort it.
+
+        **Этот метод возвращает проекцию города, если город не отсортирован сортирует его.**
         """
         if self.sort:
             city = self.projection_city()
@@ -269,10 +307,11 @@ class City:
         return city
 
     def if_valid(self):
+        """This method of validity of the received data_json."""
         val_type = (int, float)
         if all([self.length, self.weigth]):
-            if all([isinstance(x, val_type) for x in [self.length, self.weigth]]):
-                if all([x > 0 for x in [self.length, self.weigth]]): 
+            if all([isinstance(value_x, val_type) for value_x in [self.length, self.weigth]]):
+                if all([value_x > 0 for value_x in [self.length, self.weigth]]):
                     self.length = int(self.length)
                     self.weigth = int(self.weigth)
                     return True
@@ -283,17 +322,20 @@ class City:
         else:
             raise ImpossibleCity
 
+
 class Map:
-    """This map\Это карта."""
+    """This map/Это карта."""
 
     def __init__(self, cities=dict, structure=False):
-        """This method takes the parameters of the city and remembers them\
-        Метод получает параметры и запоминает их.
+        """This method takes the parameters of the city and remembers them.
+
+        ***Метод получает параметры и запоминает их.**
 
         Arguments:
-            ciies(dict): A dictionary consisting of cities in which there are houses with empty or not valid parameters\
+            cities(dict): A dictionary consisting of cities in\
+                which there are houses with empty or not valid parameters\
                 Словарь состоящий из городов в которых есть дома с пустыми или не путыми параметрамию.
-            structur(bool): If the argument is false, then the dictionary consists of other dictionaries,\
+            structure(bool): If the argument is false, then the dictionary consists of other dictionaries,\
                 if the argument is true, the dictionary consists of classes\
                 Если аргумент ложный значит словарь состоит из других словарей,\
                 если аргумент правда словарь состоит из классов.
@@ -304,18 +346,25 @@ class Map:
 
     @classmethod
     def get_cities(cls, PWD=None, title_map="map"):
-        """This class method reads js and returns a dictionary\
-        Этот метод класса читает js и возвращает словарь.
+        """This class method reads js and returns a dictionary.
+
+        **Этот метод класса читает js и возвращает словарь.**
+
+        Arguments:
+            PWD(str): puth to dirictory.
+            title_map(str): name file_json.json.
         """
-        if os.path.exists('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map)):
-            with open('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map), 'r+', encoding='utf-8') as file:
-                cities = load(file)
+        config = Config(PWD, title_map)
+        if os.path.exists('{}{}.json'.format(config.PWD, config.title_map)):
+            with open('{}{}.json'.format(config.PWD, config.title_map), 'r+', encoding='utf-8') as file_json:
+                cities = load(file_json)
                 return cls(cities)
         return 0
 
     def generate_cities(self):
-        """Replaces a dictionary from dictionaries with a dictionary from classes\
-        Replaces a dictionary from dictionaries with a dictionary from classes.
+        """Replaces a dictionary from dictionaries with a dictionary from classes.
+
+        **Replaces a dictionary from dictionaries with a dictionary from classes.**
         """
         if not self.structure:
             cities = []
@@ -335,8 +384,9 @@ class Map:
             self.cities = cities
 
     def sort_cites(self):
-        """This method structures the class\
-        Этот метод структурирует класс.
+        """This method structures the class.
+
+        **Этот метод структурирует класс.**
         """
         if not self.structure:
             for city in self.cities:
@@ -344,8 +394,10 @@ class Map:
                 self.structure = True
 
     def projection_map(self):
-        """This method returns a projection of cities\
-        Этот метод возвращает проекцию городов."""
+        """This method returns a projection of cities.
+
+        **Этот метод возвращает проекцию городов.**
+        """
         self.generate_cities()
         self.sort_cites()
         cities_name = {}
@@ -355,62 +407,68 @@ class Map:
         for city in self.cities:
             print(type(city))
             cities_name[city.name] = city.projection_city()
-        for city in cities_name.keys():
+        for city_v in cities_name.keys():
             count = 0
-            for street_house in cities_name[city]:
+            for street_house in cities_name[city_v]:
                 count += sum(street_house)
-            projection_cities[city] = count
+            projection_cities[city_v] = count
         return [projection_cities, cities]
 
     def __str__(self):
-        """This magic method creates a string representation of the class representation of the class\
-        Данный магический метод создаёт строковое представление класса.    
+        """This magic method creates a string representation of the class representation of the class.
+
+        **Данный магический метод создаёт строковое представление класса.**
         """
         return self.selecter()
 
     def selecter(self):
-        """This method returns a map projection.\
-        Этот метод возвращает проекцию карты."""
+        """This method returns a map projection.
+
+        **Этот метод возвращает проекцию карты.**
+        """
         if self.cities != 0:
             projection = self.projection_map()
             projection_cities = projection[0]
             cities = projection[1]
             city_map = []
-            for map, city in zip(projection_cities.keys(), cities):
-                city_map.append("Город {0}:\n\tКоличество домов - {1}\n{2}".format(map,
-                                projection_cities[map], city))
+            for map_v, city in zip(projection_cities.keys(), cities):
+                city_map.append("Город {0}:\n\tКоличество домов - {1}\n{2}".format(map_v,
+                                projection_cities[map_v], city))
             return city_map
 
     def if_valid(self):
-        val_type = (dict, City)
+        """This method of validity of the received data_json."""
         if not self.structure:
-            if all([isinstance(self.cities[x], list) for x in list(self.cities.keys())]):
-                helpe = [[all([isinstance(__, dict) for __ in x[1:]]), isinstance(x[0], list)] for x in [self.cities[_] for _ in list(self.cities.keys())]]
+            if all([isinstance(self.cities[value_x], list) for value_x in list(self.cities.keys())]):
+                helpe = [[all([isinstance(val_x, dict) for val_x in value_x[1:]]),
+                         isinstance(value_x[0], list)] for value_x in [self.cities[val_y]
+                         for val_y in list(self.cities.keys())]]
                 if all(helpe):
-                    pass
+                    return
                 else:
                     raise ImpossibleStructureMap
             else:
-                raise ImpossibleStructureMap 
+                raise ImpossibleStructureMap
         elif self.structure:
-            if all([isinstance(self.cities[x], City) for x in self.cities]):
-                pass
+            if all([isinstance(self.cities[value_x], City) for value_x in self.cities]):
+                return
             else:
                 raise ImpossibleStructureMap
 
 
 class Config:
-    """This configuration\Это параметры файла"""
+    """This configuration/Это параметры файла."""
 
     def __init__(self, PWD=None, title_map="map"):
-        """A method that receives and remembers the file configuration"""
-        import os
-        from inspect import getsourcefile 
+        """A method that receives and remembers the file_json configuration.
+
+        Arguments:
+            PWD(str): puth to dirictory.
+            title_map(str): name file_json.json.
+        """
         if PWD:
             self.PWD = PWD
         else:
-            pwf = os.path.abspath(getsourcefile(lambda:0))
+            pwf = os.path.abspath(getsourcefile(lambda: 0))
             self.PWD = pwf.replace(os.path.basename(pwf), "")
         self.title_map = title_map
-
-
