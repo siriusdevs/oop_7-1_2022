@@ -17,11 +17,9 @@ class Philosopher(Process):
 
     def eat(self):
         left_stick, right_stick = self.left_stick, self.right_stick
-        unlock_l = left_stick.acquire(timeout=Philosopher.WAIT_FORK)
-        if unlock_l:
+        if left_stick.acquire(timeout=Philosopher.WAIT_FORK):
             print(f"Philosopher {self.name} picked left stick")
-            unlock_r = right_stick.acquire(timeout=Philosopher.WAIT_FORK)
-            if unlock_r:
+            if right_stick.acquire(timeout=Philosopher.WAIT_FORK):
                 print(f"Philosopher {self.name} picked right stick")
                 print(f"Philosopher {self.name} started eating")
                 sleep(randint(*self.EAT_TIME))
@@ -29,14 +27,14 @@ class Philosopher(Process):
                 right_stick.release()
                 print(f"Phiosopher {self.name} finished eating")
             else:
-                print(f"Philosopher {self.name} putted back left stick")
+                print(f"Philosopher {self.name} put back left stick")
                 left_stick.release()
 
     def run(self):
         while True:
             print(f"Philosopher {self.name} is thinking")
             sleep(randint(*Philosopher.THINK_TIME))
-            print(f"Philosopher {self.name} want to eat")
+            print(f"Philosopher {self.name} wants to eat")
             self.eat()
 
 
