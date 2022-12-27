@@ -45,15 +45,15 @@ class Triangle:
         Returns:
             bool: if the triangle is correct True else False
         """
-        sides = sorted([self.side_a, self.side_b, self.side_c])
-        for side in sides:
-            if not isinstance(side, float|int):
-                return False
-            if side <= 0:
-                return False
-        if sides[2] > sides[1] + sides[0]:
-            return False
-        return True
+        first_side = self.side_a
+        second_side = self.side_b
+        third_side = self.side_c
+        if all([isinstance(first_side, (float|int)), isinstance(second_side, (float|int))]):
+            if isinstance(third_side, (float|int)):
+                if first_side > 0 and second_side > 0 and third_side > 0:
+                    return first_side + second_side > third_side and second_side + third_side > first_side \
+                        and first_side + third_side > second_side
+        return False
 
 
 class Circle:
