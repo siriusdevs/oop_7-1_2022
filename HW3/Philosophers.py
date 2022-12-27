@@ -56,9 +56,9 @@ if __name__ == "__main__":
     NUM_PHILOSOPHERS = len(NAMES_PHILOSOPHERS)
     CHOPSTICKS = [Lock() for _ in range(NUM_PHILOSOPHERS)]
     PHILOSOPHERS = [
-        ThinkingAndEating(str(num), CHOPSTICKS[num], CHOPSTICKS[(num + 1) % NUM_PHILOSOPHERS]) 
+        ThinkingAndEating(str(num), CHOPSTICKS[num], CHOPSTICKS[(num + 1) % NUM_PHILOSOPHERS])
         for num in range(NUM_PHILOSOPHERS)
-        ]
+    ]
     for philosopher in PHILOSOPHERS:
         philosopher.start()
         sleep(1)
