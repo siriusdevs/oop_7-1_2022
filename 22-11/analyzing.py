@@ -33,7 +33,7 @@ class Buildings(Functions):
             return ("Do you want to save your map? [y/n]", True)
         if self.bmap and self.edited and self.y_n:
             if self.y_n == 'y':
-                self.to_file(self.bmap, self.name)
+                self.to_file(self.bmap, self.name, self.builds_type)
         self.bmap = self.generate(self.inp[2], self.inp[3])
         return (self.bmap, self.inp[1], True, self.builds_type)
 

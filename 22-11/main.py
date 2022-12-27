@@ -33,7 +33,11 @@ def itog_to_data(itog, rdata):
             rdata[5] = input(itog[0])
             itog = Buildings(rdata[0], (rdata[1], rdata[4], rdata[2]), rdata[3], rdata[5]).input_analys()
             if itog:
-                rdata = [None] + list(itog) + [None]
+                if isinstance(itog[0], str):
+                    print(itog[0])
+                    input("Enter to continue")
+                else:
+                    rdata = [None] + list(itog) + [None]
         else:
             print(itog[0])
             input("Enter to continue")
