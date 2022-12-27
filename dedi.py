@@ -21,14 +21,15 @@ class Philosopher(Process):
         unlock_r = right_stick.acquire(timeout=Philosopher.WAIT_FORK)
         if unlock_l:
             print(f"Philosopher {self.name} picked left stick")
-        if unlock_r:
-            print(f"Philosopher {self.name} picked right stick")
-        if unlock_l and unlock_r:
-            print(f"Philosopher {self.name} started eating")
-            sleep(randint(*self.EAT_TIME))
-            left_stick.release()
-            right_stick.release()
-            print(f"Phiosopher {self.name} finished eating")
+            if unlock_r:
+                print(f"Philosopher {self.name} picked right stick")
+                print(f"Philosopher {self.name} started eating")
+                sleep(randint(*self.EAT_TIME))
+                left_stick.release()
+                right_stick.release()
+                print(f"Phiosopher {self.name} finished eating")
+            else:
+                left_stick.release()
 
     def run(self):
         while True:
