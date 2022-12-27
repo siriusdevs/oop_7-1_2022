@@ -48,7 +48,7 @@ class ThinkingAndEating(Thread):
                 right_chopstick.release()
                 print("{0} поел и готов к размышлениям".format(self.name))
             else:
-                print("{} положил на место левую палочку".format(self.name))
+                print("{0} положил на место левую палочку".format(self.name))
                 left_chopstick.release()
 
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     NUM_PHILOSOPHERS = len(NAMES_PHILOSOPHERS)
     CHOPSTICKS = [Lock() for _ in range(NUM_PHILOSOPHERS)]
     PHILOSOPHERS = [ThinkingAndEating(str(num), CHOPSTICKS[num], CHOPSTICKS[(num + 1) \
-        % NUM_PHILOSOPHERS]) for num in range(NUM_PHILOSOPHERS)]
+                    % NUM_PHILOSOPHERS]) for num in range(NUM_PHILOSOPHERS)]
     for philosopher in PHILOSOPHERS:
         philosopher.start()
         sleep(1)
