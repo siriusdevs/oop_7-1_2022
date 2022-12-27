@@ -44,20 +44,20 @@ class Barber:
         self.__guest_visited.set()
 
     def sleep(self):
-        """Make the barber sleep until the quest comes.
+        """Make the barber sleep until the guest comes.
 
         Returns:
-            bool: if the quest comes or the timeout works
+            bool: if the guest comes or the timeout works
         """
         print('Барбер жёстко спит')
         res = self.__guest_visited.wait(timeout=TIMEOUT)
         return res
 
     def trim(self, guest: Guest):
-        """Spend time on trimming hair to the quest.
+        """Spend time on trimming hair to the guest.
 
         Args:
-            guest(Guest): the name of the quest
+            guest(Guest): the name of the guest
         """
         sleep(randint(*WORK_INTERVAL))
         print('Барбер работает над {0}'.format(guest.name))
