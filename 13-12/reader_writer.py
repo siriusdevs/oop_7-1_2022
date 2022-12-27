@@ -6,7 +6,7 @@ from random import randint, choice
 TIMEOUT_THE_LETTERS = (1, 1)
 CHILL = (4, 5)
 book = ''
-LINES = ['ARINA IS SLEEPING']
+LINES = ['ARINA IS SLEEPING NOW']
 BOOK_LOCK = Lock()
 add_letters = Event()
 
@@ -47,17 +47,17 @@ class Reader(Thread):
     """The Reader class"""
 
     def __init__(self, name: str):
-        """Method which initialize cllas Reader.
+        """Method  initialize class Reader.
 
         Args:
-            name: name of a reader.
+            name: name  a reader.
         """
         super().__init__()
         self.name = name
 
     def run(self):
         """Readers are reading a book in real time."""
-        global add_letters, book
+        global add_letters, read_string
 
         while True:
             add_letters.wait()
@@ -65,11 +65,11 @@ class Reader(Thread):
 
 
 if __name__ == '__main__':
-    WRITERS = [Writer(numbers, choice(LINES), BOOK_LOCK) for numbers in range(3)]
-    READERS = [Reader(numbers) for numbers in range(4)]
+    WRITER = [Writer(numbers, choice(LINES), BOOK_LOCK) for numbers in range(3)]
+    READER = [Reader(numbers) for numbers in range(4)]
 
-    for reader in READERS:
-        reader.start()
+    for reader_thr in READER:
+        reader_thr.start()
 
-    for writer in WRITERS:
-        writer.start()
+    for writer_thr in WRITER:
+        writer_thr.start()
