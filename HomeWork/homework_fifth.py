@@ -76,3 +76,4 @@ if __name__ == "__main__":
         Reader("{0} #{1}".format(reader, ind)).start()
     for number in range(COUNT_WRITERS):
         Writer("{0} #{1}".format(Faker().name(), number)).start()
+
