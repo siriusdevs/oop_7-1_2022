@@ -1,6 +1,6 @@
 """Function for anaysing and transmitting input data."""
 
-from os import path, remove
+from os import path, remove, listdir
 from functions import Functions
 
 
@@ -86,6 +86,14 @@ class Buildings(Functions):
             return (not_valid)
         return (self.builds_type[(int(self.inp[1]), (int(self.inp[2])))], False)
 
+    def to_show_list(self):
+        """Show the list of available maps."""
+        print("\nAvailabe maps:")
+        for build in listdir():
+            if build[:7] + build[-5:] == 'Builds_.json':
+                print(build[7:-5])
+        return ("", False)
+
     def input_analys(self):
         """Function for anaysing input data."""
         self.bmap, self.builds_type, self.name = self.bmap
@@ -104,3 +112,5 @@ class Buildings(Functions):
             return self.to_delete()
         if self.inp[0] == 'I':
             return self.to_show_info()
+        if self.inp[0] == 'L':
+            return self.to_show_list()

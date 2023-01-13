@@ -60,15 +60,27 @@ def inpmaker(inp):
     if inp == ['D']:
         inp = ['D', (input("map's name: "))]
     if inp == ['E']:
-        inp = [
-            'E',
-            input("x coordinate: "),
-            input("y coordinate: "),
-            input("widh by x: "),
-            input("width by y: "),
-            input("height: "),
-            input("building's name: ")
-        ]
+        ifdel = input("add or delete building?[A/D]")
+        if ifdel == "A":
+            inp = [
+                'E',
+                input("x coordinate: "),
+                input("y coordinate: "),
+                input("widh by x: "),
+                input("width by y: "),
+                input("height: "),
+                input("building's name: ")
+            ]
+        elif ifdel == "D":
+            inp = [
+                'E',
+                input("x coordinate: "),
+                input("y coordinate: "),
+                input("widh by x: "),
+                input("width by y: "),
+                '0',
+                ''
+            ]
     if inp == ['S']:
         inp = ['S']
     if inp == ['I']:
@@ -86,6 +98,7 @@ def start(lis, rdata):
     """
     while rdata[0] != ['Q']:
         printer(lis, rdata)
+        print('')
         inp = inpmaker([input()])
         if inp:
             rdata[0] = inp

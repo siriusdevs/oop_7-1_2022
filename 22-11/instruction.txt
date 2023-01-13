@@ -4,4 +4,5 @@ O open map from file
 D delete map
 E edit map
 S save map
-I get info about certain building.
+I get info about certain building
+L show the list of maps
