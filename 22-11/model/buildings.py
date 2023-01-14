@@ -32,7 +32,11 @@ class BasicBuilding:
         self.__name = str(name)
 
     def __str__(self):
-        return "{0}: height - {1} floor - {2} area - {3}".format(self.__name,self.__height,self.__floor,self.__area)
+        """Makes string."""
+        return "{0}: height - {1} floor - {2} area - {3}".format(self.__name,
+                                                                 self.__height,
+                                                                 self.__floor,
+                                                                 self.__area)
 
     @property
     def name(self) -> str:
@@ -144,11 +148,11 @@ class BasicBuilding:
         return {"name": self.__name, "height": self.__height, "floor": self.__floor, "area": self.__area}
 
     @classmethod
-    def create_build_from_dict(cls, dictionary: dict) -> object:
+    def create_build_from_dict(cls, dic: dict) -> object:
         """Create a basic building from dictionary.
 
         Args:
-            dictionary: dict - dictionary of the building.
+            dic: dict - dictionary of the building.
 
         Returns:
             BasicBuilding - new building.
@@ -156,8 +160,7 @@ class BasicBuilding:
         Raises:
             BuildingError : if dictionary doesn't have fields name, height, floor, area.
         """
-        if not ("name" in dictionary and "height" in dictionary
-                and "floor" in dictionary and "area" in dictionary):
+        if not ("name" in dic and "height" in dic and "floor" in dic and "area" in dic):
             raise BuildingError("Building must have fields: name, height, floor, area")
-        return cls(name=dictionary.get("name"), height=dictionary.get("height"),
-                   floor=dictionary.get("floor"), area=dictionary.get("area"))
+        return cls(name=dic.get("name"), height=dic.get("height"),
+                   floor=dic.get("floor"), area=dic.get("area"))
