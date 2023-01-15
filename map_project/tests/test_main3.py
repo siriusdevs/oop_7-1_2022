@@ -4,6 +4,7 @@ import pytest
 from main3 import Building, Map, load_data, save_data
 import json
 
+
 @pytest.mark.parametrize("x, y, z, expected_result", [
     (10, 20, 30, Building(10, 20, 30)),
     (1, 5, 1, Building(1, 5, 1)),
@@ -15,6 +16,7 @@ def test_building_init(x, y, z, expected_result):
     assert b.area == expected_result.area
     assert b.floors == expected_result.floors
 
+
 @pytest.mark.parametrize("x, expected_result", [
     (10, Map(10)),
     (20, Map(20)),
@@ -24,6 +26,7 @@ def test_map_init(x, expected_result):
     m = Map(x)
     assert m.size == expected_result.size
     assert m.buildings == []
+
 
 @pytest.mark.parametrize("x, building", [
     (10, Building(10, 20, 30)),
@@ -35,6 +38,7 @@ def test_add_building(x, building):
     b = building
     m.add_building(b)
     assert m.buildings == [b]
+
 
 @pytest.mark.parametrize("x, building1, building2", [
     (10, Building(10, 20, 30), Building(50, 20, 30)),
@@ -50,6 +54,7 @@ def test_remove_building(x, building1, building2):
     m.remove_building(b1)
     assert m.buildings == [b2]
 
+
 @pytest.mark.parametrize("building1, building2", [
     (Building(10, 20, 30), Building(50, 20, 30)),
     (Building(10, 20, 30), Building(60, 20, 30)),
@@ -61,6 +66,7 @@ def test_save_data(building1, building2):
     with open("buildings.json", "r") as f:
         data = json.load(f)
     assert data == [{"height": building1.height, "area": building1.area, "floors": building1.floors}, {"height": building2.height, "area": building2.area, "floors": building2.floors}]
+
 
 @pytest.mark.parametrize("building1, building2", [
     (Building(10, 20, 30), Building(50, 20, 30)),
