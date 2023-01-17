@@ -128,9 +128,10 @@ def choose():
 name_of_file = ""
 map_list = []
 
-for file in os.listdir(os.path.dirname(os.path.abspath(__file__))):
-    if file.endswith(".json"):
-        all_maps.append(os.path.join(file))
-print("У вас имеется {} файла(ов) карт".format(len(all_maps)))
-print(str(all_maps))
-choose()
+if __name__ == "__main__":
+    for file in os.listdir(os.path.dirname(os.path.abspath(__file__))):
+        if file.endswith(".json"):
+            all_maps.append(os.path.join(file))
+    print("У вас имеется {} файла(ов) карт".format(len(all_maps)))
+    print(str(all_maps))
+    choose()
