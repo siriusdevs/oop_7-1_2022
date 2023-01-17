@@ -47,7 +47,7 @@ class Functions:
                 inps2 = [inp[3], inp[4]]
                 y1 = all(int(x) >= 0 for x in inps1)
                 y2 = all(int(x) > 0 for x in inps2)
-                y3 = (int(inp[1]) + int(inp[3]) <= len(bmap[0]) and int(inp[2]) + int(inp[4]) <= len(bmap))
+                y3 = (int(inp[1]) < len(bmap[0]) and int(inp[2]) < len(bmap))
                 if y1 and y2 and y3:
                     return None
         return ("Invalid arguments", False)
@@ -113,27 +113,22 @@ class Functions:
             b_type(dict): Building's types
             y_n(str): confirmation
         """
-        flag = 0
-        coords = []
-        for y in range(int(whattodo[1]), int(whattodo[1]) + int(whattodo[3])):
-            for x in range(int(whattodo[0]), int(whattodo[0]) + int(whattodo[2])):
-                coords.append((x, y))
-                flag += buildmap[y][x]
-        if flag:
+        x = int(whattodo[0])
+        y = int(whattodo[1])
+        if buildmap[y][x]:
             if not y_n:
                 if int(whattodo[4]):
-                    return ("Do you want to build your buildings on top of the old ones?[y/n]", True, b_type)
-                return ("Do you want to destroy these buildings?[y/n]", True, b_type)
+                    return ("Do you want to build your building on top of the old one?[y/n]", True, b_type)
+                return ("Do you want to destroy this building?[y/n]", True, b_type)
             if y_n != 'y':
                 return (buildmap, False, b_type)
-        for x, y in coords:
-            buildmap[y][x] = int(whattodo[4])
-            b_type[(x, y)] = (
-                "{0}. {1} by x and {2} by y, {3} floors hight.".format(
-                    whattodo[5],
-                    whattodo[2],
-                    whattodo[3],
-                    whattodo[4]
+        buildmap[y][x] = int(whattodo[4])
+        b_type[(x, y)] = (
+            "{0}. {1} by x and {2} by y, {3} floors hight.".format(
+                whattodo[5],
+                whattodo[2],
+                whattodo[3],
+                whattodo[4]
                 )
             )
         return (buildmap, True, b_type)

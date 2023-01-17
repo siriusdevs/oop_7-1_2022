@@ -1,0 +1,111 @@
+from json import load, dumps
+from os import system
+
+
+class Buildings:
+    def __init__(self):
+        pass
+
+    def generate(self, inp: str):
+        inp = inp.split()
+        Map = [[0] * int(inp[0]) for _ in range(int(inp[1]))]
+        return Map, inp[1], True
+
+    def from_file(self, num: str):
+        name = "Builds_{0}.json".format(num)
+        with open (name, 'rt') as file:
+            dic = load(file)
+            Map = [[0] * dic["Mapy"] for _ in range(dic["Mapx"])]
+            for building in dic["Builds"]:
+                Map[building["y"]][building["x"]] = building['height']
+        return Map
+
+    def editing_map(self, whattodo: str, Map: list, y_n: str = None):
+        flag = 0
+        coords = []
+        height = int(whattodo[4])
+        for y in range(int(whattodo[1]), int(whattodo[1]) + int(whattodo[3])):
+            for x in range(int(whattodo[0]), int(whattodo[0]) + int(whattodo[2])):
+                coords.append((x, y))
+                if Map[y][x] > 0:
+                    flag = 1
+        if flag:
+            if not y_n:
+                if height:
+                    return("Do you want to build your buildings on top of the old ones?[y/n]", True)
+                else:
+                    return("Do you want to destroy these buildings?[y/n]", True)
+            else:
+                if y_n == 'y':
+                    for x, y in coords:
+                        Map[y][x] = height
+                    return (Map, True)
+                elif y_n == 'n':
+                    return (Map, False)
+        else:
+            for x, y in coords:
+                Map[y][x] = height
+            return (Map, True)
+
+    def to_file(self, Map: list, name: str):
+        builds = [(x, y) for x in range(len(Map[0])) for y in range(len(Map)) if Map[y][x] > 0]
+        with open("Builds_{0}.json".format(name), 'wt') as file:
+            data = dumps({'Mapx': len(Map),'Mapy': len(Map[0]), "Builds": [{"x": build[0], "y": build[1], "height": Map[build[1]][build[0]]} for build in builds]})
+            file.write(data)
+
+    def input_analyser(self, inp: list, Map: list, name: str, edited: bool, y_n: str = None):
+        if inp[0] == 'O':
+            try:
+                Map = self.from_file(inp[1])
+                return (Map, inp[1], False)
+            except:
+                return ("Sorry, Map {0} is damaged or doesn't exist.".format(name), False)
+        elif inp[0] == 'E':
+            if Map:
+                Map, edited = self.editing_map(inp[1:], Map, y_n)
+                return (Map, name, edited)
+            else:
+                return("sorry, Map isn't opened", False)
+        elif inp[0] == 'S':
+            if edited:
+                self.to_file(Map, name)
+                return (Map, name, False)
+            else:
+                return("There isn't anything to save", False)
+        elif inp[0] == 'Q':
+            print(edited, 'a')
+            if edited:
+                self.to_file(Map, name)
+                
+
+    def Start(self):
+        Map = None
+        name = None
+        edited = None
+        while True:
+            #system('clear')
+            #print(("Q to quit,G to generate a map, O to open map from file, E to edit, S to save the map. \
+#Input structure:\nG Map's name and width by x and y separated by space\nO Map's name\nE building's left upper corner x and y\
+#coordinates, building's width by x and y and height of the building separated by space"))
+            if Map:
+                for string in Map:
+                    print(string)
+            inp = input().split()
+            itog = self.input_analyser(inp, Map, name, edited)
+            if itog:
+                if type(itog[0]) == str:
+                    if itog[1]:
+                        y_n = input(itog[0])
+                        itog = self.input_analyser(inp, Map, name, edited, y_n)
+                        print(edited, '1')
+                    else:
+                        input("Enter to continue")
+                else:
+                    print('else worked, map updated')
+                    Map, name, edited = itog
+                    print(edited, '2')
+            if inp == ['Q']:
+                break
+if __name__ == "__main__":
+    Map = Buildings()
+    Map.Start()

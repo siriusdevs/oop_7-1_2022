@@ -1,0 +1,35 @@
+from random import choice
+from main import Buildings
+
+acc = []
+for _ in range(1000):
+    p1 = [0, 0, 0, 2, 3, 7, 1, 6, 9]
+    exmap = []
+    for _ in enumerate(range(6)):
+        exmaplist = []
+        for _ in range(4):
+            exmaplist.append(choice(p1))
+        exmap.append(exmaplist)
+    exdict = dict()
+    for i in range(0, len(exmap)):
+        for j in range(len(exmap[0])):
+            if exmap[i][j]:
+                exdict[(i, j)] = choice(["house", "shop"])
+    build = Buildings()
+    #print(exmap)
+#     build.to_file(exmap, 'donttouchthismapplease', exdict)
+#     exmap2, exdict2 = build.from_file('donttouchthismapplease')
+#     #print((exdict, exmap) == (exdict2, exmap2))
+#     acc.append((exdict, exmap) == (exdict2, exmap2))
+# print(all(acc))
+print(exmap)
+exmap2 = [m[:] for m in exmap] ########################################################################### ВОТ ОНА!!!
+exmap2[2][0] = 17
+exdict2 = exdict.copy()
+exdict2[(0, 2)] = 'zoo'
+def test_editing_map(inp, Map, b_type, y_n, answ):
+    """Testing map editing function."""
+    print(build.editing_map(inp, Map, b_type, y_n)[0])
+    print(exmap2)
+test_editing_map(['0', '2', '1', '1', '-6', 'zoo'], exmap, exdict, 'y', (exmap2, True, exdict2))
+print(exmap)

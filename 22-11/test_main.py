@@ -45,7 +45,7 @@ def test_o_valid(inp, answ):
 tests = [
     (['E', '0', '0', '1', '3', '3', 'shop'], [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], None),
     (
-        ['E', '0', '0', '1', '5', '3', 'shop'],
+        ['E', '4', '0', '1', '5', '3', 'shop'],
         [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
         ('Invalid arguments', False)
     )
@@ -100,7 +100,7 @@ tests = [
         exmap,
         exdict,
         None,
-        ('Do you want to build your buildings on top of the old ones?[y/n]', True, exdict)
+        ('Do you want to build your building on top of the old one?[y/n]', True, exdict)
     ),
     (
         ['0', '2', '1', '1', '17', 'zoo'],
