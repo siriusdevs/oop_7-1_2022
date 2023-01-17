@@ -129,8 +129,8 @@ class Functions:
                 whattodo[2],
                 whattodo[3],
                 whattodo[4]
-                )
             )
+        )
         return (buildmap, True, b_type)
 
     @staticmethod
