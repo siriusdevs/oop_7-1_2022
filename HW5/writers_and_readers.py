@@ -4,11 +4,13 @@ from string import ascii_lowercase
 from threading import Condition, Lock, Thread
 from time import sleep
 
+
 class Writer(Thread):
     """A class that creates a writer."""
 
     SLEEP_TIME = (1, 3)
     WRITE_TIME = 1
+
     def __init__(self, name):
         """Initializing attributes for the writer.
 
@@ -17,8 +19,8 @@ class Writer(Thread):
         """
         super().__init__()
         self.name = name
-    
-    
+
+
     def write(self):
         """A method for determining the spelling of something.
         """
@@ -42,8 +44,8 @@ class Writer(Thread):
             sleep(randint(*Writer.SLEEP_TIME))
             print(f"Писатель {self.name} готов к работе")
             self.write()
-    
-    
+
+
 class Reader(Thread):
     """A class that creates a reader."""
     def __init__(self, name):
@@ -55,7 +57,7 @@ class Reader(Thread):
         super().__init__()
         self.name = name
 
-    
+
     def run(self):
         """The method responsible for the readers's start.
         """
