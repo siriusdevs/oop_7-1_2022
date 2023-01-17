@@ -23,4 +23,4 @@ def test2():
 @pytest.mark.xfail(raises=ValueError)
 def test3():
     """Function must raise ValueError."""
-    assert Building(0, -100, 51)
+    assert Building(0, -100, 521)
