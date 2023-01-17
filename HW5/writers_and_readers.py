@@ -38,7 +38,7 @@ class Writer(Thread):
         while True:
             print("Писатель {0} отдыхает".format(self.name))
             sleep(randint(*Writer.SLEEP_TIME))
-            print(f"Писатель {0} готов к работе".format(self.name))
+            print("Писатель {0} готов к работе".format(self.name))
             self.write()
 
 
@@ -54,14 +54,13 @@ class Reader(Thread):
         super().__init__()
         self.name = name
 
-
     def run(self):
         """The method responsible for the readers's start."""
         global notifier, records
         while True:
             with notifier:
                 notifier.wait()
-                print(f"Читатель {0} читает {1}".format(self.name, records))
+                print("Читатель {0} читает {1}".format(self.name, records))
 
 
 if __name__ == "__main__":
