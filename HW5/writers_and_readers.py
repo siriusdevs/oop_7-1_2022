@@ -24,7 +24,7 @@ class Writer(Thread):
         """A method for determining the spelling of something."""
         global book, notifier, records
         book.acquire()
-        print(f"Писатель {self.name} начал переписывать")
+        print("Писатель {0} начал переписывать".format(self.name))
         records = ""
         for _ in range(5):
             with notifier:
@@ -33,13 +33,12 @@ class Writer(Thread):
             sleep(Writer.WRITE_TIME)
         book.release()
 
-
     def run(self):
         """The method responsible for the writer's sleep and start."""
         while True:
-            print(f"Писатель {self.name} отдыхает")
+            print("Писатель {0} отдыхает".format(self.name))
             sleep(randint(*Writer.SLEEP_TIME))
-            print(f"Писатель {self.name} готов к работе")
+            print(f"Писатель {0} готов к работе".format(self.name))
             self.write()
 
 
@@ -62,7 +61,7 @@ class Reader(Thread):
         while True:
             with notifier:
                 notifier.wait()
-                print(f"Читатель {self.name} читает {records}")
+                print(f"Читатель {0} читает {1}".format(self.name, records))
 
 
 if __name__ == "__main__":
@@ -72,7 +71,7 @@ if __name__ == "__main__":
     records = ""
     WRITERS = [Writer(str(num)) for num in range(NUM_WRITERS)]
     READERS = [Reader(str(num))for num in range(NUM_WRITERS)]
-    for i in enumerate(WRITERS):
-        WRITERS[i[0]].start()
-        READERS[i[0]].start()
+    for _ in enumerate(WRITERS):
+        WRITERS[_[0]].start()
+        READERS[_[0]].start()
         sleep(1)
