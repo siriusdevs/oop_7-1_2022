@@ -1,3 +1,4 @@
+"""The module builds houses on the created map."""
 import os
 from typing import List
 from pick import pick
@@ -8,7 +9,10 @@ all_maps = []
 workflow = {}
 
 class Map_worker:
+    """Creates a map for homes."""
+
     def map_checker():
+        """Сhecks the availability of maps with houses."""
         for file in os.listdir():
             if file.endswith(".json") and not file in all_maps:
                 all_maps.append(os.path.join(file))
@@ -16,6 +20,7 @@ class Map_worker:
                     .format(len(set(all_maps)), set(all_maps)))
 
     def choose(self):
+        """The method is responsible for displaying the menu for user selection."""
         global all_maps
         os.system('cls||clear')
         Map_worker.map_checker()
@@ -34,6 +39,7 @@ class Map_worker:
                 Map_worker.show_map()
 
     def create_map():
+        """The method creates a map with the entered width and length."""
         global map_list, name_of_file
         name_of_file = input("Введите имя для карты без расширения\n") + ".json"
         if name_of_file not in all_maps:
@@ -50,6 +56,7 @@ class Map_worker:
             Map_worker.create_map()
 
     def read_map():
+        """The method reads maps from the directory."""
         global name_of_file
         if name_of_file in all_maps:
             with open(name_of_file, "rt") as map_file:
@@ -60,6 +67,7 @@ class Map_worker:
     
     
     def show_map():
+        """The method is responsible for outputting the map to read."""
         global all_maps, name_of_file, map_list
         name_of_file, row = pick(all_maps, "Выберите карту")
         if name_of_file in all_maps:
@@ -73,7 +81,7 @@ class Map_worker:
                 cells.append(list(workflow["houses"][i].keys())[0])
             for i in cells:
                 map_list[int(i[0])][int(i[1])] = 1
-        print('Ваша карта собсна: \n')
+        print('Выбранная карта: \n')
         for row in map_list:
             print(row)
         sleep(3)
@@ -81,6 +89,7 @@ class Map_worker:
 
 
     def map_selection():
+        """The method is responsible for selecting the map."""
         global all_maps, name_of_file, map_list
         name_of_file, row = pick(all_maps, "Выберите карту")
         if name_of_file in all_maps:
@@ -99,6 +108,7 @@ class Map_worker:
             print("Такой файл не найден")
 
     def action():
+        """Method for selecting an action."""
         global name_of_file, map_list
         name, index = pick(["Создать дом", "Удалить дом", 'Выйти из программы'], "Выберите действие:")
         if index == 0:
@@ -109,14 +119,16 @@ class Map_worker:
 
 
 class Building:
+    """Creates a map for homes."""
+
     def __init__(self, height: int, area: int, floor: int):
+        """Method for initializing house attributes."""
         self.height = height
         self.area = area
         self.floor = floor
 
-
-
     def write_json(new_data):
+        """Method for writing data to json."""
         global name_of_file
         with open(name_of_file,'r+') as file:
             file_data = json.load(file)
@@ -125,6 +137,7 @@ class Building:
             json.dump(file_data, file, indent = 4)
 
     def build(*args):
+        """Method of building a house and collecting data from the user."""
         selected, row_1 = pick(map_list, 'Выберите область для редактирования: ')
         selected, row_2 = pick(map_list[row_1], 'Выберите дом: ')
         if map_list[row_1][row_2] == 1:
@@ -140,6 +153,7 @@ class Building:
         Map_worker.choose('')
 
     def delete():
+        """Method for removing houses."""
         global name_of_file, map_list
         print(name_of_file)
         with open(name_of_file, encoding="utf8") as file:
