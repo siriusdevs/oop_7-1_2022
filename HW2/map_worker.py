@@ -1,6 +1,5 @@
 """The module builds houses on the created map."""
 import os
-from typing import List
 from pick import pick
 import json
 from time import sleep
@@ -8,8 +7,9 @@ from time import sleep
 all_maps = []
 workflow = {}
 
-class Map_worker:
+class MapWorker:
     """Creates a map for homes."""
+
 
     def map_checker():
         """Сhecks the availability of maps with houses."""
@@ -23,20 +23,20 @@ class Map_worker:
         """The method is responsible for displaying the menu for user selection."""
         global all_maps
         os.system('cls||clear')
-        Map_worker.map_checker()
+        MapWorker.map_checker()
         os.system('cls||clear')
         while True:
-            selected, index = pick(['Создать новую карту', 'Редактировать текущую'\
-                                    , 'Выйти из программы', 'Посмотреть карту'], 'Набор функций:')
+            selected, index = pick(['Создать новую карту', 'Редактировать текущую', \
+                                    'Выйти из программы', 'Посмотреть карту'], 'Набор функций:')
             if index == 0:
-                Map_worker.create_map()
+                MapWorker.create_map()
             elif index == 1:
-                Map_worker.map_selection()
+                MapWorker.map_selection()
             elif index == 2:
                 os.system('cls||clear')
                 exit()
             elif index == 3:
-                Map_worker.show_map()
+                MapWorker.show_map()
 
     def create_map():
         """The method creates a map with the entered width and length."""
@@ -53,7 +53,7 @@ class Map_worker:
             Building.build()
         else:
             print("Это имя занято :(")
-            Map_worker.create_map()
+            MapWorker.create_map()
 
     def read_map():
         """The method reads maps from the directory."""
@@ -64,8 +64,7 @@ class Map_worker:
         map_configuration = conf_data["map_conf"]
         buildings = conf_data["buildings"]
         rows = map_configuration["size_row"]
-    
-    
+
     def show_map():
         """The method is responsible for outputting the map to read."""
         global all_maps, name_of_file, map_list
@@ -85,8 +84,7 @@ class Map_worker:
         for row in map_list:
             print(row)
         sleep(3)
-        Map_worker.choose('')
-
+        MapWorker.choose('')
 
     def map_selection():
         """The method is responsible for selecting the map."""
@@ -103,7 +101,7 @@ class Map_worker:
                 cells.append(list(workflow["houses"][i].keys())[0])
             for i in cells:
                 map_list[int(i[0])][int(i[1])] = 1
-            Map_worker.action()
+            MapWorker.action()
         else:
             print("Такой файл не найден")
 
@@ -115,7 +113,6 @@ class Map_worker:
             Building.build()
         if index == 1:
             Building.delete()
-       
 
 
 class Building:
@@ -150,7 +147,7 @@ class Building:
         temp_data = {}
         temp_data[str(row_1) + str(row_2)] = temp.__dict__
         Building.write_json(temp_data)
-        Map_worker.choose('')
+        MapWorker.choose('')
 
     def delete():
         """Method for removing houses."""
@@ -170,7 +167,7 @@ class Building:
                 dict["houses"].pop(i)
                 with open(name_of_file, "w") as file:
                     json.dump(dict, file)
-                Map_worker.choose('')
+                MapWorker.choose('')
 
-a = Map_worker()
+a = MapWorker()
 print(a.choose())
