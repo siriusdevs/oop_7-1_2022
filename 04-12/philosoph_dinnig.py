@@ -30,17 +30,17 @@ class Philosopher(Process):
         """Dinner start."""
         while True:
             if self.chop_left.acquire(timeout=WAIT):
-                print('Филосов {0} взял левую палочку'.format(self.name))
+                print('Философ {0} взял левую палочку'.format(self.name))
                 if self.chop_right.acquire(timeout=WAIT):
-                    print('Филосов {0} взял правую палочку'.format(self.name))
-                    print('Филосов {0} начал есть'.format(self.name))
+                    print('Философ {0} взял правую палочку'.format(self.name))
+                    print('Философ {0} начал есть'.format(self.name))
                     sleep(randint(*EATING))
-                    print('Филосов {0} закончил трапезу'.format(self.name))
+                    print('Философ {0} закончил трапезу'.format(self.name))
                     self.chop_right.release()
                     self.chop_left.release()
-                    print('Филосов {0} думает'.format(self.name))
+                    print('Философ {0} думает'.format(self.name))
                     sleep(randint(*THINKING))
-                    print('Филосов {0} хочет поесть'.format(self.name))
+                    print('Философ {0} хочет поесть'.format(self.name))
                 else:
                     self.chop_left.release()
 
