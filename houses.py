@@ -3,6 +3,7 @@ import os
 from pick import pick
 import time
 
+
 class Building:
     def __init__(self, height, base_area, floors) -> None:
         if int(height) <= 0 or int(base_area) <= 0 or int(floors) <= 0:
@@ -11,18 +12,19 @@ class Building:
         self.base_area = base_area
         self.floors = floors
 
+
 all_maps = []
 workflow = {}
 
 
 def write_json(new_data):
     global name_of_file
-    with open(name_of_file,'r+') as file:
-        file_data = json.load(file)
+    with open(name_of_file, 'r+') as f:
+        file_data = json.load(f)
         file_data["houses"].append(new_data)
-        file.seek(0)
-        json.dump(file_data, file, indent = 4)
-     
+        f.seek(0)
+        json.dump(file_data, f, indent=4)
+
 
 def choose_action():
     global name_of_file, map_list
@@ -31,13 +33,13 @@ def choose_action():
         build()
     if index == 1:
         delete()
-    
+
 
 def delete():
     global name_of_file, map_list
     print(name_of_file)
-    with open(name_of_file, encoding="utf8") as file:
-        dict = json.load(file)
+    with open(name_of_file, encoding="utf8") as f:
+        dictinonary = json.load(f)
     title = 'Выберите колонку с домом: '
     option, row = pick(map_list, title)
     title = 'Выберите дом: '
@@ -46,11 +48,11 @@ def delete():
         print("Тут ничего нет, выберите другую клетку")
         time.sleep(2)
         delete()
-    for i in range(len(dict["houses"])):
-        if str(row) + str(column) ==  list(dict["houses"][i].keys())[0]:
-            dict["houses"].pop(i)
-            with open(name_of_file, "w") as file:
-                json.dump(dict, file)
+    for i in range(len(dictinonary["houses"])):
+        if str(row) + str(column) == list(dictinonary["houses"][i].keys())[0]:
+            dictinonary["houses"].pop(i)
+            with open(name_of_file, "w") as f:
+                json.dump(dict, f)
             choose()
 
 
