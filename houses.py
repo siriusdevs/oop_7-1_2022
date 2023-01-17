@@ -84,8 +84,8 @@ def new_map():
         size = int(input("Введите размерность карты: "))
         map_list = [[0] * size for _ in range(size)]
         wflow = {"houses": [], "size": size}
-        with open(name_of_file, "w") as file:
-            json.dump(wflow, file)
+        with open(name_of_file, "w") as f:
+            json.dump(wflow, f)
         build()
     else:
         print("Это имя занято :(")
@@ -113,9 +113,9 @@ def existing_map():
 def choose():
     global all_maps
     all_maps = []
-    for file in os.listdir(os.path.dirname(os.path.abspath(__file__))):
-        if file.endswith(".json"):
-            all_maps.append(os.path.join(file))
+    for f in os.listdir(os.path.dirname(os.path.abspath(__file__))):
+        if f.endswith(".json"):
+            all_maps.append(os.path.join(f))
     re = input("Хотите создать новую карту, использовать имеющиеся, или выйти? Введите 1, 2 или 3 для выбора\n")
     if re == "1":
         new_map()
@@ -131,9 +131,9 @@ name_of_file = ""
 map_list = []
 
 if __name__ == "__main__":
-    for file in os.listdir(os.path.dirname(os.path.abspath(__file__))):
-        if file.endswith(".json"):
-            all_maps.append(os.path.join(file))
+    for f in os.listdir(os.path.dirname(os.path.abspath(__file__))):
+        if f.endswith(".json"):
+            all_maps.append(os.path.join(f))
     print("У вас имеется {} файла(ов) карт".format(len(all_maps)))
     print(str(all_maps))
     choose()
