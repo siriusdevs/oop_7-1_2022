@@ -1,36 +1,41 @@
-"""The Map and Building program"""
-
+"""The map and build program"""
 import json
 
 
 class Building:
     """Building class to store information about a building"""
 
-    def __init__(self, height, area, floors):
+    def __init__(self, height, area, floors, x, y):
         """
         Initializes a Building object with given height, area and floors
 
-        Args:
-             height: int, height of the building
-             area: int, area of the building
-             floors: int, number of floors in the building
+         Args:
+            height (int): height of the building
+            area (int): area of the building
+            floors (int): number of floors in the building
+            x (int): x coordinate of the building location
+            y (int): y coordinate of the building location
         """
         self.height = height
         self.area = area
         self.floors = floors
+        self.x = x
+        self.y = y
 
 
 class Map:
     """Map class to store information about a map and its buildings"""
 
-    def __init__(self, size):
+    def __init__(self, x_size, y_size):
         """
-        Initializes a Map object with given size
+          Initializes a Map object with given size
 
         Args:
-            size: int, size of the map
+            x_size (int): x size of the map
+            y_size (int): y size of the map
         """
-        self.size = size
+        self.x_size = x_size
+        self.y_size = y_size
         self.buildings = []
 
     def add_building(self, building):
@@ -64,7 +69,7 @@ def load_data():
             data = json.load(f)
             buildings = []
             for building in data:
-                b = Building(building["height"], building["area"], building["floors"])
+                b = Building(building["height"], building["area"], building["floors"], building["x"], building["y"])
                 buildings.append(b)
             return buildings
     except (FileNotFoundError, json.decoder.JSONDecodeError):
@@ -81,27 +86,31 @@ def save_data(buildings):
     with open("buildings.json", "w") as f:
         data = []
         for building in buildings:
-            b = {"height": building.height, "area": building.area, "floors": building.floors}
+            b = {"height": building.height, "area": building.area, "floors": building.floors, "x": building.x,
+                 "y": building.y}
             data.append(b)
         json.dump(data, f)
 
 
 def main():
     """Entry point of the program."""
-    map_size = None
+    map_x_size = None
+    map_y_size = None
     try:
         with open("map.json", "r") as f:
             data = json.load(f)
-            map_size = data["size"]
+            map_x_size = data["x_size"]
+            map_y_size = data["y_size"]
     except (FileNotFoundError, json.decoder.JSONDecodeError):
-        map_size = input("Enter map size: ")
+        map_x_size = int(input("Enter map x size: "))
+        map_y_size = int(input("Enter map y size: "))
         with open("map.json", "w") as f:
-            json.dump({"size": map_size}, f)
+            json.dump({"x_size": map_x_size, "y_size": map_y_size}, f)
 
     buildings = load_data()
-    map = Map(map_size)
+    map_ = Map(map_x_size, map_y_size)
     for building in buildings:
-        map.add_building(building)
+        map_.add_building(building)
 
     while True:
         print("1. Add building")
@@ -113,21 +122,32 @@ def main():
             height = int(input("Enter building height: "))
             area = int(input("Enter building area: "))
             floors = int(input("Enter number of floors: "))
-            if height == 0 or area == 0 or floors == 0:
-                print("Height, area, and floors must be greater than 0.")
+            x = int(input("Enter the x coordinate of the building location: "))
+            y = int(input("Enter the y coordinate of the building location: "))
+            if x > map_.x_size or y > map_.y_size:
+                print("Invalid location")
                 continue
-            building = Building(height, area, floors)
-            map.add_building(building)
+            building = Building(height, area, floors, x, y)
+            map_.add_building(building)
             buildings.append(building)
             save_data(buildings)
+            print("Building added successfully")
+
         elif choice == "2":
-            for i, building in enumerate(buildings):
-                print(f"{i+1}. {building.height}, {building.area}, {building.floors}")
-            choice = int(input("Enter the number of the building you want to remove: "))
-            building = buildings[choice - 1]
-            map.remove_building(building)
-            buildings.remove(building)
-            save_data(buildings)
+            x = int(input("Enter the x coordinate of the building location: "))
+            y = int(input("Enter the y coordinate of the building location: "))
+            building_removed = False
+            for building in buildings:
+                if building.x == x and building.y == y:
+                    map_.remove_building(building)
+                    buildings.remove(building)
+                    save_data(buildings)
+                    building_removed = True
+                    print("Building removed successfully")
+                    break
+            if not building_removed:
+                print("No building found at the given location")
+
         elif choice == "3":
             break
         else:
