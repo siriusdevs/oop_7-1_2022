@@ -90,6 +90,8 @@ def test_file(bmap, name, b_t):
     assert (bmap, b_t) == (map2, b_t2)
 
 
+exmap[2][0] = 1
+exdict[(0, 2)] = choice(["house", "shop"])
 exmap2 = [m[:] for m in exmap]
 exmap2[2][0] = 17
 exdict2 = exdict.copy()
