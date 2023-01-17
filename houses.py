@@ -78,7 +78,7 @@ def build():
 
 def new_map():
     global map_list, name_of_file
-    name_of_file = input("Введите новое имя для карты без расширения\n") + ".json"
+    name_of_file = f"{input('Введите новое имя для карты без расширения')}.json"
     if name_of_file not in all_maps:
         wflow = {}
         size = int(input("Введите размерность карты: "))
