@@ -74,18 +74,18 @@ def build():
     res[str(row) + str(column)] = b.__dict__
     write_json(res)
     choose()
-        
+
 
 def new_map():
     global map_list, name_of_file
     name_of_file = input("Введите новое имя для карты без расширения\n") + ".json"
     if name_of_file not in all_maps:
-        workflow = {}
+        wflow = {}
         size = int(input("Введите размерность карты: "))
         map_list = [[0] * size for _ in range(size)]
-        workflow = {"houses": [], "size": size}
+        wflow = {"houses": [], "size": size}
         with open(name_of_file, "w") as file:
-            json.dump(workflow, file)
+            json.dump(wflow, file)
         build()
     else:
         print("Это имя занято :(")
