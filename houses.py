@@ -127,6 +127,7 @@ def choose():
         print("Некорректный ввод")
         choose()
 
+
 name_of_file = ""
 map_list = []
 
@@ -134,6 +135,6 @@ if __name__ == "__main__":
     for f in os.listdir(os.path.dirname(os.path.abspath(__file__))):
         if f.endswith(".json"):
             all_maps.append(os.path.join(f))
-    print("У вас имеется {} файла(ов) карт".format(len(all_maps)))
+    print(f"У вас имеется {len(all_maps)} файла(ов) карт")
     print(str(all_maps))
     choose()
