@@ -20,10 +20,8 @@ class Writer(Thread):
         super().__init__()
         self.name = name
 
-
     def write(self):
-        """A method for determining the spelling of something.
-        """
+        """A method for determining the spelling of something."""
         global book, notifier, records
         book.acquire()
         print(f"Писатель {self.name} начал переписывать")
@@ -37,8 +35,7 @@ class Writer(Thread):
 
 
     def run(self):
-        """The method responsible for the writer's sleep and start.
-        """
+        """The method responsible for the writer's sleep and start."""
         while True:
             print(f"Писатель {self.name} отдыхает")
             sleep(randint(*Writer.SLEEP_TIME))
@@ -48,6 +45,7 @@ class Writer(Thread):
 
 class Reader(Thread):
     """A class that creates a reader."""
+
     def __init__(self, name):
         """Initializing attributes for the reader.
 
@@ -59,8 +57,7 @@ class Reader(Thread):
 
 
     def run(self):
-        """The method responsible for the readers's start.
-        """
+        """The method responsible for the readers's start."""
         global notifier, records
         while True:
             with notifier:
