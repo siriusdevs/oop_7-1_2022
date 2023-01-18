@@ -4,14 +4,11 @@ from typing import List
 from json import dumps, load
 import os
 from inspect import getsourcefile
+from menu import Menu
 
 
 class ImpossibleHouse(Exception):
     """This error means that a house with such parameters cannot be built."""
-
-    def __init__(self) -> None:
-        """This method creates a class environment."""
-        super().__init__()
 
     def __str__(self) -> None:
         """Exception in special format."""
@@ -21,10 +18,6 @@ class ImpossibleHouse(Exception):
 class ImpossibleCity(Exception):
     """This error means that a City with such parameters cannot be built."""
 
-    def __init__(self) -> None:
-        """This method creates a class environment."""
-        super().__init__()
-
     def __str__(self) -> None:
         """Exception in special format."""
         return "These options caused an error ImpossibleCity"
@@ -32,10 +25,6 @@ class ImpossibleCity(Exception):
 
 class ImpossibleStructureMap(Exception):
     """This error arose due to the incorrect structure of map.json."""
-
-    def __init__(self) -> None:
-        """This method creates a class environment."""
-        super().__init__()
 
     def __str__(self) -> None:
         """Exception in special format."""
@@ -45,18 +34,17 @@ class ImpossibleStructureMap(Exception):
 class House:
     """This is a representation of the houser/Это изображение дома."""
 
-    def __init__(self, height: float, base_area: float, count_floors: int, coordinate=[0, 0], name=None):
-        """This method takes the parameters of the house and remembers them\
+    def __init__(self, height: float, base_area: float, count_floors: int, coordinate=(0, 0), name=None):
+        """This method takes the parameters of the house and remembers them.
+
         Метод получает параметры и запоминает их.
 
         Arguments:
             height(float): Height of the represented house/Высота изображаемого дома.
             base_area(float): Base area of the represented house/Площадь основания изображаемого дома.
             count_floors(int): Number of floors of the presented house/Количество этажей изображаемого дома.
-            coordinate(List(int)): House location/Расположение изоброжаемого дома.
+            coordinate(List[int]): House location/Расположение изоброжаемого дома.
             name(str): Name house/Имя компьютера.
-        Raises:
-            NonexistentFigure: if the figure cannot exist.
         """
         self.height = height
         self.base_area = base_area
@@ -89,61 +77,29 @@ class House:
         **Данный магический метод создаёт строковое представление класса.**
         """
         if self.height and self.base_area and self.count_floors:
-            return """\33[33m{0}
-                \33[31m\nВысота дома: {1}
-                \nПлощадь основания дома: {2}
-                \nКоличество этажей: {3}
-                \n{4}я улица {5}й дом\n\33[0m""".format(self.name,\
-                                                        self.height,\
-                                                        self.base_area,\
-                                                        self.count_floors,\
-                                                        int(self.coordinate[1]) + 1,\
-                                                        int(self.coordinate[0]) + 1)
-        else:
-            return "\33[32mЗдесь ещё нет дома(((\n\33[0m"
+            return """
+            \\33[33m{0}\33[31m
+            \nВысота дома: {1}
+            \nПлощадь основания дома: {2}
+            \nКоличество этажей: {3}
+            \n{4}я улица {5}й дом
+            \n\33[0m
+            """.format(
+                self.name,
+                self.height,
+                self.base_area,
+                self.count_floors,
+                int(self.coordinate[1]) + 1,
+                int(self.coordinate[0]) + 1
+            )
+        return "\33[32mЗдесь ещё нет дома(((\n\33[0m"
 
     def change_option(self):
         """This method is to make changes to the home view settings.
 
         **Этот метод внесения изменений в параметры изображаемого дома(Строительства и перестройки дома).**
         """
-        if self.height and self.base_area and self.count_floors:
-            while True:
-                os.system("clear")
-                sel = input("\33[32mЧто хотите изменить?\n\33[0m\
-                            \n1. Высота постройки\
-                            \n2. Площадь оcнования постройки\
-                            \n3. Наименование постройки\
-                            \n4. Вернуться обратно{:^216}\
-                            \n\nВведите номер команды: ".format("q - выйти"))
-                if sel == "1":
-                    self.height = float(input("Введите высоту постройки: "))
-                    self.count_floors = floor(self.height / 2.5)
-                    self.if_valid()
-                    print("\u001bc")
-                    break
-                elif sel == "2":
-                    self.base_area = float(input("Введите площадь основания постройки: "))
-                    self.if_valid()
-                    print("\u001bc")
-                    break
-                elif sel == "3":
-                    self.name = input("Введите название постройки: ")
-                    print("\u001bc")
-                    break
-                elif sel == "4":
-                    break
-                if sel == "q":
-                    return False
-        else:
-            os.system("clear")
-            self.name = input("Введите название постройки: ")
-            self.height = float(input("Введите высоту постройки: "))
-            self.count_floors = floor(self.height / 2.5)
-            self.base_area = float(input("Введите площадь основания постройки: "))
-            self.if_valid()
-            print("\u001bc")
-        return True
+        return Menu.change_option(self)
 
     def delete_house(self):
         """This method is designed to reset all parameters (demolition) of the house.
@@ -156,21 +112,20 @@ class House:
         self.name = "Площадка для стройки"
 
     def if_valid(self):
-        """This method of validity of the received data_json."""
+        """This method of validity of the received data_json.
+
+        Raises:
+            ImpossibleHouse : if the building doesn't exist.
+        """
         val_type = (int, float)
         if all([self.height, self.base_area, self.count_floors]):
-            if all([isinstance(value_x, val_type) for value_x in [self.height,\
-                                                                  self.base_area,
-                                                                  self.count_floors]]):
+            if all([isinstance(value_x, val_type) for value_x in [self.height, self.base_area, self.count_floors]]):
                 if all([value_x > 0 for value_x in [self.height, self.base_area, self.count_floors]]):
                     self.height = float(self.height)
                     self.base_area = float(self.base_area)
-                    self.count_floors = floor(self.height / 2.5)
+                    self.count_floors = floor(self.height / Config().five_del_two)
                     return True
-                else:
-                    raise ImpossibleHouse
-            else:
-                raise ImpossibleHouse
+        raise ImpossibleHouse
 
 
 class City:
@@ -183,7 +138,7 @@ class City:
 
         Arguments:
             name(str): Name of the represented city.
-            size(List(int)): Number of streets and houses of the represented city.
+            size(List[int]): Number of streets and houses of the represented city.
             houses(dict): House list.
             sort(bool): Is the city sorted.
         """
@@ -206,11 +161,11 @@ class City:
         config = Config(PWD, title_map)
         if Map.get_cities() == 0:
             cities = ""
-        elif os.path.exists('{}{}.json'.format(config.PWD, config.title_map)):
+        elif os.path.exists('{0}{1}.json'.format(config.PWD, config.title_map)):
             cities = Map.get_cities().cities
         else:
             cities = ""
-        with open('{}{}.json'.format(config.PWD, config.title_map), 'w') as file_json:
+        with open('{0}{1}.json'.format(config.PWD, config.title_map), 'w') as file_json:
             houses = [[self.length, self.weigth]]
             for value_y in range(self.length):
                 for value_x in range(self.weigth):
@@ -229,22 +184,26 @@ class City:
             PWD(str): puth to dirictory.
             title_map(str): name file_json.json.
         """
-        if os.path.exists('{}{}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map)):
+        if os.path.exists('{0}{1}.json'.format(Config(PWD, title_map).PWD, Config(PWD, title_map).title_map)):
             cities = Map.get_cities().cities
         else:
             cities = ""
-        city = {"{}".format(self.name): [[self.length, self.weigth]]}
+        city = {"{0}".format(self.name): [[self.length, self.weigth]]}
         for street in self.houses:
             for house in street:
                 coor = house.coordinate
-                city["{}".format(self.name)].append({"{0} {1}".format(coor[0], coor[1]):
-                                                    {"name": house.name,
-                                                     "height": house.height,
-                                                     "base_area": house.base_area,
-                                                     "count_floors": house.count_floors,
-                                                     "coordinate": list(map(int, coor))}})
+                city["{0}".format(self.name)].append(
+                    {"{0} {1}".format(coor[0], coor[1]):
+                     {"name": house.name,
+                      "height": house.height,
+                      "base_area": house.base_area,
+                      "count_floors": house.count_floors,
+                      "coordinate": list(map(int, coor))
+                      }
+                     }
+                )
         config = Config(PWD, title_map)
-        with open('{}{}.json'.format(config.PWD, config.title_map), 'w') as file_json:
+        with open('{0}{1}.json'.format(config.PWD, config.title_map), 'w') as file_json:
             if cities != "":
                 data_json = {**cities, **city}
             file_json.write(dumps(data_json))
@@ -267,16 +226,12 @@ class City:
         **Этот метод возвращает проекцию домов города, где 1 дом существует и 0 дом не существует.**
         """
         if self.sort:
-            houses = []
-            for street in self.houses:
-                street_house = []
-                for house in street:
-                    if house.height and house.base_area and house.count_floors:
-                        street_house.append(1)
-                    else:
-                        street_house.append(0)
-                houses.append(street_house)
-            return houses
+            hous = [
+                [1 if hous.height and hous.base_area and hous.count_floors else 0 for hous in stre]\
+                for stre in self.houses
+            ]
+
+        return hous
 
     def __str__(self):
         """This magic method creates a string representation of the class representation of the class.
@@ -307,7 +262,11 @@ class City:
         return city
 
     def if_valid(self):
-        """This method of validity of the received data_json."""
+        """This method of validity of the received data_json.
+
+        Raises:
+            ImpossibleCity : if the city doesn't exist.
+        """
         val_type = (int, float)
         if all([self.length, self.weigth]):
             if all([isinstance(value_x, val_type) for value_x in [self.length, self.weigth]]):
@@ -315,12 +274,7 @@ class City:
                     self.length = int(self.length)
                     self.weigth = int(self.weigth)
                     return True
-                else:
-                    raise ImpossibleCity
-            else:
-                raise ImpossibleCity
-        else:
-            raise ImpossibleCity
+        raise ImpossibleCity
 
 
 class Map:
@@ -355,8 +309,8 @@ class Map:
             title_map(str): name file_json.json.
         """
         config = Config(PWD, title_map)
-        if os.path.exists('{}{}.json'.format(config.PWD, config.title_map)):
-            with open('{}{}.json'.format(config.PWD, config.title_map), 'r+', encoding='utf-8') as file_json:
+        if os.path.exists('{0}{1}.json'.format(config.PWD, config.title_map)):
+            with open('{0}{1}.json'.format(config.PWD, config.title_map), 'r+', encoding='utf-8') as file_json:
                 cities = load(file_json)
                 return cls(cities)
         return 0
@@ -379,7 +333,9 @@ class Map:
                     houses.append(House(house[1]['height'],\
                                         house[1]['base_area'],\
                                         house[1]['count_floors'],\
-                                        [coordinate[0], coordinate[1]]))
+                                        [coordinate[0], coordinate[1]]
+                                        )
+                                  )
                 cities.append(City(name, sizes, houses))
             self.cities = cities
 
@@ -432,28 +388,33 @@ class Map:
             cities = projection[1]
             city_map = []
             for map_v, city in zip(projection_cities.keys(), cities):
-                city_map.append("Город {0}:\n\tКоличество домов - {1}\n{2}".format(map_v,
-                                projection_cities[map_v], city))
+                city_map.append("Город {0}:\n\tКоличество домов - {1}\n{2}".format(
+                    map_v, projection_cities[map_v], city
+                )
+                )
             return city_map
 
     def if_valid(self):
-        """This method of validity of the received data_json."""
+        """This method of validity of the received data_json.
+
+        Raises:
+            ImpossibleStructureMap : if the structure doesn't exist.
+        """
         if not self.structure:
             if all([isinstance(self.cities[value_x], list) for value_x in list(self.cities.keys())]):
                 helpe = [[all([isinstance(val_x, dict) for val_x in value_x[1:]]),
-                         isinstance(value_x[0], list)] for value_x in [self.cities[val_y]
-                         for val_y in list(self.cities.keys())]]
+                         isinstance(value_x[0], list)
+                          ] for value_x in [self.cities[val_y]
+                         for val_y in list(self.cities.keys())
+                ]]
                 if all(helpe):
                     return
-                else:
-                    raise ImpossibleStructureMap
             else:
                 raise ImpossibleStructureMap
-        elif self.structure:
+        if self.structure:
             if all([isinstance(self.cities[value_x], City) for value_x in self.cities]):
                 return
-            else:
-                raise ImpossibleStructureMap
+            raise ImpossibleStructureMap
 
 
 class Config:
@@ -469,6 +430,11 @@ class Config:
         if PWD:
             self.PWD = PWD
         else:
-            pwf = os.path.abspath(getsourcefile(lambda: 0))
+            pwf = os.path.abspath(getsourcefile(self.zero()))
             self.PWD = pwf.replace(os.path.basename(pwf), "")
         self.title_map = title_map
+        self.five_del_two = 2.5
+
+    def zero(self):
+        """It's needed just for getsourcefile don't ask me pls."""
+        return 0

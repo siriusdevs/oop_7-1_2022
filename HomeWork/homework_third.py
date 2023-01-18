@@ -83,6 +83,6 @@ if __name__ == '__main__':
     print("\033[92mБургер Кинг открыт, столы накрываются\033[0m")
     for number_of_table in range(TABLE):
         waiter_time = randint(3, 10)
-        print("Официант накроет стол за {}сек.".format(waiter_time))
+        print("Официант накроет стол за {0}сек.".format(waiter_time))
         sleep(waiter_time)
-        Table("Стол ${}".format(number_of_table)).start()
+        Table("Стол ${0}".format(number_of_table)).start()

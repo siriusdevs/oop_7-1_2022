@@ -27,15 +27,16 @@ class Triangle:
         """This method takes a list of sides and remembers them.
 
         Arguments:
-            sides (List(float)): sides of trinagle.
+            sides (List[float]): sides of trinagle.
+
         Raises:
             NonexistentFigure: if the figure cannot exist.
         """
         self.sides = sides
         if self.isvalid():
-            self.side_1 = sides[0]
-            self.side_2 = sides[1]
-            self.side_3 = sides[2]
+            self.first_side = sides[0]
+            self.second_side = sides[1]
+            self.third_side = sides[2]
         else:
             raise NonexistentFigure(sides)
 
@@ -45,7 +46,7 @@ class Triangle:
         Returns:
             float: the perimeter of the triangle.
         """
-        return round(self.side_1 + self.side_2 + self.side_3, 3)
+        return round(self.first_side + self.second_side + self.third_side, 3)
 
     def area(self) -> float:
         """Calculates the area and rounds it to thousandths.
@@ -54,7 +55,7 @@ class Triangle:
             float: the area of triangle.
         """
         semi = self.perimeter() * 0.5
-        return round((semi * (semi - self.side_1) * (semi - self.side_2) * (semi - self.side_3)) ** 0.5, 3)
+        return round((semi * (semi - self.first_side) * (semi - self.second_side) * (semi - self.third_side)) ** 0.5, 3)
 
     def isvalid(self) -> bool:
         """Checks the triangle.
@@ -80,8 +81,9 @@ class Circle:
 
         Args:
             radius (float): circle's radius.
+
         Raises:
-            NoneExistentFigure: if the figure cannot exist
+            NonexistentFigure: if the figure cannot exist.
         """
         self.radius = radius
         if not self.isvalid():
