@@ -71,8 +71,8 @@ if __name__ == "__main__":
     records = ""
     WRITERS = [Writer(str(num)) for num in range(NUM_WRITERS)]
     READERS = [Reader(str(num))for num in range(NUM_READERS)]
-    for r in READERS:
-        r.start()
-    for wr in WRITERS:
-        wr.start()
+    for reader in READERS:
+        reader.start()
+    for writer in WRITERS:
+        writer.start()
     sleep(1)
