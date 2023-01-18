@@ -7,11 +7,11 @@ from time import sleep
 all_maps = []
 workflow = {}
 
+
 class MapWorker:
     """Creates a map for homes."""
 
-
-    def map_checker():
+    def map_checker(self):
         """Сhecks the availability of maps with houses."""
         for file in os.listdir():
             if file.endswith(".json") and not file in all_maps:
@@ -23,7 +23,7 @@ class MapWorker:
         """The method is responsible for displaying the menu for user selection."""
         global all_maps
         os.system('cls||clear')
-        MapWorker.map_checker()
+        MapWorker.map_checker(self)
         os.system('cls||clear')
         while True:
             selected, index = pick(['Создать новую карту', 'Редактировать текущую', \
@@ -54,16 +54,6 @@ class MapWorker:
         else:
             print("Это имя занято :(")
             MapWorker.create_map()
-
-    def read_map():
-        """The method reads maps from the directory."""
-        global name_of_file
-        if name_of_file in all_maps:
-            with open(name_of_file, "rt") as map_file:
-                conf_data = json.loads(map_file.read())
-        map_configuration = conf_data["map_conf"]
-        buildings = conf_data["buildings"]
-        rows = map_configuration["size_row"]
 
     def show_map():
         """The method is responsible for outputting the map to read."""
@@ -120,6 +110,8 @@ class Building:
 
     def __init__(self, height: int, area: int, floor: int):
         """Method for initializing house attributes."""
+        if int(height) <= 0 or int(area) <= 0 or int(floor) <= 0:
+            raise ValueError
         self.height = height
         self.area = area
         self.floor = floor
