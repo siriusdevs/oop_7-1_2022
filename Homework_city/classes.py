@@ -142,7 +142,7 @@ class City(object):
                     cols = map_configuration["size_col"]
                     count_of_houses = map_configuration["count_of_houses"]
                 except KeyError:
-                    raise exceptions.DoesntExistParamsOnMap
+                    raise exceptions.DoesntExistParamsOnMap()
                 if self.validation_map(buildings, rows, cols, count_of_houses):
                     self.map_configuration = map_configuration
                     self.count_of_houses = count_of_houses
@@ -187,7 +187,7 @@ class City(object):
                 try:
                     House.validation_params(*house.values())
                 except Exception:
-                    raise exceptions.InvalidValuesInParamsBuilding
+                    raise exceptions.InvalidValuesInParamsBuilding()
         if count_of_houses != check_count_of_houses:
             raise exceptions.InvalidCountOfBuildings
         return True
