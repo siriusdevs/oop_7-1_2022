@@ -1,8 +1,9 @@
 """This file for tests houses."""
 from typing import List
+from Homework_city import exceptions
+from Homework_city.classes import House
 import pytest
-from classes import House
-from exceptions import NothingToChange, InvalidHouseParams, NullHouseParams, InvalidHouseName
+
 
 tests_create_houses = [(["one", 20, 50, 2]), (["two", 40, 100, 4]), (["three", 15, 25, 1])]
 
@@ -51,35 +52,35 @@ def test_for_house_str(house: House, expect: str) -> None:
     assert str(house) == expect
 
 
-@pytest.mark.xfail(raises=NothingToChange)
+@pytest.mark.xfail(raises=exceptions.NothingToChange)
 def test_err_change_house():
     """Test for calling an error NothingToChange."""
-    with pytest.raises(NothingToChange):
+    with pytest.raises(exceptions.NothingToChange):
         House("one", 20, 50, 2).change_params()
 
 
-@pytest.mark.xfail(raises=InvalidHouseParams)
+@pytest.mark.xfail(raises=exceptions.InvalidHouseParams)
 def test_err_create_house_with_none_int_param():
     """Home creation test with incorrect parameters."""
-    with pytest.raises(InvalidHouseParams):
+    with pytest.raises(exceptions.InvalidHouseParams):
         House("one", "20", 50, 2)
 
 
-@pytest.mark.xfail(raises=NullHouseParams)
+@pytest.mark.xfail(raises=exceptions.NullHouseParams)
 def test_err_create_house_with_null_param():
     """Test for creating a house with zero parameters."""
-    with pytest.raises(NullHouseParams):
+    with pytest.raises(exceptions.NullHouseParams):
         House("one", 20, 50, 0)
 
 
-@pytest.mark.xfail(raises=InvalidHouseName)
+@pytest.mark.xfail(raises=exceptions.InvalidHouseName)
 def test_err_create_house_with_invalid_name():
     """Test for creating a house with the wrong name."""
-    with pytest.raises(InvalidHouseName):
+    with pytest.raises(exceptions.InvalidHouseName):
         House("", 20, 50, 2)
 
-    with pytest.raises(InvalidHouseName):
+    with pytest.raises(exceptions.InvalidHouseName):
         House(12, 20, 50, 2)
 
-    with pytest.raises(InvalidHouseName):
+    with pytest.raises(exceptions.InvalidHouseName):
         House(12.3, 20, 50, 2)
