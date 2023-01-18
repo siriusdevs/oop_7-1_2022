@@ -76,8 +76,8 @@ def inpmaker(inp):
                 'E',
                 input("x coordinate: "),
                 input("y coordinate: "),
-                input("widh by x: "),
-                input("width by y: "),
+                '1',
+                '1',
                 '0',
                 ''
             ]
