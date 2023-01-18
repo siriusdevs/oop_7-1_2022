@@ -65,12 +65,14 @@ class Reader(Thread):
 
 if __name__ == "__main__":
     NUM_WRITERS = 2
+    NUM_READERS = 6
     book = Lock()
     notifier = Condition(Lock())
     records = ""
     WRITERS = [Writer(str(num)) for num in range(NUM_WRITERS)]
-    READERS = [Reader(str(num))for num in range(NUM_WRITERS)]
-    for _ in enumerate(WRITERS):
-        WRITERS[_[0]].start()
-        READERS[_[0]].start()
-        sleep(1)
+    READERS = [Reader(str(num))for num in range(NUM_READERS)]
+    for r in READERS:
+        r.start()
+    for wr in WRITERS:
+        wr.start()
+    sleep(1)
