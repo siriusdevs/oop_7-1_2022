@@ -7,14 +7,14 @@ import exceptions
 path1 = "maps/maps_for_test/test_map_1.json"
 
 
-@pytest.mark.xfail(raises=exceptions.DoesntExistParamsOnMap())
+@pytest.mark.xfail(raises=exceptions.DoesntExistParamsOnMap)
 def tests_for_doesnt_exist_param_in_map() -> None:
     """Test of reading the error of finding the main keys of the map."""
     with pytest.raises(exceptions.DoesntExistParamsOnMap):
         City(path1)
 
 
-@pytest.mark.xfail(raises=exceptions.MapFileDoesntExist())
+@pytest.mark.xfail(raises=exceptions.MapFileDoesntExist)
 def tests_for_doesnt_exist_map() -> None:
     """Transfer tests for a non-existent map."""
     with pytest.raises(exceptions.MapFileDoesntExist):
@@ -24,7 +24,7 @@ def tests_for_doesnt_exist_map() -> None:
 path2 = "maps/maps_for_test/test_map_2.json"
 
 
-@pytest.mark.xfail(raises=exceptions.InvalidConfigurationsMap())
+@pytest.mark.xfail(raises=exceptions.InvalidConfigurationsMap)
 def tests_for_map_with_inv_vals_conf_params() -> None:
     """Test for a card with incorrect parameters."""
     with pytest.raises(exceptions.InvalidConfigurationsMap):
@@ -34,7 +34,7 @@ def tests_for_map_with_inv_vals_conf_params() -> None:
 path3 = "maps/maps_for_test/test_map_3.json"
 
 
-@pytest.mark.xfail(raises=exceptions.InvalidMapSize())
+@pytest.mark.xfail(raises=exceptions.InvalidMapSize)
 def tests_for_map_with_inv_size() -> None:
     """Test for card with incorrect size."""
     with pytest.raises(exceptions.InvalidMapSize):
@@ -44,7 +44,7 @@ def tests_for_map_with_inv_size() -> None:
 path4 = "maps/maps_for_test/test_map_4.json"
 
 
-@pytest.mark.xfail(raises=exceptions.InvalidValuesInParamsBuilding())
+@pytest.mark.xfail(raises=exceptions.InvalidValuesInParamsBuilding)
 def tests_for_map_with_inv_house_values() -> None:
     """Test for a map with incorrect building values."""
     with pytest.raises(exceptions.InvalidValuesInParamsBuilding):
@@ -54,7 +54,7 @@ def tests_for_map_with_inv_house_values() -> None:
 path5 = "maps/maps_for_test/test_map_5.json"
 
 
-@pytest.mark.xfail(raises=exceptions.InvalidBuildingParams())
+@pytest.mark.xfail(raises=exceptions.InvalidBuildingParams)
 def tests_for_map_with_inv_house_params() -> None:
     """Test for a map with incorrect building keys."""
     with pytest.raises(exceptions.InvalidBuildingParams):
@@ -64,7 +64,7 @@ def tests_for_map_with_inv_house_params() -> None:
 path6 = "maps/maps_for_test/test_map_6.json"
 
 
-@pytest.mark.xfail(raises=exceptions.InvalidCountOfBuildings())
+@pytest.mark.xfail(raises=exceptions.InvalidCountOfBuildings)
 def tests_for_map_with_inv_count_houses() -> None:
     """Test for a map with the wrong number of houses."""
     with pytest.raises(exceptions.InvalidCountOfBuildings):
@@ -154,7 +154,7 @@ def test_get_house(row: int, col: int, res: List) -> None:
     assert City("maps/maps_for_test/test_map_0.json").get_house(row, col).par_h == res
 
 
-@pytest.mark.xfail(raises=exceptions.NullHouseError())
+@pytest.mark.xfail(raises=exceptions.NullHouseError)
 def test_get_err_house() -> None:
     """Test for checking a function that returns a non-existent house from the map."""
     with pytest.raises(exceptions.NullHouseError):
@@ -181,7 +181,7 @@ def test_set_house_to_map(row: int, col: int, house: House, expected_params: Lis
     assert test_house == expected_params
 
 
-@pytest.mark.xfail(raises=exceptions.HouseInsertToHouse())
+@pytest.mark.xfail(raises=exceptions.HouseInsertToHouse)
 def test_err_set_house_to_map() -> None:
     """Test for adding a house by those coordinates that already have a house."""
     with pytest.raises(exceptions.HouseInsertToHouse):

@@ -51,28 +51,28 @@ def test_for_house_str(house: House, expect: str) -> None:
     assert str(house) == expect
 
 
-@pytest.mark.xfail(raises=NothingToChange())
+@pytest.mark.xfail(raises=NothingToChange)
 def test_err_change_house():
     """Test for calling an error NothingToChange."""
     with pytest.raises(NothingToChange):
         House("one", 20, 50, 2).change_params()
 
 
-@pytest.mark.xfail(raises=InvalidHouseParams())
+@pytest.mark.xfail(raises=InvalidHouseParams)
 def test_err_create_house_with_none_int_param():
     """Home creation test with incorrect parameters."""
     with pytest.raises(InvalidHouseParams):
         House("one", "20", 50, 2)
 
 
-@pytest.mark.xfail(raises=NullHouseParams())
+@pytest.mark.xfail(raises=NullHouseParams)
 def test_err_create_house_with_null_param():
     """Test for creating a house with zero parameters."""
     with pytest.raises(NullHouseParams):
         House("one", 20, 50, 0)
 
 
-@pytest.mark.xfail(raises=InvalidHouseName())
+@pytest.mark.xfail(raises=InvalidHouseName)
 def test_err_create_house_with_invalid_name():
     """Test for creating a house with the wrong name."""
     with pytest.raises(InvalidHouseName):
