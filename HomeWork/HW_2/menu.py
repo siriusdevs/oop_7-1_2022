@@ -1,12 +1,13 @@
+"""This menu."""
 from map import *
 from faker import Faker 
 from random import randint
+import time
 
 class Menu:
 
     @staticmethod
     def start():
-        #os.system('clear')
 
         def mapper_city(sel_city):
             def select_house(sel):
@@ -21,14 +22,14 @@ class Menu:
                 keyboard[y][x] = "\33[7m" + keyboard[y][x] + "\33[0m"
                 while True:
                     os.system("clear")
-                    sel_city = input("\n\33[34msel - Выбрать дом\
-                                \ngb - Вернуться назад\33[0m\
+                    sel_city = input("\n\33[34mENTER - Выбрать дом\
+                                \n1 - Вернуться назад\33[0m\
                                 \n\n{}\
                                 \n\33[33m     w - вверх\
                                 \na - влево, d -вправо\
                                 \n     s - вниз{:^216}\
                                 \n\nВведите команду: ".format(txt_house(keyboard), "\33[34mq - выйти\33[0m"))
-                    if sel_city in ["gb", "sel", "q"]:
+                    if sel_city in ["1", "", "q"]:
                         break
                     elif sel_city in ["a", "d"]:
                         if sel_city == "a":
@@ -62,21 +63,19 @@ class Menu:
                             keyboard[y][x] = "\33[7m" + keyboard[y][x] + "\33[0m"
                     else:
                         print("Введите корректную команду")
-                if sel_city == "sel":
+                if sel_city == "":
                     house = None
-                    for _ in map_city.cities[sel].houses:
-                        for __ in _:
-                            if __.coordinate == list(map(str, [x, y])):
-                                house = __
+                    print("\u001bc")
                     return house
                 elif sel_city == "q":
+                    print("2")
                     return "q"
-                elif sel_city == "gb":
+                elif sel_city == "1":
                     mapper()
 
             def mapper_house(sel_city):
                 def option_house(house):
-                    if not house.count_floors:
+                    if not all([house.count_floors, house.base_area, house.height]):
                         os.system("clear")
                         while 1:
                             sel_option = input("{}\
@@ -99,7 +98,7 @@ class Menu:
                     return sel_option
                 house = select_house(sel_city)
                 if house == "q":
-                    raise SystemExit                 
+                    raise SystemExit          
                 sel = option_house(house)
                 if sel == "1":
                     if house.change_option():
@@ -127,13 +126,13 @@ class Menu:
             num = 0
             while True:
                 os.system("clear")
-                sel_city = input("\33[34mnew - Создать новый город?\
-                                \ndel - Удалить город\
-                                \nsel - Выбрать город\33[0m\
+                sel_city = input("\33[34m1 - Создать новый город?\
+                                \n2 - Удалить город\
+                                \nENTER - Выбрать город\33[0m\
                               \n\n{}\
                                \n\33[33ma - влево, d - вправо{:^216}\
                               \n\nВведите команду: ".format(map_pj[num], "\33[34mq - выйти\33[0m"))
-                if sel_city in ["del", "new", "sel", "q"]:
+                if sel_city in ["2", "1", "", "q"]:
                     break
                 elif sel_city in ["a", "d"]:
                     if sel_city == "a":
@@ -146,19 +145,17 @@ class Menu:
                             num = 0
                 else:
                     print("Введите корректную команду")
-            if sel_city == "sel":
+            if sel_city == "":
                 mapper_city(num)
                 pass
-            elif sel_city == "del":
+            elif sel_city == "2":
                 del_city(num)
                 Menu.start()
             elif sel_city == "q":
-                pass
+                raise SystemExit
             else:
                 Menu.create_city()
                 mapper()
-
-
 
         map_city = Map.get_cities()
         if map_city != 0:
@@ -172,36 +169,100 @@ class Menu:
         os.system('clear')
         if n_sing_city:
             while 1:
-                sel = int(input("1. Да\
+                os.system('clear')
+                sel = input("1. Да\
                                \n2. Нет\
-                             \n\nВведите номер: "))
-                if sel == 1 or sel == 2:
-                    break
+                             \n\nВведите номер: ")
+                if sel.isdigit():
+                    sel = int(sel)
+                    if sel == 1 or sel == 2:
+                        break
                 else:
                     print("Введите номер цифрой!")
+                    time.sleep(1)
             if sel == 1:
                 name = input("Введите название города: ")
                 if name == "random":
                     name = Faker().name().split()[0] + "burg"
-                length = input("Введите длину проекции города: ")
-                if length == "random":
-                    length = randint(0, 20)
-                weigth = input("Введите ширину проекции города: ")
-                if weigth == "random":
-                    weigth = randint(0, 20)
-                City(name, [length, weigth]).new_city()
+                while 1:
+                    length = input("Введите длину проекции города: ")
+                    if length == "random":
+                        length = randint(0, 20)
+                        break
+                    if length.isdigit():
+                        break
+                while 1:
+                    weigth = input("Введите ширину проекции города: ")
+                    if weigth == "random":
+                        weigth = randint(0, 20)
+                        break
+                    if length.isdigit():
+                        break
+                City(name, [int(length), int(weigth)]).new_city()
                 Menu.start()
         else:
             name = input("Введите название города: ")
             if name == "random":
                 name = Faker().name().split()[0] + "burg"
-            length = input("Введите длину проекции города: ")
-            if length == "random":
-                length = randint(0, 20)
-            weigth = input("Введите ширину проекции города: ")
-            if weigth == "random":
-                weigth = randint(0, 20)
-            City(name, [length, weigth]).new_city()
+            while 1:
+                    length = input("Введите длину проекции города: ")
+                    if length == "random":
+                        length = randint(0, 20)
+                        break
+                    if length.isdigit():
+                        break
+            while 1:
+                weigth = input("Введите ширину проекции города: ")
+                if weigth == "random":
+                    weigth = randint(0, 20)
+                    break
+                if length.isdigit():
+                    break
+            City(name, [int(length), int(weigth)]).new_city()
             Menu.start()
 
-Menu.start()
+    
+
+def change_option_card(self):
+    """This method is to make changes to the home view settings.
+
+    **Этот метод внесения изменений в параметры изображаемого дома(Строительства и перестройки дома).**
+    """
+    if self.height and self.base_area and self.count_floors:
+        while True:
+            os.system("clear")
+            sel = input("\33[32mЧто хотите изменить?\n\33[0m\
+                        \n1. Высота постройки\
+                        \n2. Площадь оcнования постройки\
+                        \n3. Наименование постройки\
+                        \n4. Вернуться обратно{0:^216}\
+                        \n\nВведите номер команды: ".format("q - выйти")
+                        )
+            if sel == "1":
+                self.height = float(input("Введите высоту постройки: "))
+                self.count_floors = floor(self.height / Config().five_del_two)
+                self.if_valid()
+                print("\u001bc")
+                break
+            if sel == "2":
+                self.base_area = float(input("Введите площадь основания постройки: "))
+                self.if_valid()
+                print("\u001bc")
+                break
+            if sel == "3":
+                self.name = input("Введите название постройки: ")
+                print("\u001bc")
+                break
+            if sel == "4":
+                break
+            if sel == "q":
+                return False
+    else:
+        os.system("clear")
+        self.name = input("Введите название постройки: ")
+        self.height = float(input("Введите высоту постройки: "))
+        self.count_floors = floor(self.height / Config().five_del_two)
+        self.base_area = float(input("Введите площадь основания постройки: "))
+        self.if_valid()
+        print("\u001bc")
+    return True

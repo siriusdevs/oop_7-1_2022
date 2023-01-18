@@ -4,7 +4,7 @@ from typing import List
 from json import dumps, load
 import os
 from inspect import getsourcefile
-from menu import Menu
+from menu import change_option_card
 
 
 class ImpossibleHouse(Exception):
@@ -99,7 +99,7 @@ class House:
 
         **Этот метод внесения изменений в параметры изображаемого дома(Строительства и перестройки дома).**
         """
-        return Menu.change_option(self)
+        return change_option_card(self)
 
     def delete_house(self):
         """This method is designed to reset all parameters (demolition) of the house.
@@ -430,11 +430,7 @@ class Config:
         if PWD:
             self.PWD = PWD
         else:
-            pwf = os.path.abspath(getsourcefile(self.zero()))
+            pwf = os.path.abspath(getsourcefile(lambda: 0))
             self.PWD = pwf.replace(os.path.basename(pwf), "")
         self.title_map = title_map
         self.five_del_two = 2.5
-
-    def zero(self):
-        """It's needed just for getsourcefile don't ask me pls."""
-        return 0
