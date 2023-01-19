@@ -4,9 +4,9 @@ from time import sleep
 from random import randint
 
 TIMEOUT = 5
-WORK_INTERVAL = (1, 3)
-SIZE_QUEUE = 2
-ENTER_TIME_INTERVAL = (3, 6)
+WORK_INTERVAL = (4, 5)
+SIZE_QUEUE = 1
+ENTER_TIME_INTERVAL = (1, 2)
 
 
 class Guest:
@@ -26,7 +26,7 @@ class Barber:
 
     def __init__(self) -> None:
         """Initialize the barber."""
-        self.__guest_visited = Event()
+        self.guest_visited = Event()
 
     def meet(self, guest: Guest):
         """Meet the guest from the queue.
@@ -35,13 +35,13 @@ class Barber:
             guest(Guest): the name of the quest
         """
         print('Барбер пригласил {0}'.format(guest.name))
-        self.__guest_visited.clear()
+        self.guest_visited.clear()
         self.trim(guest)
         print('{0} подстрижен и доволен'.format(guest.name))
 
     def call(self):
         """Call the barber if the quest comes."""
-        self.__guest_visited.set()
+        self.guest_visited.set()
 
     def sleep(self):
         """Make the barber sleep until the guest comes.
@@ -50,8 +50,7 @@ class Barber:
             bool: if the guest comes or the timeout works
         """
         print('Барбер жёстко спит')
-        res = self.__guest_visited.wait(timeout=TIMEOUT)
-        return res
+        return self.guest_visited.wait(timeout=TIMEOUT)
 
     def trim(self, guest: Guest):
         """Spend time on trimming hair to the guest.
@@ -72,16 +71,16 @@ class OldBoy:
         Args:
             q_size(int): size of the queue in the barbershop
         """
-        self.__worker = Barber()
+        self.worker = Barber()
         self.q_size = q_size
-        self.__queue = Queue(maxsize=q_size)
-        self.__process = Process(target=self.work)
+        self.queue = Queue(maxsize=q_size)
+        self.process = Process(target=self.work)
         self.mutex = Lock()
 
     def open(self):
         """The barbershop opens."""
         print('OLDBOY открылся очередь {0}'.format(self.q_size))
-        self.__process.start()
+        self.process.start()
 
     def close(self):
         """The barbershop closes."""
@@ -91,16 +90,16 @@ class OldBoy:
         """Work when the quest comes."""
         while True:
             self.mutex.acquire()
-            if self.__queue.empty():
+            if self.queue.empty():
                 self.mutex.release()
-                work_result = self.__worker.sleep()
+                work_result = self.worker.sleep()
                 if not work_result:
                     self.close()
                     break
             else:
                 self.mutex.release()
-                guest = self.__queue.get()
-                self.__worker.meet(guest)
+                guest = self.queue.get()
+                self.worker.meet(guest)
 
     def enter(self, guest: Guest):
         """Put the guest into the queue.
@@ -110,12 +109,12 @@ class OldBoy:
         """
         with self.mutex:
             print('{0} вошел в OLDBOY'.format(guest.name))
-            if self.__queue.full():
+            if self.queue.full():
                 print('{0} увидел что народу слишком много и решил ходить обросшим'.format(guest.name))
             else:
                 print('{0} увидел, что очередь небольшая и стал ждать'.format(guest.name))
-                self.__queue.put(guest)
-                self.__worker.call()
+                self.queue.put(guest)
+                self.worker.call()
 
 
 GUEST_NAMES = [
@@ -128,9 +127,9 @@ GUEST_NAMES = [
 
 if __name__ == '__main__':
 
-    OldBoy = OldBoy(SIZE_QUEUE)
-    guests = [Guest(str(name)) for name in GUEST_NAMES]
-    OldBoy.open()
-    for guest in guests:
-        OldBoy.enter(guest)
+    oldBoy1 = OldBoy(SIZE_QUEUE)
+    guests1 = [Guest(str(name)) for name in GUEST_NAMES]
+    oldBoy1.open()
+    for guest in guests1:
+        oldBoy1.enter(guest)
         sleep(randint(*ENTER_TIME_INTERVAL))

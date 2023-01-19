@@ -39,6 +39,7 @@ class Writer(Thread):
                     add_letters.set()
                     add_letters.clear()
                     sleep(randint(*TIMEOUT_THE_LETTERS))
+                book = ''
             print('Писатель по имени  {0} уходит спать '.format(self.name))
             sleep(randint(*CHILL))
 
